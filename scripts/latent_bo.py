@@ -16,6 +16,9 @@ clips device values to the dataset range and simulates it. Methods (same budget,
   scbo    trust-region constrained BO (SCBO, Eriksson & Poloczek, AISTATS 2021; Phase 5): same two GPs but with
           ARD kernels, constrained Thompson sampling inside a trust region centred on the best point (best
           feasible, else least infeasible). Settings fixed before running, see SCBO_* below.
+  scbo_g  EXPLORATORY (added after the Phase 5 results): SCBO with a graded constraint score for unstable circuits,
+          -60 - 60 * (largest relative real part of a right-half-plane pole), instead of a flat -60, so that the
+          trust region can climb towards stability (see constraint_score).
 
 Usage:  .venv/Scripts/python.exe scripts/latent_bo.py --model CktGNN --method cbo --seed 1
 Writes: <DATA_ROOT>/results/bo/<model>_<method>_seed<k>.csv (one row per evaluation)
@@ -62,7 +65,7 @@ warnings.filterwarnings('ignore')
 def evaluate(g):
     """Simulate a decoded graph. Returns a dict with feasibility, objective and diagnostics."""
     r = {'decomposable': False, 'functional': False, 'feasible': False, 'ugf_ghz': np.nan, 'gain_db': np.nan,
-         'pm_lag': np.nan, 'ol_stable': False, 'cl_stable': False, 'fom': 0.0}
+         'pm_lag': np.nan, 'ol_stable': False, 'cl_stable': False, 'fom': 0.0, 'pole_margin': np.nan}
     dec = decompositions(g)
     if not dec:
         return r
@@ -86,7 +89,8 @@ def evaluate(g):
         m = analyze(h)
     except (np.linalg.LinAlgError, AssertionError, KeyError, ValueError):
         return r
-    r.update(gain_db=float(m['gain_db']), ol_stable=bool(m['ol_stable']), cl_stable=bool(m['cl_stable']))
+    r.update(gain_db=float(m['gain_db']), ol_stable=bool(m['ol_stable']), cl_stable=bool(m['cl_stable']),
+             pole_margin=-max(float(m['ol_worst_rel_re']), float(m['cl_worst_rel_re'])))   # > 0 iff both stable
     if np.isfinite(m['ugf_hz']) and np.isfinite(m['gain_db']):
         r.update(functional=True, ugf_ghz=float(m['ugf_hz']) / 1e9, pm_lag=float(m['pm_lag']))
         # OCB FoM as in graph_to_fom.py, with Ocean's phase output = wrapped phase at the UGF (Phase 1 finding)
@@ -96,8 +100,12 @@ def evaluate(g):
     return r
 
 
-def constraint_score(r):
-    """Continuous score, >= 0 iff feasible (used by the constraint GP)."""
+def constraint_score(r, graded=False):
+    """Continuous score, >= 0 iff feasible (used by the constraint GP). graded=True (scbo_g only) ranks unstable
+    circuits by how far their worst pole is in the right half-plane, and unreadable/unsimulatable graphs last."""
+    if graded and not (r['ol_stable'] and r['cl_stable']):
+        pm = r.get('pole_margin', np.nan)
+        return -130.0 if not np.isfinite(pm) else float(-60.0 - 60.0 * np.clip(-pm, 0.0, 1.0))
     if not (r['functional'] and r['ol_stable'] and r['cl_stable']):
         return -60.0
     return float(min(r['pm_lag'] - PM_MIN, r['gain_db'] - GAIN_MIN, 60.0))
@@ -133,7 +141,8 @@ def thompson(gp, C, rng):
 class SCBOState:
     """Trust-region bookkeeping of SCBO (success/failure counters, length doubling/halving, restarts)."""
 
-    def __init__(self):
+    def __init__(self, graded=False):
+        self.graded = graded
         self.length, self.n_succ, self.n_fail, self.restarts = SCBO_L_INIT, 0, 0, 0
         self.best_key = None                       # (feasible, objective or -violation), compared lexicographically
         self.kc = self.ko = None                   # fitted kernels, warm starts for the next step
@@ -153,17 +162,17 @@ class SCBOState:
             self.length, self.n_succ, self.n_fail, self.restarts = SCBO_L_INIT, 0, 0, self.restarts + 1
 
 
-def scbo_key(r):
+def scbo_key(r, graded=False):
     """Ranking used for the trust-region centre and success test: feasible beats infeasible; feasible points by
     log10(UGF), infeasible ones by the constraint score (higher = less violated)."""
-    return (1, float(np.log10(r['ugf_ghz']))) if r['feasible'] else (0, constraint_score(r))
+    return (1, float(np.log10(r['ugf_ghz']))) if r['feasible'] else (0, constraint_score(r, graded))
 
 
 def scbo_propose(Xc, rows, state, rng, d):
     """One SCBO step in the unit cube. Returns the next point (unit cube) and the ARD length scales used."""
-    keys = [scbo_key(r) for r in rows]
+    keys = [scbo_key(r, state.graded) for r in rows]
     centre = Xc[max(range(len(keys)), key=lambda i: keys[i])]
-    c = np.array([constraint_score(r) for r in rows])
+    c = np.array([constraint_score(r, state.graded) for r in rows])
     refit = state.step % SCBO_REFIT == 0
     state.step += 1
     gpc = fit_gp_ard(Xc, c, d, state.kc, refit)
@@ -203,7 +212,7 @@ def ei(mu, sd, best):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--model', choices=['CktGNN', 'SubgDVAEpos', 'SubgDVAEslot', 'SubgDVAEprop'], required=True)
-    ap.add_argument('--method', choices=['rs', 'fom_bo', 'cbo', 'scbo'], required=True)
+    ap.add_argument('--method', choices=['rs', 'fom_bo', 'cbo', 'scbo', 'scbo_g'], required=True)
     ap.add_argument('--seed', type=int, default=1)
     ap.add_argument('--budget', type=int, default=200)
     ap.add_argument('--n-init', type=int, default=20)
@@ -232,7 +241,7 @@ def main():
     X, rows, tr_len = [], [], []
     t0 = time.time()
     to_c = lambda u: u / (2 * SCBO_BOX) + 0.5                  # SCBO's unit cube (clipped box +-SCBO_BOX)
-    state = SCBOState() if args.method == 'scbo' else None
+    state = SCBOState(graded=args.method == 'scbo_g') if args.method.startswith('scbo') else None
 
     def run_eval(z):
         with torch.no_grad():
@@ -247,16 +256,16 @@ def main():
     for z in init:
         run_eval(z)
         if state is not None:
-            state.update(scbo_key(rows[-1]))
+            state.update(scbo_key(rows[-1], state.graded))
         tr_len.append(np.nan)
     if state is not None:                          # the initial design only sets the centre, not the region size
         state.length, state.n_succ, state.n_fail = SCBO_L_INIT, 0, 0
     while len(rows) < args.budget:
-        if args.method == 'scbo':
+        if state is not None:
             tr_len.append(state.length)
             xc = scbo_propose(np.clip(to_c(np.array(X)), 0, 1), rows, state, rng_m, len(mu_z))
             run_eval(mu_z + sd_z * (xc - 0.5) * 2 * SCBO_BOX)
-            state.update(scbo_key(rows[-1]))
+            state.update(scbo_key(rows[-1], state.graded))
             continue
         tr_len.append(np.nan)
         if args.method == 'rs':
