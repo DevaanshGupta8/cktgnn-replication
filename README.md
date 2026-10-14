@@ -5,6 +5,7 @@ A research project to reproduce, critically evaluate and extend
 
 - Paper: ICLR 2023 · [OpenReview](https://openreview.net/pdf?id=NE2911Kq1sp) · [arXiv 2308.16406](https://arxiv.org/abs/2308.16406) (v2 adds Appendix G on the updated OCB)
 - Official code + dataset (unmodified): [github.com/zehao-dong/CktGNN](https://github.com/zehao-dong/CktGNN) → [`external/CktGNN`](external/CktGNN), commit `416cd03`
+- **Start here: [`HANDOVER.md`](HANDOVER.md)** (state, setup, code map, gotchas, open work)
 - **Phase 1 report** (paper analysis, code verification, dataset audit, reproduction checklist, critique, ranked improvements): [`reports/phase1_report.md`](reports/phase1_report.md)
 - **Phase 2 report** (baseline reproduction: CktGNN and D-VAE, 3 seeds each, vs paper and authors' released-data results): [`reports/phase2_reproduction.md`](reports/phase2_reproduction.md)
 - **Phase 3 report** (ablation study: which of CktGNN's design choices explains its results, with simulator-based evaluation of generated circuits): [`reports/phase3_ablation.md`](reports/phase3_ablation.md)
