@@ -4,7 +4,8 @@ Variants, in decomposition order:
   DVAE        D-VAE on the device DAG                         (baseline)
   SubgDVAE    A1: D-VAE on the subgraph DAG, no slots          -> effect of the representation
   SubgDVAEpos A2: A1 + slot prior                              -> effect of the slot prior
-  CktGNN      slots + slot-indexed device-value pathway        -> effect of the value pathway
+  SubgDVAEslot A3: A2 + slots in messages and edge scorer      -> effect of slot-aware structure decoding
+  CktGNN      A3 with the slot-indexed device-value pathway    -> effect of the value pathway
 Reads per_run.csv (aggregate_results.py) and circuit_eval.json files; writes
   reports/figures/ablation_sgp.png, ablation_decoder.png, ablation_circuits.png
   <DATA_ROOT>/results/summary/ablation_table.{csv,md}, ablation_tests.csv
@@ -28,17 +29,19 @@ from paths import ROOT, RESULTS  # noqa: E402
 from plot_results import style, SURFACE, INK, INK2, MUTED  # noqa: E402
 
 FIG = os.path.join(ROOT, 'reports', 'figures')
-ORDER = ['DVAE', 'SubgDVAE', 'SubgDVAEpos', 'CktGNN']
+ORDER = ['DVAE', 'SubgDVAE', 'SubgDVAEpos', 'SubgDVAEslot', 'CktGNN']
 LABEL = {'DVAE': 'D-VAE (device DAG)', 'SubgDVAE': 'A1: D-VAE on subgraph DAG', 'SubgDVAEpos': 'A2: A1 + slots',
+         'SubgDVAEslot': 'A3: A2 + slots in edges/messages',
          'CktGNN': 'CktGNN (slots + value vector)'}
 # reference palette categorical slots, fixed per entity (CktGNN/D-VAE keep the colours of the Phase 2 figures)
-COLOR = {'CktGNN': '#2a78d6', 'DVAE': '#eb6834', 'SubgDVAE': '#1baf7a', 'SubgDVAEpos': '#eda100'}
+COLOR = {'CktGNN': '#2a78d6', 'DVAE': '#eb6834', 'SubgDVAE': '#1baf7a', 'SubgDVAEpos': '#eda100', 'SubgDVAEslot': '#e87ba4'}
 CIRC_RAW = ['valid_dag', 'decomposable', 'slot_consistent', 'values_ok', 'functional', 'stable', 'meets_spec', 'novel']
 CIRC = ['c_' + k for k in CIRC_RAW]   # prefixed: 'valid_dag'/'novel' also exist as the authors' decoder metrics
 CIRC_NAMES = ['Valid DAG', 'Readable as\nop-amp', 'Own slots\nconsistent', 'Device values\nin range',
               'Functional\n(has UGF)', 'Stable\n(pole check)', 'Meets spec\n(stable, PM≥60°,\ngain≥60 dB)', 'Functional\n& novel']
 PAIRS = [('DVAE', 'SubgDVAE', 'representation'), ('SubgDVAE', 'SubgDVAEpos', 'slot prior'),
-         ('SubgDVAEpos', 'CktGNN', 'value pathway'), ('DVAE', 'CktGNN', 'total')]
+         ('SubgDVAEpos', 'SubgDVAEslot', 'slot structure'), ('SubgDVAEslot', 'CktGNN', 'value pathway'),
+         ('SubgDVAEpos', 'CktGNN', 'slot structure + value pathway'), ('DVAE', 'CktGNN', 'total')]
 
 
 def bars(ax, runs, metrics, names, models, ylabel):
@@ -75,7 +78,7 @@ def main():
     bars(axes[1], runs, [f'{t}_r' for t in targets], tnames, models, "Pearson's r (higher is better)")
     axes[1].set_title('SGP prediction correlation'); axes[1].set_ylim(0, 1.0)
     h, l = axes[0].get_legend_handles_labels()
-    fig.legend(h, l, loc='lower center', ncol=4, frameon=False, fontsize=9)
+    fig.legend(h, l, loc='lower center', ncol=5, frameon=False, fontsize=9)
     fig.tight_layout(rect=(0, 0.08, 1, 1))
     fig.savefig(os.path.join(FIG, 'ablation_sgp.png'), dpi=160); plt.close(fig)
 
@@ -84,7 +87,7 @@ def main():
          ['Topology\nreconstruction', 'Valid DAGs', 'Valid circuits\n(authors\' check)', 'Novel'], models, 'Fraction')
     ax.set_ylim(0, 1.05); ax.set_title("Decoder metrics as defined in the authors' code")
     h, l = ax.get_legend_handles_labels()
-    fig.legend(h, l, loc='lower center', ncol=4, frameon=False, fontsize=8.5)
+    fig.legend(h, l, loc='lower center', ncol=5, frameon=False, fontsize=8.5)
     fig.tight_layout(rect=(0, 0.09, 1, 1))
     fig.savefig(os.path.join(FIG, 'ablation_decoder.png'), dpi=160); plt.close(fig)
 
@@ -100,7 +103,7 @@ def main():
         ax.set_ylim(0, 1.05)
         ax.set_title('Circuit-level evaluation with the open simulator (D-VAE graphs cannot be read as netlists)')
         h, l = ax.get_legend_handles_labels()
-        fig.legend(h, l, loc='lower center', ncol=4, frameon=False, fontsize=9)
+        fig.legend(h, l, loc='lower center', ncol=5, frameon=False, fontsize=9)
         fig.tight_layout(rect=(0, 0.08, 1, 1))
         fig.savefig(os.path.join(FIG, 'ablation_circuits.png'), dpi=160); plt.close(fig)
 

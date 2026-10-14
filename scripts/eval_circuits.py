@@ -1,4 +1,4 @@
-"""Circuit-level evaluation of generated circuits (subgraph-DAG models: CktGNN, SubgDVAE, SubgDVAEpos).
+"""Circuit-level evaluation of generated circuits (subgraph-DAG models: CktGNN, SubgDVAE, SubgDVAEpos, SubgDVAEslot).
 
 The authors' "valid circuit" metric is a structural check. Here every decoded graph is read as an OCB
 op-amp (scripts/ablation_models.decompositions), turned into a netlist and simulated with
@@ -49,7 +49,8 @@ def build_model(name):
     if name == 'CktGNN':
         return FastCktGNN(max_n=8, max_pos=8, nvt=26, subn_nvt=40, START_TYPE=0, END_TYPE=1,
                           emb_dim=24, feat_emb_dim=8, hs=301, nz=66)
-    return SubgDVAE(max_n=8, nvt=26, START_TYPE=0, END_TYPE=1, hs=301, nz=66, use_pos=name == 'SubgDVAEpos')
+    return SubgDVAE(max_n=8, nvt=26, START_TYPE=0, END_TYPE=1, hs=301, nz=66, use_pos=name != 'SubgDVAE',
+                    slot_struct=name == 'SubgDVAEslot')
 
 
 def own_main(g):
@@ -136,7 +137,7 @@ def score(G, train_keys, slot_model=False, true_slots=False):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--run')
-    ap.add_argument('--model', choices=['CktGNN', 'SubgDVAE', 'SubgDVAEpos'])
+    ap.add_argument('--model', choices=['CktGNN', 'SubgDVAE', 'SubgDVAEpos', 'SubgDVAEslot'])
     ap.add_argument('--reference', action='store_true')
     ap.add_argument('--n-latent', type=int, default=1000)
     ap.add_argument('--decode-times', type=int, default=10)
@@ -171,7 +172,7 @@ def main():
             z = torch.randn(min(128, args.n_latent - start), model.nz) * std + mean
             for _ in range(args.decode_times):
                 G.extend(model.decode(z))
-    res = score(G, train_keys, slot_model=args.model in ('CktGNN', 'SubgDVAEpos'))
+    res = score(G, train_keys, slot_model=args.model != 'SubgDVAE')
     res.update(model=args.model, run=os.path.basename(args.run), epoch=st['epoch'])
     json.dump(res, open(os.path.join(args.run, 'circuit_eval.json'), 'w'), indent=2)
     print(json.dumps(res, indent=2))

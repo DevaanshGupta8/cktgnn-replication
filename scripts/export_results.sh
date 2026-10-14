@@ -16,5 +16,7 @@ for run in "$DATA"/vae/*_seed*; do
   done
 done
 echo "exported to $OUT"; du -sh "$OUT"
-# Phase 4 optimisation traces (one CSV per run, small)
-if [ -d "$DATA/bo" ]; then mkdir -p "$OUT/bo"; cp "$DATA"/bo/*_seed*.csv "$OUT/bo/" 2>/dev/null; fi
+# optimisation traces (one CSV per run, small): Phase 4 (bo), Phase 5 (bo5)
+for d in bo bo5; do
+  [ -d "$DATA/$d" ] && mkdir -p "$OUT/$d" && cp "$DATA"/$d/*_seed*.csv "$OUT/$d/" 2>/dev/null
+done

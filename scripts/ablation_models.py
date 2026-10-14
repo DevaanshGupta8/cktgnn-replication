@@ -9,6 +9,9 @@ as a node feature and as a decoder head with CktGNN's padding convention (varian
 
   A1 = SubgDVAE(use_pos=False): CktGNN's graph representation without the slot prior
   A2 = SubgDVAE(use_pos=True):  A1 plus the slot prior, still with per-node device values
+  A3 = SubgDVAE(use_pos=True, slot_struct=True): A2 plus slots in the messages and the edge scorer, exactly
+       as CktGNN uses them (messages from [state, slot one-hot] instead of [state, vertex id]; edge scorer on
+       [state_i, slot_i, state_new, slot_new]). A3 differs from CktGNN only in the device-value pathway.
 
 `decompositions`/`infer_slots` recover main-path slots from structure under the generator's semantics so that
 slot-free graphs can be checked with the authors' validity function and simulated with ocb_sim. Without slots
@@ -101,9 +104,12 @@ def _arrays(G, max_n, pad_type, pos_pad):
 
 
 class SubgDVAE(FastDVAE):
-    def __init__(self, max_n=8, nvt=26, START_TYPE=0, END_TYPE=1, hs=301, nz=66, use_pos=False, max_pos=8):
+    def __init__(self, max_n=8, nvt=26, START_TYPE=0, END_TYPE=1, hs=301, nz=66, use_pos=False, max_pos=8,
+                 slot_struct=False):
         super().__init__(max_n=max_n, nvt=nvt, feat_nvt=103, START_TYPE=START_TYPE, END_TYPE=END_TYPE, hs=hs, nz=nz)
+        assert use_pos or not slot_struct
         self.use_pos = use_pos
+        self.slot_struct = slot_struct
         self.n_pos = max_pos + 1                     # CktGNN: 1 sudo + 8 slots
         n_in = nvt + N_FEAT + (self.n_pos if use_pos else 0)
         self.grue_forward = nn.GRUCell(n_in, hs)
@@ -112,6 +118,29 @@ class SubgDVAE(FastDVAE):
         self.fc_feat = nn.Sequential(nn.Linear(hs, 64), nn.ReLU(), nn.Linear(64, N_FEAT))
         if use_pos:
             self.add_pos = nn.Sequential(nn.Linear(hs, hs * 2), nn.ReLU(), nn.Linear(hs * 2, self.n_pos))
+        if slot_struct:                              # CktGNN's layer shapes (vs = hs + slots, edge input + 2 slots)
+            vs = hs + self.n_pos
+            self.vs = vs
+            self.gate_forward = nn.Sequential(nn.Linear(vs, hs), nn.Sigmoid())
+            self.gate_backward = nn.Sequential(nn.Linear(vs, hs), nn.Sigmoid())
+            self.mapper_forward = nn.Sequential(nn.Linear(vs, hs, bias=False))
+            self.mapper_backward = nn.Sequential(nn.Linear(vs, hs, bias=False))
+            self.add_edge = nn.Sequential(nn.Linear(2 * vs, hs * 4), nn.ReLU(), nn.Linear(hs * 4, 1))
+        self.e_dim = hs + (self.n_pos if slot_struct else 0)
+
+    def _poh(self, pos):
+        return F.one_hot(pos, self.n_pos).float()
+
+    def _msg_s(self, S_stack, pos_prefix):
+        """Messages from the existing vertices: D-VAE's [state, vertex id], or CktGNN's [state, slot] (A3)."""
+        if not self.slot_struct:
+            return self._msg(S_stack)
+        M = torch.cat([S_stack, self._poh(pos_prefix)], -1)
+        return self.gate_forward(M) * self.mapper_forward(M)
+
+    def _e(self, h, pos_v):
+        """Vertex representation seen by the edge scorer (A3 appends the slot one-hot, as CktGNN does)."""
+        return torch.cat([h, self._poh(pos_v)], -1) if self.slot_struct else h
 
     def _x(self, types_v, feats_v, pos_v=None):
         parts = [F.one_hot(types_v, self.nvt).float(), feats_v]
@@ -127,7 +156,7 @@ class SubgDVAE(FastDVAE):
         types, feats, pos, A = self._t(types), self._t(feats), self._t(pos), self._t(A)
         S = [self.grue_forward(self._x(types[:, 0], feats[:, 0], pos[:, 0]), self._get_zero_hidden(B))]
         for v in range(1, int(n.max())):
-            Hin = (A[:, :v, v].unsqueeze(-1) * self._msg(torch.stack(S, 1))).sum(1)
+            Hin = (A[:, :v, v].unsqueeze(-1) * self._msg_s(torch.stack(S, 1), pos[:, :v])).sum(1)
             S.append(self.grue_forward(self._x(types[:, v], feats[:, v], pos[:, v]), Hin))
         S = torch.stack(S, 1)
         Hg = S[torch.arange(B, device=S.device), self._t(n - 1)]
@@ -149,7 +178,7 @@ class SubgDVAE(FastDVAE):
                         torch.zeros(B, dtype=torch.long, device=dev))
         S = [self.grud(start, H0)]
         Hlast = S[0]
-        zeros_h = torch.zeros(B, self.hs, device=dev)
+        zeros_e = torch.zeros(B, self.e_dim, device=dev)
         ar = torch.arange(B, device=dev)
         res, res_vll, res_vl2, res_vl3 = 0, 0, 0, 0
         n_max = int(n.max())
@@ -160,12 +189,12 @@ class SubgDVAE(FastDVAE):
             res_vll, res_vl2, res_vl3 = res_vll + vll, res_vl2 + vl2, res_vl3 + vl3
             x_v = self._x(types[:, v], feats[:, v], pos[:, v])
             Sv = self.grud(x_v, self._get_zero_hidden(B))
-            msg = self._msg(torch.stack(S, 1))
+            msg = self._msg_s(torch.stack(S, 1), pos[:, :v])
             mask = torch.zeros(B, v, device=dev)
             scores = []
             for vi in range(v - 1, -1, -1):
-                h_vi = torch.where((n_t > vi).unsqueeze(1), S[vi], zeros_h)
-                h_cur = torch.where(active.unsqueeze(1), Sv, zeros_h)
+                h_vi = torch.where((n_t > vi).unsqueeze(1), self._e(S[vi], pos[:, vi]), zeros_e)
+                h_cur = torch.where(active.unsqueeze(1), self._e(Sv, pos[:, v]), zeros_e)
                 scores.append(self.sigmoid(self.add_edge(torch.cat([h_vi, h_cur], 1))))
                 mask = mask.clone()
                 mask[:, vi] = A[:, vi, v] * active
@@ -177,9 +206,9 @@ class SubgDVAE(FastDVAE):
         K = N - n_max                                  # padded positions, summed in closed form
         if K > 0:
             vll, vl2, vl3 = self._step_terms(Hlast, types[:, n_max], feats[:, n_max], pos[:, n_max], ar)
-            h_prev = torch.stack(S, 1) * (n_t.unsqueeze(1) > torch.arange(n_max, device=dev)).unsqueeze(-1)
+            h_prev = self._e(torch.stack(S, 1), pos[:, :n_max])                 * (n_t.unsqueeze(1) > torch.arange(n_max, device=dev)).unsqueeze(-1)
             p_prev = self.sigmoid(self.add_edge(torch.cat([h_prev, torch.zeros_like(h_prev)], -1)))
-            p0 = self.sigmoid(self.add_edge(torch.zeros(B, 2 * self.hs, device=dev)))
+            p0 = self.sigmoid(self.add_edge(torch.zeros(B, 2 * self.e_dim, device=dev)))
             res = res + K * (vll - vl2 + vl3) - K * F.binary_cross_entropy(p_prev, torch.zeros_like(p_prev), reduction='sum') \
                 - (K * (K - 1) / 2) * F.binary_cross_entropy(p0, torch.zeros_like(p0), reduction='sum')
             res_vll, res_vl2, res_vl3 = res_vll + K * vll, res_vl2 + K * vl2, res_vl3 + K * vl3
@@ -221,10 +250,10 @@ class SubgDVAE(FastDVAE):
             is_end = active & (t == self.END_TYPE)
             x = self._x(t, f, p)
             Sv = self.grud(x, self._get_zero_hidden(B))
-            msg = self._msg(torch.stack(S, 1))
+            msg = self._msg_s(torch.stack(S, 1), pos[:, :idx])
             mask = torch.zeros(B, idx, device=dev)
             for vi in range(idx - 1, -1, -1):
-                score = self.sigmoid(self.add_edge(torch.cat([S[vi], Sv], 1))).squeeze(1)
+                score = self.sigmoid(self.add_edge(torch.cat([self._e(S[vi], pos[:, vi]), self._e(Sv, p)], 1))).squeeze(1)
                 dec = (torch.rand_like(score) < score) if stochastic else (score > 0.5)
                 dec = dec & active & ~is_end
                 A[:, vi, idx] |= dec

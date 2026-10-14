@@ -49,8 +49,9 @@ from ablation_models import SubgDVAE  # noqa: E402
 from utils import is_same_DAG, prior_validity  # noqa: E402
 
 p = argparse.ArgumentParser()
-p.add_argument('--model', default='CktGNN', choices=['CktGNN', 'DVAE', 'SubgDVAE', 'SubgDVAEpos'],
-               help='SubgDVAE / SubgDVAEpos: ablations A1 / A2 (D-VAE on the subgraph DAG without / with slots)')
+p.add_argument('--model', default='CktGNN', choices=['CktGNN', 'DVAE', 'SubgDVAE', 'SubgDVAEpos', 'SubgDVAEslot'],
+               help='SubgDVAE / SubgDVAEpos: ablations A1 / A2 (D-VAE on the subgraph DAG without / with slots); '
+                    'SubgDVAEslot: A3 (A2 plus slots in messages and edge scorer, as in CktGNN)')
 p.add_argument('--epochs', type=int, default=300)
 p.add_argument('--patience', type=int, default=10, help='ReduceLROnPlateau patience (repo: 10, paper: 20)')
 p.add_argument('--lr', type=float, default=1e-4)
@@ -109,7 +110,7 @@ if args.model == 'CktGNN':                      # constants hard-coded in main.p
     subg = True
 elif args.model.startswith('SubgDVAE'):
     model = SubgDVAE(max_n=8, nvt=26, START_TYPE=0, END_TYPE=1, hs=args.hs, nz=args.nz,
-                     use_pos=args.model == 'SubgDVAEpos')
+                     use_pos=args.model != 'SubgDVAE', slot_struct=args.model == 'SubgDVAEslot')
     subg = True
 else:
     model = Dvae(max_n=24, nvt=10, feat_nvt=103, START_TYPE=8, END_TYPE=9, hs=args.hs, nz=args.nz)
