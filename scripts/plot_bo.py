@@ -28,7 +28,8 @@ METHODS = ['rs', 'fom_bo', 'cbo', 'scbo', 'scbo_g']
 MLABEL = {'rs': 'Random search', 'fom_bo': "FoM-BO (paper's objective)", 'cbo': 'Constrained BO',
           'scbo': 'Trust-region constrained BO (SCBO)', 'scbo_g': 'SCBO, graded stability (exploratory)'}
 MCOLOR = {'rs': '#898781', 'fom_bo': '#eb6834', 'cbo': '#2a78d6', 'scbo': '#1baf7a', 'scbo_g': '#eda100'}
-PRIMARY = [('scbo', 'cbo'), ('scbo', 'rs')]                      # Phase 5 primary comparisons (per latent space)
+PRIMARY = [('scbo', 'cbo'), ('scbo', 'rs')]                      # Phase 5 primary comparisons, in each of
+PHASE5_SPACES = ('CktGNN', 'SubgDVAEpos')                        # these two latent spaces (Holm across 4)
 SECONDARY = [('cbo', 'fom_bo'), ('cbo', 'rs'), ('fom_bo', 'rs'), ('scbo', 'fom_bo')]
 EXPLORATORY = [('scbo_g', 'scbo'), ('scbo_g', 'cbo'), ('scbo_g', 'rs')]    # added after the Phase 5 results
 BIMODAL = 0.20                                                   # a run "exploits a basin" above this feasible share
@@ -108,7 +109,7 @@ def main():
                 x, y = both[a].values, both[b].values
                 p = stats.wilcoxon(x, y).pvalue if np.any(x != y) else 1.0
                 tests.append({'space': sp, 'a': a, 'b': b, 'metric': 'best_feasible_ugf', 'n': len(x),
-                              'primary': (a, b) in PRIMARY, 'exploratory': (a, b) in EXPLORATORY, 'median_a': np.median(x), 'median_b': np.median(y),
+                              'primary': (a, b) in PRIMARY and sp in PHASE5_SPACES, 'exploratory': (a, b) in EXPLORATORY, 'median_a': np.median(x), 'median_b': np.median(y),
                               'a_better_in_runs': int((x > y).sum()), 'ties': int((x == y).sum()), 'wilcoxon_p': p})
         ff = df[df.model == sp].groupby(['method', 'seed']).feasible.mean().unstack(0)
         for a, b in (('cbo', 'fom_bo'), ('scbo', 'cbo'), ('scbo', 'rs'), ('scbo_g', 'scbo')):
@@ -163,8 +164,9 @@ def main():
     ax.set_ylabel('Fraction of simulations that meet the spec'); style(ax)
     ax.set_title('How often each method proposes a feasible (stable, PM ≥ 60°, gain ≥ 60 dB) circuit\n'
                  '(bars: mean; dots: individual runs)', fontsize=10)
-    ax.legend(frameon=False, fontsize=9)
-    fig.tight_layout()
+    h, l = ax.get_legend_handles_labels()
+    fig.legend(h, l, loc='lower center', ncol=min(len(methods), 3), frameon=False, fontsize=9)
+    fig.tight_layout(rect=(0, 0.06 * ((len(methods) + 2) // 3), 1, 1))
     fig.savefig(os.path.join(FIG, f'{pre}_feasibility.png'), dpi=160); plt.close(fig)
 
     with open(os.path.join(RESULTS, 'summary', f'{pre}_table.md'), 'w', encoding='utf-8') as f:

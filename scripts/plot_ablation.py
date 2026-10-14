@@ -31,7 +31,7 @@ from plot_results import style, SURFACE, INK, INK2, MUTED  # noqa: E402
 FIG = os.path.join(ROOT, 'reports', 'figures')
 ORDER = ['DVAE', 'SubgDVAE', 'SubgDVAEpos', 'SubgDVAEslot', 'CktGNN']
 LABEL = {'DVAE': 'D-VAE (device DAG)', 'SubgDVAE': 'A1: D-VAE on subgraph DAG', 'SubgDVAEpos': 'A2: A1 + slots',
-         'SubgDVAEslot': 'A3: A2 + slots in edges/messages',
+         'SubgDVAEslot': 'A3: A2 + slots in edges/messages', 'SubgDVAEprop': 'P: A2 + property predictor',
          'CktGNN': 'CktGNN (slots + value vector)'}
 # reference palette categorical slots, fixed per entity (CktGNN/D-VAE keep the colours of the Phase 2 figures)
 COLOR = {'CktGNN': '#2a78d6', 'DVAE': '#eb6834', 'SubgDVAE': '#1baf7a', 'SubgDVAEpos': '#eda100', 'SubgDVAEslot': '#e87ba4'}
@@ -41,7 +41,9 @@ CIRC_NAMES = ['Valid DAG', 'Readable as\nop-amp', 'Own slots\nconsistent', 'Devi
               'Functional\n(has UGF)', 'Stable\n(pole check)', 'Meets spec\n(stable, PM≥60°,\ngain≥60 dB)', 'Functional\n& novel']
 PAIRS = [('DVAE', 'SubgDVAE', 'representation'), ('SubgDVAE', 'SubgDVAEpos', 'slot prior'),
          ('SubgDVAEpos', 'SubgDVAEslot', 'slot structure'), ('SubgDVAEslot', 'CktGNN', 'value pathway'),
-         ('SubgDVAEpos', 'CktGNN', 'slot structure + value pathway'), ('DVAE', 'CktGNN', 'total')]
+         ('SubgDVAEpos', 'CktGNN', 'slot structure + value pathway'), ('DVAE', 'CktGNN', 'total'),
+         ('SubgDVAEpos', 'SubgDVAEprop', 'property predictor (Phase 6)')]
+EXTRA = ['SubgDVAEprop']          # in the tables and tests, not in the ablation figures (not a step towards CktGNN)
 
 
 def bars(ax, runs, metrics, names, models, ylabel):
@@ -107,6 +109,7 @@ def main():
         fig.tight_layout(rect=(0, 0.08, 1, 1))
         fig.savefig(os.path.join(FIG, 'ablation_circuits.png'), dpi=160); plt.close(fig)
 
+    models = models + [m for m in EXTRA if m in set(runs.model)]
     metrics = [f'{t}_{s}' for t in targets for s in ('rmse', 'r')] + ['recon_acc', 'valid_dag', 'valid_ckt', 'novel'] + \
         [c for c in CIRC if c in runs]
     table = []

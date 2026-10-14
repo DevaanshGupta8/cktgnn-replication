@@ -7,6 +7,8 @@
 
 > **Correction (2026-10-14, after Phase 4):** an earlier version of this report used a phase-margin-only metric ("functional & PM ≥ 45°") as a stability proxy and concluded that CktGNN's generated circuits had better phase margins. Phase 4 added an exact pole-based stability check. That check shows PM is not a valid stability test here, because most OCB circuits are unstable even in open loop. With the pole check, **CktGNN generates the fewest stable circuits** (3.0% vs 6.0% for A1). The affected rows, findings and figure are corrected below.
 
+> **Update (Phase 5, 2026-10-15):** a third variant, **A3** (A2 plus CktGNN's slots in the messages and the edge scorer), separates the bundled last step. **The value pathway alone explains CktGNN's reconstruction advantage (A3 0.181 vs CktGNN 0.379) and its unphysical device values (92% vs 46% in range).** Slot-aware structure decoding changes neither, though it slightly improves latent regression. See `reports/phase5_report.md`, Part A.
+
 **Method:** two new variants isolate one change at a time. Every model was trained with 3 seeds, 300 epochs, the same optimiser and the same losses. All were evaluated with the authors' metrics, the authors' SGP regression protocol, and a new **circuit-level evaluation** that simulates every generated circuit with the open simulator.
 
 | Variant | Graph | Slots | Device values | Parameters |
@@ -14,10 +16,11 @@
 | D-VAE (baseline) | device DAG | no | per node (scalar) | 2.24M |
 | **A1** `SubgDVAE` | subgraph DAG | no | per node ([r, c, gm]) | 2.28M |
 | **A2** `SubgDVAEpos` | subgraph DAG | node input + decoder head | per node | 2.49M |
+| **A3** `SubgDVAEslot` (Phase 5) | subgraph DAG | as CktGNN: + messages + edge scorer | per node | 2.51M |
 | CktGNN (baseline) | subgraph DAG | node input + decoder head + messages + edge scorer | slot-indexed vector | 2.51M |
 
 A1 and A2 use the authors' D-VAE equations unchanged (`scripts/ablation_models.py`).
-**Caveat on the last step:** A2 → CktGNN changes the value pathway *and* adds slots to the messages and to the edge scorer. Those two effects are not separated here (see §5).
+**Caveat on the last step:** A2 → CktGNN changes the value pathway *and* adds slots to the messages and to the edge scorer. The tables below keep the original A2 → CktGNN comparison; A3 (Phase 5) separates the two.
 
 ---
 
@@ -90,7 +93,7 @@ Full table: `results/summary/ablation_table.md`; all tests: `results/summary/abl
 
 ## 5. Limitations
 
-- **The last step bundles three changes:** the value pathway, slots in messages, and slots in the edge scorer. An A3 variant (A2 plus slots in the edge scorer) would separate them; at roughly 1 h per seed on the GPU it is cheap.
+- **The last step bundles three changes:** the value pathway, slots in messages, and slots in the edge scorer. *Resolved in Phase 5 by A3:* the value pathway is responsible for the reconstruction gain and the device-value loss.
 - **Three seeds per variant.** p-values near 0.05 are suggestive. A1's PM ≥ 45° rate is noisy (std 13 pt).
 - **None of the models converged in 300 epochs** (Phase 2), so rankings might change with longer training.
 - **Batched decoding for A1/A2.** A1 and A2 decode with a batched sampler that uses the same sampling steps as D-VAE's decoder. CktGNN uses the authors' decoder, so random draws differ but distributions are the same.

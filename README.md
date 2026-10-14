@@ -10,6 +10,8 @@ A research project to reproduce, critically evaluate and extend
 - **Phase 2 report** (baseline reproduction: CktGNN and D-VAE, 3 seeds each, vs paper and authors' released-data results): [`reports/phase2_reproduction.md`](reports/phase2_reproduction.md)
 - **Phase 3 report** (ablation study: which of CktGNN's design choices explains its results, with simulator-based evaluation of generated circuits): [`reports/phase3_ablation.md`](reports/phase3_ablation.md)
 - **Phase 4 report** (stability-aware optimisation: exact stability check, the paper's FoM objective vs constrained Bayesian optimisation): [`reports/phase4_optimization.md`](reports/phase4_optimization.md)
+- **Phase 5 report** (ablation A3 separating CktGNN's value pathway from its slot-aware decoder; trust-region constrained BO with 20 runs per cell): [`reports/phase5_report.md`](reports/phase5_report.md), protocol [`reports/phase5_protocol.md`](reports/phase5_protocol.md)
+- **Phase 6 report** (a property-aware latent space: VAE trained jointly with a stability/performance predictor): [`reports/phase6_report.md`](reports/phase6_report.md), protocol [`reports/phase6_protocol.md`](reports/phase6_protocol.md)
 
 ## Layout
 | Path | Purpose |
@@ -23,14 +25,16 @@ A research project to reproduce, critically evaluate and extend
 | `scripts/launch_job.sh` | Launches one training run (`DEVICE=cuda` or `cpu`; logs to the data folder; auto-resumes from `last.pt`) |
 | `scripts/fast_models.py` | Batched, numerically equivalent training path for the authors' CktGNN and D-VAE |
 | `tests/test_fast_models.py` | Equivalence and speed test: fast path vs the authors' code |
+| `tests/test_ablation_models.py` | Consistency tests for A1/A2/A3/P (batch independence, A3 slot wiring) |
+| `scripts/circuit_labels.py` | Simulator labels (gain, UGF, PM, pole stability, spec) for all 10,000 real circuits |
 | `scripts/finish_run_on_cpu.sh` | Moves the evaluation of an already-running job to the CPU |
 | `scripts/sparse_gp_torch.py` | PyTorch port of the authors' Theano sparse GP |
 | `scripts/sgp_regression.py` | SGP regression on saved latents (port of the authors' `sgp_regression.py`) |
-| `scripts/ablation_models.py` | Ablation variants A1/A2 (D-VAE on the subgraph DAG without/with slots) and the slot-free op-amp reader |
+| `scripts/ablation_models.py` | Ablation variants A1/A2/A3 and the property-aware model P, plus the slot-free op-amp reader |
 | `scripts/eval_circuits.py` | Circuit-level evaluation: decode, read as op-amp, simulate, score functionality/phase margin/novelty |
 | `scripts/aggregate_results.py`, `scripts/plot_results.py`, `scripts/plot_ablation.py` | Summary tables, figures and significance tests |
 | `scripts/export_results.sh` | Copies the small result files from the data folder into `results/` |
-| `scripts/latent_bo.py`, `scripts/run_bo_jobs.sh`, `scripts/plot_bo.py` | Phase 4: latent-space optimisation (random search, FoM-BO, constrained BO) and its analysis |
+| `scripts/latent_bo.py`, `scripts/run_bo_jobs.sh`, `scripts/plot_bo.py` | Phases 4–6: latent-space optimisation (random search, FoM-BO, constrained BO, SCBO) and its analysis |
 
 ## Results in this repository
 `results/` holds the small result files (audit, simulator validation, per-run configs, training logs, evaluation and regression results, summary tables), copied from the data folder by `scripts/export_results.sh`. Checkpoints and datasets are not included.
