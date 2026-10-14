@@ -54,6 +54,8 @@ SCBO_BOX = 3.0
 SCBO_L_INIT, SCBO_L_MIN, SCBO_L_MAX = 0.8, 0.5 ** 7, 1.6
 SCBO_SUCC_TOL, SCBO_FAIL_TOL = 3, 10
 SCBO_N_CAND = 2000          # exact joint Thompson samples need an n_cand x n_cand posterior covariance
+SCBO_REFIT = 5              # re-optimise GP hyperparameters every 5 steps; in between, condition on the new data
+                            # with the last hyperparameters (amendment before any full SCBO run finished: ~5x faster)
 warnings.filterwarnings('ignore')
 
 
@@ -107,10 +109,12 @@ def fit_gp(X, y):
     return GaussianProcessRegressor(k, normalize_y=True, n_restarts_optimizer=1, random_state=0).fit(X, y)
 
 
-def fit_gp_ard(X, y, d, warm=None):
-    """ARD Matern-5/2 GP; `warm` (the previous step's fitted kernel) is used as the optimiser's starting point."""
+def fit_gp_ard(X, y, d, warm=None, optimise=True):
+    """ARD Matern-5/2 GP; `warm` (the previous step's fitted kernel) is used as the optimiser's starting point,
+    or kept fixed with optimise=False."""
     k = warm if warm is not None else ConstantKernel(1.0, (1e-3, 1e3)) *         Matern(length_scale=np.full(d, 0.5), length_scale_bounds=(5e-3, 4.0), nu=2.5) + WhiteKernel(1e-3, (1e-6, 1e-1))
-    return GaussianProcessRegressor(k, normalize_y=True, n_restarts_optimizer=0, random_state=0).fit(X, y)
+    return GaussianProcessRegressor(k, normalize_y=True, n_restarts_optimizer=0, random_state=0,
+                                    optimizer='fmin_l_bfgs_b' if optimise or warm is None else None).fit(X, y)
 
 
 def thompson(gp, C, rng):
@@ -133,6 +137,7 @@ class SCBOState:
         self.length, self.n_succ, self.n_fail, self.restarts = SCBO_L_INIT, 0, 0, 0
         self.best_key = None                       # (feasible, objective or -violation), compared lexicographically
         self.kc = self.ko = None                   # fitted kernels, warm starts for the next step
+        self.step = 0
 
     def update(self, key):
         improved = self.best_key is None or key[0] > self.best_key[0] or             (key[0] == self.best_key[0] and key[1] > self.best_key[1] + 1e-3 * abs(self.best_key[1]))
@@ -159,14 +164,16 @@ def scbo_propose(Xc, rows, state, rng, d):
     keys = [scbo_key(r) for r in rows]
     centre = Xc[max(range(len(keys)), key=lambda i: keys[i])]
     c = np.array([constraint_score(r) for r in rows])
-    gpc = fit_gp_ard(Xc, c, d, state.kc)
+    refit = state.step % SCBO_REFIT == 0
+    state.step += 1
+    gpc = fit_gp_ard(Xc, c, d, state.kc, refit)
     state.kc = gpc.kernel_
     ls = np.asarray(gpc.kernel_.k1.k2.length_scale, dtype=float)
     func = np.array([r['functional'] for r in rows])
     gpo = None
     if func.sum() >= 3:
         lu = np.log10(np.array([r['ugf_ghz'] for r in rows])[func])
-        gpo = fit_gp_ard(Xc[func], lu, d, state.ko)
+        gpo = fit_gp_ard(Xc[func], lu, d, state.ko, refit)
         state.ko = gpo.kernel_
         ls = np.sqrt(ls * np.asarray(gpo.kernel_.k1.k2.length_scale, dtype=float))   # both models shape the region
     w = ls / ls.mean()

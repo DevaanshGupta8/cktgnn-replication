@@ -31,7 +31,8 @@ MCOLOR = {'rs': '#898781', 'fom_bo': '#eb6834', 'cbo': '#2a78d6', 'scbo': '#1baf
 PRIMARY = [('scbo', 'cbo'), ('scbo', 'rs')]                      # Phase 5 primary comparisons (per latent space)
 SECONDARY = [('cbo', 'fom_bo'), ('cbo', 'rs'), ('fom_bo', 'rs'), ('scbo', 'fom_bo')]
 BIMODAL = 0.20                                                   # a run "exploits a basin" above this feasible share
-SPACE = {'CktGNN': 'CktGNN latent space', 'SubgDVAEpos': 'A2 latent space (per-node device values)'}
+SPACE = {'CktGNN': 'CktGNN latent space', 'SubgDVAEpos': 'A2 latent space (per-node device values)',
+         'SubgDVAEprop': 'P latent space (A2 + property predictor)'}
 ORACLE_UGF = 30.577      # best feasible UGF among the 9,000 training circuits (same specification)
 
 
@@ -120,6 +121,29 @@ def main():
     if len(tt) and tt.primary.any():
         tt.loc[tt.primary, 'holm_p'] = holm(tt.loc[tt.primary, 'wilcoxon_p'])
     tt.to_csv(os.path.join(RESULTS, 'summary', f'{pre}_tests.csv'), index=False)
+
+    # Phase 6 (reports/phase6_protocol.md): P's latent space vs A2's, per method; unpaired Mann-Whitney U.
+    # Primary: cBO and SCBO on best feasible UGF, Holm across the two.
+    if {'SubgDVAEprop', 'SubgDVAEpos'} <= set(spaces):
+        fin = df.sort_values('eval').groupby(['model', 'method', 'seed']).tail(1)
+        feas = df.groupby(['model', 'method', 'seed']).feasible.mean().rename('frac').reset_index()
+        cross = []
+        for m in methods:
+            for metric, src, col in (('best_feasible_ugf', fin, 'best'), ('frac_evals_feasible', feas, 'frac')):
+                x = src[(src.model == 'SubgDVAEprop') & (src.method == m)][col].values
+                y = src[(src.model == 'SubgDVAEpos') & (src.method == m)][col].values
+                if len(x) > 1 and len(y) > 1:
+                    p = stats.mannwhitneyu(x, y, alternative='two-sided').pvalue if len(set(x) | set(y)) > 1 else 1.0
+                    cross.append({'method': m, 'metric': metric, 'n_P': len(x), 'n_A2': len(y),
+                                  'primary': metric == 'best_feasible_ugf' and m in ('cbo', 'scbo'),
+                                  'median_P': np.median(x), 'median_A2': np.median(y), 'mean_P': x.mean(), 'mean_A2': y.mean(),
+                                  'P_runs_feasible': int((x > 0).sum()) if col == 'best' else np.nan,
+                                  'A2_runs_feasible': int((y > 0).sum()) if col == 'best' else np.nan, 'mannwhitney_p': p})
+        ct = pd.DataFrame(cross)
+        if ct.primary.any():
+            ct.loc[ct.primary, 'holm_p'] = holm(ct.loc[ct.primary, 'mannwhitney_p'])
+        ct.to_csv(os.path.join(RESULTS, 'summary', f'{pre}_P_vs_A2_tests.csv'), index=False)
+        print(ct.round(4).to_string(index=False))
 
     fig, ax = plt.subplots(figsize=(8 + 1.5 * (len(methods) - 3), 4))
     w = 0.8 / len(methods)

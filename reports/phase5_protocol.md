@@ -24,6 +24,7 @@ Phase 3's last step, A2 → CktGNN, changed three things at once: the device-val
   - 2,000 candidates, each perturbing every dimension with probability 20/d (at least one).
   - **Budget adaptation:** success tolerance 3 and failure tolerance 10. The paper's max(4, d) = 66 would never shrink the region within 180 steps.
   - On collapse, the region restarts at L_init around the global best.
+- **Amendment (2026-10-14, before any full SCBO run had finished):** GP hyperparameters are re-optimised every 5 steps, starting from the previous optimum. In between, the GPs are conditioned on the new data with the last hyperparameters. This is a purely computational change: fitting two 66-dimensional ARD GPs at every step made one run take over 30 minutes.
 - **Re-runs:** RS, FoM-BO and cBO are re-run unchanged, except that the method's random stream now uses a stable hash. Phase 4 used Python's per-process salted `hash()`, so its runs could not be re-run bit-for-bit.
 - **Runs:** 20 seeds × 4 methods × 2 latent spaces (CktGNN, A2) = 160 runs, written to `<DATA>/results/bo5/`. Phase 4's traces stay untouched in `<DATA>/results/bo/`.
 - **Primary endpoint:** best feasible UGF after 200 simulations (0 if none found).
