@@ -12,6 +12,10 @@ as a node feature and as a decoder head with CktGNN's padding convention (varian
   A3 = SubgDVAE(use_pos=True, slot_struct=True): A2 plus slots in the messages and the edge scorer, exactly
        as CktGNN uses them (messages from [state, slot one-hot] instead of [state, vertex id]; edge scorer on
        [state_i, slot_i, state_new, slot_new]). A3 differs from CktGNN only in the device-value pathway.
+  P  = SubgDVAE(use_pos=True, n_props=7): A2 plus a property predictor on mu, trained jointly (Phase 6). Targets
+       per circuit (simulator labels, scripts/circuit_labels.py, attached as g['props']): 4 binary flags
+       [functional, open-loop stable, closed-loop stable, meets spec] and 3 standardised, clipped regressions
+       [log10 UGF, gain dB, lag PM] that count only for functional circuits.
 
 `decompositions`/`infer_slots` recover main-path slots from structure under the generator's semantics so that
 slot-free graphs can be checked with the authors' validity function and simulated with ocb_sim. Without slots
@@ -26,6 +30,7 @@ import torch.nn.functional as F
 from fast_models import FastDVAE
 
 N_FEAT = 3  # r, c, gm
+N_FLAGS = 4  # props layout: 4 binary flags, then 3 regression targets (NaN when not functional)
 
 
 FORWARD_GM = {6, 7, 10, 11, 14, 15, 18, 19, 22, 23}   # gm subgraphs with forward direction
@@ -105,7 +110,7 @@ def _arrays(G, max_n, pad_type, pos_pad):
 
 class SubgDVAE(FastDVAE):
     def __init__(self, max_n=8, nvt=26, START_TYPE=0, END_TYPE=1, hs=301, nz=66, use_pos=False, max_pos=8,
-                 slot_struct=False):
+                 slot_struct=False, n_props=0, prop_weight=1.0):
         super().__init__(max_n=max_n, nvt=nvt, feat_nvt=103, START_TYPE=START_TYPE, END_TYPE=END_TYPE, hs=hs, nz=nz)
         assert use_pos or not slot_struct
         self.use_pos = use_pos
@@ -127,6 +132,20 @@ class SubgDVAE(FastDVAE):
             self.mapper_backward = nn.Sequential(nn.Linear(vs, hs, bias=False))
             self.add_edge = nn.Sequential(nn.Linear(2 * vs, hs * 4), nn.ReLU(), nn.Linear(hs * 4, 1))
         self.e_dim = hs + (self.n_pos if slot_struct else 0)
+        self.n_props, self.prop_weight = n_props, prop_weight
+        if n_props:
+            self.prop = nn.Sequential(nn.Linear(nz, 128), nn.ReLU(), nn.Linear(128, n_props))
+        self.last_prop_loss = 0.0
+
+    def prop_loss(self, mu, G):
+        """Summed over the batch: BCE of the 4 flags + squared error of the regressions on functional circuits."""
+        y = self._t(np.array([g['props'] for g in G], dtype=np.float32))
+        out = self.prop(mu)
+        bce = F.binary_cross_entropy_with_logits(out[:, :N_FLAGS], y[:, :N_FLAGS], reduction='sum')
+        reg_y = y[:, N_FLAGS:]
+        ok = torch.isfinite(reg_y)
+        se = ((out[:, N_FLAGS:] - torch.nan_to_num(reg_y)) ** 2 * ok).sum()
+        return bce + se
 
     def _poh(self, pos):
         return F.one_hot(pos, self.n_pos).float()
@@ -214,7 +233,12 @@ class SubgDVAE(FastDVAE):
             res_vll, res_vl2, res_vl3 = res_vll + K * vll, res_vl2 + K * vl2, res_vl3 + K * vl3
         res = -res
         kld = -0.5 * torch.sum(1 + logvar - mu.pow(2) - logvar.exp())
-        return res + beta * kld, res, kld, res_vll, res_vl3 if self.use_pos else torch.zeros(()), res_vl2
+        total = res + beta * kld
+        if self.n_props:
+            lp = self.prop_loss(mu, G_true)
+            self.last_prop_loss = float(lp.detach())
+            total = total + self.prop_weight * lp
+        return total, res, kld, res_vll, res_vl3 if self.use_pos else torch.zeros(()), res_vl2
 
     @torch.no_grad()
     def decode(self, z, stochastic=True):

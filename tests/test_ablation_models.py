@@ -5,7 +5,8 @@ There is no reference implementation to compare against, so this checks invarian
      (exercises the masked teacher-forcing loop and the closed-form sum over padded positions);
      the same holds for mu/logvar;
   2. A3 really uses slots in the messages and the edge scorer, with CktGNN's layer shapes;
-  3. decode runs and returns graphs with slots for A2/A3.
+  3. decode runs and returns graphs with slots for A2/A3/P;
+  4. P (property head) keeps batch independence, with labels that include non-functional (NaN) targets.
 
 Usage:  .venv/Scripts/python.exe tests/test_ablation_models.py
 """
@@ -30,8 +31,11 @@ with open(os.path.join(BENCH101, 'ckt_bench_101.pkl'), 'rb') as f:
 G = [x[0] for x in train[:200]]
 batch = sorted(G, key=lambda g: g.vcount())[::25][:8]   # mixed vertex counts
 assert len({g.vcount() for g in batch}) > 1
+for i, g in enumerate(batch):                    # synthetic property labels; every other circuit "non-functional"
+    g['props'] = [i % 2, 1, 0, (i // 2) % 2] + ([0.5 * i, -0.3, 1.2] if i % 2 else [float('nan')] * 3)
 
-VARIANTS = {'A1': dict(use_pos=False), 'A2': dict(use_pos=True), 'A3': dict(use_pos=True, slot_struct=True)}
+VARIANTS = {'A1': dict(use_pos=False), 'A2': dict(use_pos=True), 'A3': dict(use_pos=True, slot_struct=True),
+            'P': dict(use_pos=True, n_props=7)}
 ok = True
 for name, kw in VARIANTS.items():
     torch.manual_seed(0)

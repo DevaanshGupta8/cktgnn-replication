@@ -50,7 +50,7 @@ def build_model(name):
         return FastCktGNN(max_n=8, max_pos=8, nvt=26, subn_nvt=40, START_TYPE=0, END_TYPE=1,
                           emb_dim=24, feat_emb_dim=8, hs=301, nz=66)
     return SubgDVAE(max_n=8, nvt=26, START_TYPE=0, END_TYPE=1, hs=301, nz=66, use_pos=name != 'SubgDVAE',
-                    slot_struct=name == 'SubgDVAEslot')
+                    slot_struct=name == 'SubgDVAEslot', n_props=7 if name == 'SubgDVAEprop' else 0)
 
 
 def own_main(g):
@@ -137,7 +137,7 @@ def score(G, train_keys, slot_model=False, true_slots=False):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--run')
-    ap.add_argument('--model', choices=['CktGNN', 'SubgDVAE', 'SubgDVAEpos', 'SubgDVAEslot'])
+    ap.add_argument('--model', choices=['CktGNN', 'SubgDVAE', 'SubgDVAEpos', 'SubgDVAEslot', 'SubgDVAEprop'])
     ap.add_argument('--reference', action='store_true')
     ap.add_argument('--n-latent', type=int, default=1000)
     ap.add_argument('--decode-times', type=int, default=10)
