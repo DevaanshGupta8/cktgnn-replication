@@ -1,0 +1,13 @@
+{
+  "n_params": 2487891,
+  "epochs": 300,
+  "device": "cuda",
+  "eval_device": "cpu",
+  "test_recon_nll": 7.68285595703125,
+  "recon_acc": 0.1968,
+  "recon_seconds": 140.10985708236694,
+  "valid_dag": 0.9878,
+  "valid_ckt": 0.9843,
+  "novel": 0.9377404332860904,
+  "eval_seconds": 149.62568831443787
+}

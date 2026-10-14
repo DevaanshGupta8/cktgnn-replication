@@ -7,6 +7,7 @@ A research project to reproduce, critically evaluate and extend
 - Official code + dataset (unmodified): [github.com/zehao-dong/CktGNN](https://github.com/zehao-dong/CktGNN) → [`external/CktGNN`](external/CktGNN), commit `416cd03`
 - **Phase 1 report** (paper analysis, code verification, dataset audit, reproduction checklist, critique, ranked improvements): [`reports/phase1_report.md`](reports/phase1_report.md)
 - **Phase 2 report** (baseline reproduction: CktGNN and D-VAE, 3 seeds each, vs paper and authors' released-data results): [`reports/phase2_reproduction.md`](reports/phase2_reproduction.md)
+- **Phase 3 report** (ablation study: which of CktGNN's design choices explains its results, with simulator-based evaluation of generated circuits): [`reports/phase3_ablation.md`](reports/phase3_ablation.md)
 
 ## Layout
 | Path | Purpose |
@@ -23,6 +24,10 @@ A research project to reproduce, critically evaluate and extend
 | `scripts/finish_run_on_cpu.sh` | Moves the evaluation of an already-running job to the CPU |
 | `scripts/sparse_gp_torch.py` | PyTorch port of the authors' Theano sparse GP |
 | `scripts/sgp_regression.py` | SGP regression on saved latents (port of the authors' `sgp_regression.py`) |
+| `scripts/ablation_models.py` | Ablation variants A1/A2 (D-VAE on the subgraph DAG without/with slots) and the slot-free op-amp reader |
+| `scripts/eval_circuits.py` | Circuit-level evaluation: decode, read as op-amp, simulate, score functionality/phase margin/novelty |
+| `scripts/aggregate_results.py`, `scripts/plot_results.py`, `scripts/plot_ablation.py` | Summary tables, figures and significance tests |
+| `scripts/export_results.sh` | Copies the small result files from the data folder into `results/` |
 
 ## Results in this repository
 `results/` holds the small result files (audit, simulator validation, per-run configs, training logs, evaluation and regression results, summary tables), copied from the data folder by `scripts/export_results.sh`. Checkpoints and datasets are not included.
