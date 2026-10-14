@@ -1,0 +1,10 @@
+.venv/
+external/
+__pycache__/
+*.pyc
+pdf.pdf
+*.pdf
+*.pth
+*.pt
+*.npz
+*.pkl

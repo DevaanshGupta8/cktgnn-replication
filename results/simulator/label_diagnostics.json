@@ -1,0 +1,21 @@
+{
+  "placeholder_rows": 785,
+  "placeholder_rows_without_sim_down_crossing": 769,
+  "non_placeholder_rows": 9215,
+  "bw_and_gain_match": 8820,
+  "gain_match": 8986,
+  "bw_mismatch": 395,
+  "bw_mismatch_matching_another_crossing": 149,
+  "pm_label_equals_phase_at_ugf_mod360": 0.9992063492063492,
+  "corr_pm_label_vs_pm_lag": -0.12042734714467077,
+  "median_gain_db_matched": 134.0464823265404,
+  "frac_pm_lag_below_45": {
+    "all_matched": 0.363718820861678,
+    "top10pct_fom": 0.5476190476190477,
+    "top1pct_fom": 0.6629213483146067
+  },
+  "frac_pm_lag_below_0": {
+    "all_matched": 0.2808390022675737,
+    "top10pct_fom": 0.445578231292517
+  }
+}

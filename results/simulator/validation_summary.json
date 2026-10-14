@@ -1,0 +1,125 @@
+{
+  "spectre_sign": {
+    "bw_match_rate_1pct": 0.9597,
+    "bw_median_rel_err": 0.00012671018969637082,
+    "bw_pearson": 0.9473243838756543,
+    "n_no_unity_crossing_sim": 776,
+    "n_bw_label_zero": 0,
+    "gain_offset": 1.1953100222519266,
+    "gain_median_abs_resid": 1.0512476488200306e-06,
+    "gain_match_rate": 0.9066439863918351,
+    "gain_pearson": NaN,
+    "pm[180+phase,phase_ugf_wrapped]": {
+      "offset": 2.0001438871060198,
+      "median_abs_resid": 0.5387411096633365,
+      "match_rate": 0.49371205550737207
+    },
+    "pm[phase,phase_ugf_wrapped]": {
+      "offset": 0.00014388710601964672,
+      "median_abs_resid": 0.5387411096633365,
+      "match_rate": 0.49371205550737207
+    },
+    "pm[-phase,phase_ugf_wrapped]": {
+      "offset": 1.9966898102203834,
+      "median_abs_resid": 0.8275155775862169,
+      "match_rate": 0.049002601908065914
+    },
+    "pm[180+phase,phase_ugf_unwrapped]": {
+      "offset": 2.0000178110192453,
+      "median_abs_resid": 4.1241425182136915e-05,
+      "match_rate": 0.5717692974848222
+    },
+    "pm[phase,phase_ugf_unwrapped]": {
+      "offset": 1.781101924541728e-05,
+      "median_abs_resid": 4.124142518235896e-05,
+      "match_rate": 0.5717692974848222
+    },
+    "pm[-phase,phase_ugf_unwrapped]": {
+      "offset": 2.1072669369860844,
+      "median_abs_resid": 1.4349601673598844,
+      "match_rate": 0.007914137033824806
+    }
+  },
+  "flipped_sign": {
+    "bw_match_rate_1pct": 0.9481,
+    "bw_median_rel_err": 0.00029478194052654237,
+    "bw_pearson": 0.9471479540005491,
+    "n_no_unity_crossing_sim": 768,
+    "n_bw_label_zero": 0,
+    "gain_offset": 1.1953100979960263,
+    "gain_median_abs_resid": 5.896487256462635e-06,
+    "gain_match_rate": 0.9010406243746247,
+    "gain_pearson": NaN,
+    "pm[180+phase,phase_ugf_wrapped]": {
+      "offset": 3.9999924947410674,
+      "median_abs_resid": 0.8268400263917832,
+      "match_rate": 0.05155979202772964
+    },
+    "pm[phase,phase_ugf_wrapped]": {
+      "offset": 1.9999924947410672,
+      "median_abs_resid": 0.8268400263917834,
+      "match_rate": 0.05155979202772964
+    },
+    "pm[-phase,phase_ugf_wrapped]": {
+      "offset": 1.6616369555050103,
+      "median_abs_resid": 1.7045625083482046,
+      "match_rate": 0.0002166377816291161
+    },
+    "pm[180+phase,phase_ugf_unwrapped]": {
+      "offset": 3.7324986733506904,
+      "median_abs_resid": 1.3717701238719502,
+      "match_rate": 0.004332755632582322
+    },
+    "pm[phase,phase_ugf_unwrapped]": {
+      "offset": 1.7324986733506904,
+      "median_abs_resid": 1.3717701238719504,
+      "match_rate": 0.004332755632582322
+    },
+    "pm[-phase,phase_ugf_unwrapped]": {
+      "offset": 3.996131943338614,
+      "median_abs_resid": 0.003717916743616767,
+      "match_rate": 0.5579506065857885
+    }
+  },
+  "spectre_sign_pos7gnd": {
+    "bw_match_rate_1pct": 0.7176,
+    "bw_median_rel_err": 0.00018720798837364212,
+    "bw_pearson": 0.9154901169819796,
+    "n_no_unity_crossing_sim": 755,
+    "n_bw_label_zero": 0,
+    "gain_offset": 1.19530983668258,
+    "gain_median_abs_resid": 2.935496862921383e-06,
+    "gain_match_rate": 0.7440184202622885,
+    "gain_pearson": NaN,
+    "pm[180+phase,phase_ugf_wrapped]": {
+      "offset": 2.9711616871444155,
+      "median_abs_resid": 1.4546233038251395,
+      "match_rate": 0.0016224986479177934
+    },
+    "pm[phase,phase_ugf_wrapped]": {
+      "offset": 0.9711616871444156,
+      "median_abs_resid": 1.4546233038251395,
+      "match_rate": 0.0016224986479177934
+    },
+    "pm[-phase,phase_ugf_wrapped]": {
+      "offset": 1.9966637614058327,
+      "median_abs_resid": 0.8487101690524526,
+      "match_rate": 0.048350459707950245
+    },
+    "pm[180+phase,phase_ugf_unwrapped]": {
+      "offset": 2.0000430625750867,
+      "median_abs_resid": 0.1643486786927264,
+      "match_rate": 0.43699296917252567
+    },
+    "pm[phase,phase_ugf_unwrapped]": {
+      "offset": 4.30625750866831e-05,
+      "median_abs_resid": 0.16434867869272618,
+      "match_rate": 0.43699296917252567
+    },
+    "pm[-phase,phase_ugf_unwrapped]": {
+      "offset": 2.167958860992753,
+      "median_abs_resid": 1.4348216135032983,
+      "match_rate": 0.005516495402920498
+    }
+  }
+}

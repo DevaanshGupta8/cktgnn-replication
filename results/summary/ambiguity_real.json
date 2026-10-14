@@ -1,0 +1,7 @@
+{
+  "ambiguous_real_circuits": 2088,
+  "alternative_reading_electrically_different": 169,
+  "fraction_different": 0.08093869731800767,
+  "functional_status_flips": 0,
+  "median_rel_ugf_change_when_different": 0.31795802471954215
+}

@@ -1,0 +1,221 @@
+{
+  "n_train": 9000,
+  "n_test": 1000,
+  "n_perf_rows": 10000,
+  "valid_fraction": 1.0,
+  "fom_formula_const_mean": -1.398714206510673,
+  "fom_formula_const_std": 0.2186621653723879,
+  "fom_term_variances": {
+    "1.2*gain": 0.849892533313121,
+    "1.6*pm": 3.4548006587606177,
+    "10*bw": 5597.7812382181355
+  },
+  "fom_variance": 5664.12105397395,
+  "corr_fom_bw": 0.9996186991396803,
+  "corr_fom_gain": 0.2976543367226002,
+  "corr_fom_pm": 0.0998317859663271,
+  "label_describe": {
+    "gain": {
+      "count": 10000.0,
+      "mean": 2.3333,
+      "std": 0.7683,
+      "min": 0.5958,
+      "25%": 1.6839,
+      "50%": 2.3798,
+      "75%": 3.0323,
+      "max": 3.6246
+    },
+    "pm": {
+      "count": 10000.0,
+      "mean": 1.9574,
+      "std": 1.1618,
+      "min": -2.3526,
+      "25%": 0.9897,
+      "50%": 2.0,
+      "75%": 2.9876,
+      "max": 6.2393
+    },
+    "bw": {
+      "count": 10000.0,
+      "mean": 6.4897,
+      "std": 7.4822,
+      "min": 0.0,
+      "25%": 0.2574,
+      "50%": 3.6415,
+      "75%": 10.5442,
+      "max": 31.8346
+    },
+    "fom": {
+      "count": 10000.0,
+      "mean": 69.4304,
+      "std": 75.2641,
+      "min": 0.0,
+      "25%": 7.2118,
+      "50%": 41.0712,
+      "75%": 110.5249,
+      "max": 326.6657
+    }
+  },
+  "distinct_topologies_all": 4552,
+  "distinct_topologies_with_pos_all": 4624,
+  "distinct_full_circuits_all": 9999,
+  "distinct_topologies_train": 4116,
+  "distinct_topologies_test": 494,
+  "test_circuits_whose_topology_is_in_train": 126,
+  "test_topologies_seen_in_train": 58,
+  "test_circuits_exactly_duplicated_in_train": 0,
+  "topology_run_length_counts": {
+    "2": 4996,
+    "4": 2
+  },
+  "circuits_per_topology_quantiles": {
+    "0": 2.0,
+    "0.25": 2.0,
+    "0.5": 2.0,
+    "0.75": 2.0,
+    "1.0": 18.0
+  },
+  "subgraph_nodes_per_circuit": {
+    "7": 4004,
+    "5": 1102,
+    "6": 3100,
+    "8": 1654,
+    "4": 140
+  },
+  "device_nodes_per_circuit": {
+    "9": 1732,
+    "10": 1788,
+    "7": 936,
+    "12": 942,
+    "8": 1452,
+    "11": 1624,
+    "13": 474,
+    "14": 256,
+    "6": 518,
+    "15": 68,
+    "5": 164,
+    "16": 6,
+    "4": 40
+  },
+  "n_stages": {
+    "3": 7994,
+    "2": 2006
+  },
+  "dataset_circuits_with_passive_in_main_path": 0,
+  "dataset_circuits_with_feedback_gm_in_main_path": 0,
+  "device_value_ranges": {
+    "r": [
+      1,
+      101,
+      101
+    ],
+    "c": [
+      1,
+      101,
+      101
+    ],
+    "gm": [
+      1,
+      101,
+      101
+    ]
+  },
+  "simple_baselines": [
+    {
+      "target": "gain",
+      "model": "train-mean",
+      "rmse_std": 0.9862,
+      "pearson": NaN
+    },
+    {
+      "target": "gain",
+      "model": "topology-lookup",
+      "rmse_std": 0.9324,
+      "pearson": 0.3381
+    },
+    {
+      "target": "gain",
+      "model": "ridge(hand-feats)",
+      "rmse_std": 0.4844,
+      "pearson": 0.8716
+    },
+    {
+      "target": "gain",
+      "model": "random-forest(hand-feats)",
+      "rmse_std": 0.3151,
+      "pearson": 0.9476
+    },
+    {
+      "target": "bw",
+      "model": "train-mean",
+      "rmse_std": 1.0085,
+      "pearson": NaN
+    },
+    {
+      "target": "bw",
+      "model": "topology-lookup",
+      "rmse_std": 0.9831,
+      "pearson": 0.2276
+    },
+    {
+      "target": "bw",
+      "model": "ridge(hand-feats)",
+      "rmse_std": 0.6173,
+      "pearson": 0.7908
+    },
+    {
+      "target": "bw",
+      "model": "random-forest(hand-feats)",
+      "rmse_std": 0.4523,
+      "pearson": 0.8951
+    },
+    {
+      "target": "pm",
+      "model": "train-mean",
+      "rmse_std": 1.0358,
+      "pearson": NaN
+    },
+    {
+      "target": "pm",
+      "model": "topology-lookup",
+      "rmse_std": 1.0019,
+      "pearson": 0.2582
+    },
+    {
+      "target": "pm",
+      "model": "ridge(hand-feats)",
+      "rmse_std": 1.0017,
+      "pearson": 0.2716
+    },
+    {
+      "target": "pm",
+      "model": "random-forest(hand-feats)",
+      "rmse_std": 0.8604,
+      "pearson": 0.5993
+    },
+    {
+      "target": "fom",
+      "model": "train-mean",
+      "rmse_std": 1.0089,
+      "pearson": NaN
+    },
+    {
+      "target": "fom",
+      "model": "topology-lookup",
+      "rmse_std": 0.983,
+      "pearson": 0.2302
+    },
+    {
+      "target": "fom",
+      "model": "ridge(hand-feats)",
+      "rmse_std": 0.6154,
+      "pearson": 0.7925
+    },
+    {
+      "target": "fom",
+      "model": "random-forest(hand-feats)",
+      "rmse_std": 0.4509,
+      "pearson": 0.8959
+    }
+  ]
+}

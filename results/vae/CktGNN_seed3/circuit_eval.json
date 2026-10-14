@@ -1,0 +1,18 @@
+{
+  "valid_dag": 0.9725,
+  "decomposable": 0.8099,
+  "ambiguous": 0.0939,
+  "values_ok": 0.4787,
+  "simulates": 0.8099,
+  "functional": 0.799,
+  "pm45": 0.5899,
+  "novel": 0.7691,
+  "slot_consistent": 0.614,
+  "n": 10000,
+  "unique_functional_topologies": 4038,
+  "median_gain_db": 140.53891470043254,
+  "median_ugf_ghz": 4.212011693115531,
+  "model": "CktGNN",
+  "run": "CktGNN_seed3",
+  "epoch": 300
+}

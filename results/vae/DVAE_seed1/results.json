@@ -1,0 +1,13 @@
+{
+  "n_params": 2237003,
+  "epochs": 300,
+  "device": "cpu",
+  "eval_device": "cpu",
+  "test_recon_nll": 13.710019775390625,
+  "recon_acc": 0.14883,
+  "recon_seconds": 2178.3786668777466,
+  "valid_dag": 0.9124,
+  "valid_ckt": 0.4398,
+  "novel": 0.943555458132398,
+  "eval_seconds": 2412.4328570365906
+}

@@ -1,0 +1,32 @@
+{
+  "test": {
+    "valid_dag": 1.0,
+    "decomposable": 1.0,
+    "ambiguous": 0.21,
+    "values_ok": 1.0,
+    "simulates": 1.0,
+    "functional": 0.931,
+    "pm45": 0.576,
+    "novel": 0.807,
+    "slot_consistent": 1.0,
+    "n": 1000,
+    "unique_functional_topologies": 494,
+    "median_gain_db": 126.78060162535508,
+    "median_ugf_ghz": 4.502861037872549
+  },
+  "train": {
+    "valid_dag": 1.0,
+    "decomposable": 1.0,
+    "ambiguous": 0.20866666666666667,
+    "values_ok": 1.0,
+    "simulates": 1.0,
+    "functional": 0.9214444444444444,
+    "pm45": 0.5861111111111111,
+    "novel": 0.9214444444444444,
+    "slot_consistent": 1.0,
+    "n": 9000,
+    "unique_functional_topologies": 4115,
+    "median_gain_db": 133.14635987330269,
+    "median_ugf_ghz": 4.824879418512289
+  }
+}
