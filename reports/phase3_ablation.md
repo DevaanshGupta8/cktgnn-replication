@@ -5,6 +5,8 @@
 2. **Slot prior:** a one-hot "position slot" for every node (stage 1/2/3, extra slots). The paper never mentions it [Phase 1, finding 2].
 3. **Device-value pathway:** values stored as one slot-indexed 27-vector, encoded by a separate MLP and decoded all at once from z. The paper describes an inner GNN instead, which the code never uses [Phase 1, finding 1].
 
+> **Correction (2026-10-14, after Phase 4):** an earlier version of this report used a phase-margin-only metric ("functional & PM ≥ 45°") as a stability proxy and concluded that CktGNN's generated circuits had better phase margins. Phase 4 added an exact pole-based stability check. That check shows PM is not a valid stability test here, because most OCB circuits are unstable even in open loop. With the pole check, **CktGNN generates the fewest stable circuits** (3.0% vs 6.0% for A1). The affected rows, findings and figure are corrected below.
+
 **Method:** two new variants isolate one change at a time. Every model was trained with 3 seeds, 300 epochs, the same optimiser and the same losses. All were evaluated with the authors' metrics, the authors' SGP regression protocol, and a new **circuit-level evaluation** that simulates every generated circuit with the open simulator.
 
 | Variant | Graph | Slots | Device values | Parameters |
@@ -23,9 +25,9 @@ A1 and A2 use the authors' D-VAE equations unchanged (`scripts/ablation_models.p
 
 1. **CktGNN's latent-space advantage comes entirely from the representation.** Moving D-VAE onto CktGNN's subgraph graph (A1) improves BW/FoM prediction from RMSE 0.750 to **0.584** (p = 0.014). That is *better* than CktGNN itself (0.631). It also costs exactly the gain accuracy that CktGNN loses (0.504 → 0.635, p = 0.003). Adding slots (A2) or CktGNN's value pathway changes none of the regression metrics significantly. The "two-level GNN" adds nothing to the paper's headline metric.
 2. **The slot prior improves generation, not representation.** A1 → A2 raises the share of generated circuits that are readable op-amps from 66% to 79% (p = 0.03), functional circuits from 61% to 78% (p = 0.02), and functional *novel* circuits from 56% to 70% (p = 0.03). Regression metrics are unchanged.
-3. **CktGNN's high reconstruction accuracy comes from its last design step, at a price.** A2 → CktGNN more than doubles reconstruction (0.173 → 0.379, p = 0.002) and raises functional circuits with PM ≥ 45° from 43% to 61% (p = 0.01). But the share of generated circuits whose device values are all physical **halves**, from 93% to 46% (p < 0.001). The slot-indexed value vector is decoded once from z, with a loss weight of 0.01/300, so values are often zero, negative or out of range.
+3. **CktGNN's high reconstruction accuracy comes from its last design step, at a price.** A2 → CktGNN more than doubles reconstruction (0.173 → 0.379, p = 0.002). But it *lowers* the share of stable generated circuits (4.4% → 3.0%, p = 0.03) and of circuits meeting a standard op-amp spec (1.2% → 0.6%, p = 0.05), and the share of generated circuits whose device values are all physical **halves**, from 93% to 46% (p < 0.001). The slot-indexed value vector is decoded once from z, with a loss weight of 0.01/300, so values are often zero, negative or out of range.
 4. **The authors' "valid circuit" metric hides most of these differences.** It reports 96–99% for every subgraph model. Simulation shows that only 61–79% are functional circuits, against 93% for real test circuits. D-VAE's 44% comes from a different structural check on a different graph, and its graphs cannot be turned into netlists at all (§4).
-5. **A simpler model matches CktGNN on what the paper measures.** A1 has no slots, no inner GNN and no value vector. It equals or beats CktGNN on BW/FoM/PM latent regression and on device-value validity, but loses on reconstruction and on circuit quality.
+5. **A simpler model matches CktGNN on what the paper measures.** A1 has no slots, no inner GNN and no value vector. It equals or beats CktGNN on BW/FoM/PM latent regression and on device-value validity, and generates the *most* stable circuits of the three subgraph models (6.0% vs 3.0%), but loses on reconstruction and on the share of readable/functional circuits.
 
 ---
 
@@ -48,7 +50,8 @@ A1 and A2 use the authors' D-VAE equations unchanged (`scripts/ablation_models.p
 | Own slots consistent with structure [100%] | n/a | – | 56.4 ± 7.0% | 65.3 ± 4.1% |
 | All device values in range [100%] | n/a | **93.8 ± 3.5%** | **93.1 ± 1.3%** | 46.2 ± 3.3% |
 | Functional, has a UGF [93.1%] | n/a | 61.2 ± 5.5% | 77.6 ± 2.5% | 79.5 ± 2.5% |
-| Functional and PM ≥ 45° [57.6%] | n/a | 37.0 ± 13.2% | 42.6 ± 4.5% | **60.8 ± 1.9%** |
+| Stable: open- and closed-loop, pole check [11.6%] | n/a | **6.0 ± 0.8%** | 4.4 ± 0.5% | 3.0 ± 0.2% |
+| Meets spec: stable, PM ≥ 60°, gain ≥ 60 dB [2.8%] | n/a | **1.6 ± 0.3%** | 1.2 ± 0.2% | 0.6 ± 0.3% |
 | Functional and novel topology | n/a | 56.2 ± 4.9% | 69.7 ± 1.8% | **76.4 ± 2.7%** |
 
 \* D-VAE's validity uses a different structural rule on the device graph (Phase 1 §6.3).
@@ -57,8 +60,8 @@ A1 and A2 use the authors' D-VAE equations unchanged (`scripts/ablation_models.p
 | Step | Prediction from latents | Reconstruction | Generated circuits |
 |---|---|---|---|
 | **Representation** (D-VAE → A1) | BW/FoM RMSE −0.17 ✓; gain RMSE +0.13 ✓; PM r −0.07 ✓ | −0.04 ✓ | (D-VAE not simulatable) |
-| **Slot prior** (A1 → A2) | no significant change | +0.06 (p = 0.06) | readable +14 pt ✓; functional +16 pt ✓; functional & novel +13 pt ✓ |
-| **Value pathway + slots in edges/messages** (A2 → CktGNN) | no significant change | +0.21 ✓ | values in range −47 pt ✓; PM ≥ 45° +18 pt ✓; functional & novel +7 pt ✓; functional +2 pt (n.s.) |
+| **Slot prior** (A1 → A2) | no significant change | +0.06 (p = 0.06) | readable +14 pt ✓; functional +16 pt ✓; functional & novel +13 pt ✓; stable −1.7 pt ✓ |
+| **Value pathway + slots in edges/messages** (A2 → CktGNN) | no significant change | +0.21 ✓ | values in range −47 pt ✓; stable −1.4 pt ✓; meets spec −0.6 pt ✓; functional & novel +7 pt ✓; functional +2 pt (n.s.) |
 
 Full table: `results/summary/ablation_table.md`; all tests: `results/summary/ablation_tests.csv`.
 
@@ -70,7 +73,7 @@ Full table: `results/summary/ablation_table.md`; all tests: `results/summary/abl
 *Figure 1. SGP regression from VAE latents. The large change happens between D-VAE and A1 (the representation). A2 and CktGNN do not improve on A1.*
 
 ![Circuit-level evaluation](figures/ablation_circuits.png)
-*Figure 2. Generated circuits simulated with the open simulator; black lines mark the real test circuits. Slots raise readability and functionality; CktGNN's value pathway trades physical device values for better phase margins.*
+*Figure 2. Generated circuits simulated with the open simulator; black lines mark the real test circuits. Slots raise readability and functionality, but every step towards CktGNN lowers the share of stable circuits, and all models stay well below the real data.*
 
 ![Decoder metrics](figures/ablation_decoder.png)
 *Figure 3. The authors' decoder metrics. Their "valid circuit" check reports 96–99% for every subgraph model, hiding the differences visible in Figure 2.*
@@ -83,7 +86,7 @@ Full table: `results/summary/ablation_table.md`; all tests: `results/summary/abl
 - **Ambiguity is real but mostly harmless.** 21% of real circuits allow more than one reading. Only 8% of those (1.7% of all circuits) are electrically different, with a median change in UGF of 32% (`results/summary/ambiguity_real.json`). Slot-free generated graphs are scored with their first reading.
 - **D-VAE cannot be scored.** Its device graphs do not record which devices belong to which subgraph or which edges are main-path edges, so no unique netlist exists. Its "valid circuit" number is therefore only a structural check.
 - **Device values are clipped** to the dataset range [1, 101] before simulation. "Values in range" reports how often this was unnecessary. Functional rates would be lower without clipping.
-- **"Functional" means the simulated response crosses 0 dB**, which is what Ocean needs to report a UGF. The PM is the lag-based margin from Phase 1; it is indicative, not a closed-loop stability proof.
+- **"Functional" means the simulated response crosses 0 dB**, which is what Ocean needs to report a UGF. **"Stable"** uses the exact pole check added in Phase 4: the amplifier is open-loop stable and stable as a unity-gain buffer. Phase margin alone is not used as a stability test.
 
 ## 5. Limitations
 
@@ -95,7 +98,7 @@ Full table: `results/summary/ablation_table.md`; all tests: `results/summary/abl
 ## 6. What this means for the project
 
 - For a **reproducibility report**, this is the core evidence. CktGNN's paper attributes its gains to two-level message passing, which the code does not contain. The measured gains come from (i) a coarser graph representation (latent smoothness on BW/FoM) and (ii) an undocumented slot prior plus a slot-indexed decoder (reconstruction and circuit quality). The decoder pays for this with unphysical device values half the time.
-- For **improvements**, the clearest open problem is the decoder's device values. A model with A2's value handling and CktGNN's circuit quality is the obvious target, along with circuit-level metrics in place of the structural "valid circuit" check. This feeds directly into the planned stability-aware optimisation (C1), which needs physically valid circuits.
+- For **improvements**, the clearest open problem is the decoder's device values. A model with A2's value handling and better stability (all models generate stable circuits at well under half the rate of the real data) is the obvious target, along with circuit-level metrics in place of the structural "valid circuit" check. This feeds directly into the planned stability-aware optimisation (C1), which needs physically valid circuits.
 
 ## 7. Reproduce
 

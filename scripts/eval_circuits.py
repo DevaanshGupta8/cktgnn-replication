@@ -9,7 +9,9 @@ scripts/ocb_sim.py:
   slot_consistent  (slot models) the model's own slots form one of the valid readings
   values_ok      every device value present in the subgraph lies within the dataset range (1..101)
   functional     simulates and has a unity-gain crossing (Ocean would report a UGF)
-  pm45           functional and lag-based phase margin >= 45 deg
+  pm45           functional and lag-based phase margin >= 45 deg (NOT a stability test; kept for reference)
+  stable         functional, open-loop stable and closed-loop stable as a unity-gain buffer (pole check)
+  meets_spec     stable, phase margin >= 60 deg and DC gain >= 60 dB (the Phase 4 specification)
   novel          functional and topology (type + edges, as in is_same_DAG) not in the training set
 Sampling follows the authors' prior-validity protocol: 1000 latent points from N(mu_train, sigma_train),
 each decoded 10 times. `--reference` scores the real test/train circuits with the same pipeline.
@@ -36,7 +38,7 @@ sys.modules.setdefault('torchvision', _tv)
 from utils import is_valid_DAG, SUBG_INDI  # noqa: E402
 from ablation_models import SubgDVAE, decompositions  # noqa: E402
 from fast_models import FastCktGNN  # noqa: E402
-from ocb_sim import transfer_function, measure  # noqa: E402
+from ocb_sim import analyze  # noqa: E402
 
 
 def dag_key(g):
@@ -78,7 +80,7 @@ def simulate(g, main):
     for a in ('r', 'c', 'gm'):
         h.vs[a] = [float(np.clip(round(float(x)), 1, 101)) for x in h.vs[a]]
     try:
-        return measure(transfer_function(h))
+        return analyze(h)
     except (np.linalg.LinAlgError, AssertionError, KeyError, ValueError):
         return None
 
@@ -112,13 +114,14 @@ def score(G, train_keys, slot_model=False, true_slots=False):
         r['simulates'] = m is not None
         r['functional'] = bool(m is not None and np.isfinite(m['gain_db']) and np.isfinite(m['ugf_hz']))
         if r['functional']:
-            pm = 180 - (m['phase_dc'] - m['phase_ugf_unwrapped'])
-            r.update(gain_db=float(m['gain_db']), ugf_ghz=float(m['ugf_hz']) / 1e9, pm_lag=float(pm))
-        r['pm45'] = r['functional'] and r.get('pm_lag', -1) >= 45
+            r.update(gain_db=float(m['gain_db']), ugf_ghz=float(m['ugf_hz']) / 1e9, pm_lag=float(m['pm_lag']))
+        r['pm45'] = r['functional'] and r.get('pm_lag', -1) >= 45          # kept for comparison; not a stability test
+        r['stable'] = bool(r['functional'] and m['ol_stable'] and m['cl_stable'])
+        r['meets_spec'] = bool(r['stable'] and r['pm_lag'] >= 60 and r['gain_db'] >= 60)
         r['novel'] = r['functional'] and dag_key(g) not in train_keys
         rows.append(r)
     out = {k: float(np.mean([r[k] for r in rows])) for k in
-           ('valid_dag', 'decomposable', 'ambiguous', 'values_ok', 'simulates', 'functional', 'pm45', 'novel')}
+           ('valid_dag', 'decomposable', 'ambiguous', 'values_ok', 'simulates', 'functional', 'pm45', 'stable', 'meets_spec', 'novel')}
     if 'slot_consistent' in rows[0]:
         out['slot_consistent'] = float(np.mean([r['slot_consistent'] for r in rows]))
     func = [r for r in rows if r['functional']]

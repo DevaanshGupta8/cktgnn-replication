@@ -91,8 +91,8 @@ def circuit_elements(g, gm_sign=-1.0, pos7_to_ground=False):
     return elements, nodes
 
 
-def transfer_function(g, freqs=FREQS, **kw):
-    """H(jw) = V(out)/V(vin) on the frequency grid (complex array)."""
+def mna(g, **kw):
+    """MNA matrices of the AC circuit: (G + sC) V = (bG + s bC) * V(vin); also returns the output index."""
     elements, nodes = circuit_elements(g, **kw)
     idx = {n: i for i, n in enumerate(nodes)}
     n = len(nodes)
@@ -114,11 +114,55 @@ def transfer_function(g, freqs=FREQS, **kw):
                     G[idx[out], idx[inp]] -= gm
                 elif inp == 'vin':
                     bG[idx[out]] += gm
+    return G, C, bG, bC, idx['out']
+
+
+def transfer_function(g, freqs=FREQS, **kw):
+    """H(jw) = V(out)/V(vin) on the frequency grid (complex array)."""
+    G, C, bG, bC, o = mna(g, **kw)
     w = 2 * np.pi * freqs
     Y = G[None] + 1j * w[:, None, None] * C[None]
     rhs = (bG[None] + 1j * w[:, None] * bC[None])[..., None]
     V = np.linalg.solve(Y, rhs)[..., 0]
-    return V[:, idx['out']]
+    return V[:, o]
+
+
+def _finite_poles(A, B):
+    from scipy.linalg import eigvals
+    with np.errstate(all='ignore'):
+        p = eigvals(A, B)
+    return p[np.isfinite(p)]
+
+
+def stability(g, rel_tol=1e-9, **kw):
+    """Pole-based stability (exact for these linear circuits).
+    Open loop: poles of det(G + sC) = 0.
+    Closed loop: the amplifier as a unity-gain buffer with negative feedback, V(vin) = -k V(out) with
+    k = sign(A(0)) so that the DC loop gain k*A(0) is positive. The loop is stable iff every finite pole
+    has a negative real part."""
+    G, C, bG, bC, o = mna(g, **kw)
+    a0 = np.linalg.solve(G, bG)[o]                 # DC gain A(0) (real)
+    k = 1.0 if a0 >= 0 else -1.0
+    e = np.zeros(len(bG)); e[o] = 1.0
+    p_ol = _finite_poles(G, -C)
+    p_cl = _finite_poles(G + k * np.outer(bG, e), -(C + k * np.outer(bC, e)))
+    def worst(p):
+        return float(np.max(p.real / np.maximum(1.0, np.abs(p)))) if len(p) else -1.0
+    return {'dc_gain': float(a0), 'ol_stable': worst(p_ol) < rel_tol, 'cl_stable': worst(p_cl) < rel_tol,
+            'ol_worst_rel_re': worst(p_ol), 'cl_worst_rel_re': worst(p_cl)}
+
+
+def analyze(g, **kw):
+    """Everything the optimisation study needs for one circuit: gain (dB), UGF (Hz), lag-based phase
+    margin (deg; 180 minus phase lag accumulated from DC to the first 0 dB crossing, i.e. the unity-feedback
+    PM when the DC loop gain is positive), number of 0 dB crossings, and pole-based stability."""
+    H = transfer_function(g, **kw)
+    m = measure(H)
+    mag_db = 20 * np.log10(np.abs(H))
+    m['n_crossings'] = int(np.sum(np.sign(mag_db[:-1]) != np.sign(mag_db[1:])))
+    m['pm_lag'] = 180 - (m['phase_dc'] - m['phase_ugf_unwrapped']) if np.isfinite(m['ugf_hz']) else np.nan
+    m.update(stability(g, **kw))
+    return m
 
 
 def measure(H, freqs=FREQS):

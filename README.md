@@ -8,6 +8,7 @@ A research project to reproduce, critically evaluate and extend
 - **Phase 1 report** (paper analysis, code verification, dataset audit, reproduction checklist, critique, ranked improvements): [`reports/phase1_report.md`](reports/phase1_report.md)
 - **Phase 2 report** (baseline reproduction: CktGNN and D-VAE, 3 seeds each, vs paper and authors' released-data results): [`reports/phase2_reproduction.md`](reports/phase2_reproduction.md)
 - **Phase 3 report** (ablation study: which of CktGNN's design choices explains its results, with simulator-based evaluation of generated circuits): [`reports/phase3_ablation.md`](reports/phase3_ablation.md)
+- **Phase 4 report** (stability-aware optimisation: exact stability check, the paper's FoM objective vs constrained Bayesian optimisation): [`reports/phase4_optimization.md`](reports/phase4_optimization.md)
 
 ## Layout
 | Path | Purpose |
@@ -28,6 +29,7 @@ A research project to reproduce, critically evaluate and extend
 | `scripts/eval_circuits.py` | Circuit-level evaluation: decode, read as op-amp, simulate, score functionality/phase margin/novelty |
 | `scripts/aggregate_results.py`, `scripts/plot_results.py`, `scripts/plot_ablation.py` | Summary tables, figures and significance tests |
 | `scripts/export_results.sh` | Copies the small result files from the data folder into `results/` |
+| `scripts/latent_bo.py`, `scripts/run_bo_jobs.sh`, `scripts/plot_bo.py` | Phase 4: latent-space optimisation (random search, FoM-BO, constrained BO) and its analysis |
 
 ## Results in this repository
 `results/` holds the small result files (audit, simulator validation, per-run configs, training logs, evaluation and regression results, summary tables), copied from the data folder by `scripts/export_results.sh`. Checkpoints and datasets are not included.

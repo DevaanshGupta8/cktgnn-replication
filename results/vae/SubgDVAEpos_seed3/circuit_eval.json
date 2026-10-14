@@ -6,6 +6,8 @@
   "simulates": 0.7644,
   "functional": 0.7498,
   "pm45": 0.3863,
+  "stable": 0.0479,
+  "meets_spec": 0.0132,
   "novel": 0.6863,
   "slot_consistent": 0.5412,
   "n": 10000,

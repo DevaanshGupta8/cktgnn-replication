@@ -33,10 +33,10 @@ LABEL = {'DVAE': 'D-VAE (device DAG)', 'SubgDVAE': 'A1: D-VAE on subgraph DAG', 
          'CktGNN': 'CktGNN (slots + value vector)'}
 # reference palette categorical slots, fixed per entity (CktGNN/D-VAE keep the colours of the Phase 2 figures)
 COLOR = {'CktGNN': '#2a78d6', 'DVAE': '#eb6834', 'SubgDVAE': '#1baf7a', 'SubgDVAEpos': '#eda100'}
-CIRC_RAW = ['valid_dag', 'decomposable', 'slot_consistent', 'values_ok', 'functional', 'pm45', 'novel']
+CIRC_RAW = ['valid_dag', 'decomposable', 'slot_consistent', 'values_ok', 'functional', 'stable', 'meets_spec', 'novel']
 CIRC = ['c_' + k for k in CIRC_RAW]   # prefixed: 'valid_dag'/'novel' also exist as the authors' decoder metrics
 CIRC_NAMES = ['Valid DAG', 'Readable as\nop-amp', 'Own slots\nconsistent', 'Device values\nin range',
-              'Functional\n(has UGF)', 'Functional\n& PM ≥ 45°', 'Functional\n& novel']
+              'Functional\n(has UGF)', 'Stable\n(pole check)', 'Meets spec\n(stable, PM≥60°,\ngain≥60 dB)', 'Functional\n& novel']
 PAIRS = [('DVAE', 'SubgDVAE', 'representation'), ('SubgDVAE', 'SubgDVAEpos', 'slot prior'),
          ('SubgDVAEpos', 'CktGNN', 'value pathway'), ('DVAE', 'CktGNN', 'total')]
 

@@ -6,6 +6,8 @@
   "simulates": 0.6399,
   "functional": 0.6005,
   "pm45": 0.3046,
+  "stable": 0.055,
+  "meets_spec": 0.0126,
   "novel": 0.5439,
   "n": 10000,
   "unique_functional_topologies": 2498,
