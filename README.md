@@ -5,7 +5,8 @@ A research project to reproduce, critically evaluate and extend
 
 - Paper: ICLR 2023 · [OpenReview](https://openreview.net/pdf?id=NE2911Kq1sp) · [arXiv 2308.16406](https://arxiv.org/abs/2308.16406) (v2 adds Appendix G on the updated OCB)
 - Official code + dataset (unmodified): [github.com/zehao-dong/CktGNN](https://github.com/zehao-dong/CktGNN) → [`external/CktGNN`](external/CktGNN), commit `416cd03`
-- **Start here: [`HANDOVER.md`](HANDOVER.md)** (state, setup, code map, gotchas, open work)
+- **Project summary: [`reports/project_summary.md`](reports/project_summary.md)**: the paper's claims vs what this project verified, its limitations, and the status of each proposed improvement
+- **Continuing the work: [`HANDOVER.md`](HANDOVER.md)** (state, setup, code map, gotchas, open work)
 - **Phase 1 report** (paper analysis, code verification, dataset audit, reproduction checklist, critique, ranked improvements): [`reports/phase1_report.md`](reports/phase1_report.md)
 - **Phase 2 report** (baseline reproduction: CktGNN and D-VAE, 3 seeds each, vs paper and authors' released-data results): [`reports/phase2_reproduction.md`](reports/phase2_reproduction.md)
 - **Phase 3 report** (ablation study: which of CktGNN's design choices explains its results, with simulator-based evaluation of generated circuits): [`reports/phase3_ablation.md`](reports/phase3_ablation.md)
@@ -14,6 +15,14 @@ A research project to reproduce, critically evaluate and extend
 - **Phase 6 report** (a property-aware latent space: VAE trained jointly with a stability/performance predictor): [`reports/phase6_report.md`](reports/phase6_report.md), protocol [`reports/phase6_protocol.md`](reports/phase6_protocol.md)
 - **Phase 7 report** (confirmatory test of graded-stability SCBO on fresh seeds, and a replication check of the optimisation results): [`reports/phase7_report.md`](reports/phase7_report.md), protocol [`reports/phase7_protocol.md`](reports/phase7_protocol.md)
 - **Phase 8 report** (area-under-the-curve endpoint, reliability of optimisation endpoints across seed sets, and a summary of what the optimisation study can claim): [`reports/phase8_report.md`](reports/phase8_report.md), protocol [`reports/phase8_protocol.md`](reports/phase8_protocol.md)
+
+## Key findings
+
+- **The released code is not the model the paper describes.** It has no inner GNN. CktGNN's advantages come from the block-graph representation, an undocumented slot prior, and a device-value pathway that leaves half of the generated circuits with physically invalid device values (Phases 1, 3, 5).
+- **The authors' released-data numbers reproduce, but "state of the art" does not hold.** CktGNN wins on bandwidth/FoM and loses on gain, and the paper's error bars are 5–20× too small (Phase 2).
+- **The benchmark's objective ignores stability.** The FoM is ~99% bandwidth and 63% of circuits are open-loop unstable, so optimising it produces unstable circuits. Constrained optimisation (stability, PM ≥ 60°, gain ≥ 60 dB) yields spec-meeting circuits about 7–40× more often than random search (Phases 4–8).
+- **Best-design comparisons from 10–20 optimisation runs do not replicate**; feasibility rates do (Phases 7–8).
+- **Not done:** other circuit classes (ADCs, filters, RF), power/area objectives, and transistor-level / process-variation-aware evaluation. See [`reports/project_summary.md`](reports/project_summary.md) §6.
 
 ## Using this repository without training anything
 

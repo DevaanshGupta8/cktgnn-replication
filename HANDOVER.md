@@ -2,7 +2,7 @@
 
 *Last updated: 2026-10-15. State: Phases 1–8 complete and pushed; nothing running.*
 
-This file lets someone continue the project without the original working session. Read it first, then the eight phase reports; Phase 8 §3 summarises what the optimisation study can claim. Phases 5–8 were pre-registered: each protocol file was committed before its results existed.
+This file lets someone continue the project without the original working session. Read it first, then [`reports/project_summary.md`](reports/project_summary.md) (claims vs findings, improvement status), then the eight phase reports; Phase 8 §3 summarises what the optimisation study can claim. Phases 5–8 were pre-registered: each protocol file was committed before its results existed.
 
 ---
 
@@ -155,9 +155,13 @@ Sanity checks after setup:
 4. **Missing paper baselines:** DAGNN (needs a PyG 2.x port of `layers/dagnn_pyg.py`), PACE/GCN/GIN/NGNN/Graphormer (not in the authors' repo).
 5. **The paper's BO on Ckt-Bench-301:** needs `pybnn`; the authors' EI code is wrong (incumbent fixed at 1.0, stray `+1`).
 6. **Paper hyperparameters** (200 epochs, patience 20), and longer training to check convergence.
-7. **Transistor-level validation** of the best feasible designs (ngspice + an open PDK such as SKY130).
+7. **Transistor-level validation** of the best feasible designs (ngspice + an open PDK such as SKY130). This is also the first step towards the proposed *real-chip-conditions* improvement (PVT corners, Monte Carlo mismatch, parasitics).
+8. **Power/area objectives** (proposed *multi-objective* improvement). The behavioural OCB circuits have no power or area, so this needs either a proxy (e.g. total gm as a bias-current proxy, total C as an area proxy) or the transistor-level flow of item 7. Constrained BO (Phases 4–8) is the natural starting point; Pareto-front methods (e.g. qNEHVI) or RL are alternatives.
+9. **Other circuit classes** (proposed *dataset expansion*: filters, ADC sub-blocks, RF). This needs a generator and simulator per class; filters with biquad sections as blocks are the closest fit to the subgraph-basis idea.
 
-Scope decision still open with the project owner: a reproducibility report only, or a reproducibility report plus a research paper built on Phase 4.
+The status of every proposed improvement is in [`reports/project_summary.md`](reports/project_summary.md) §6.
+
+Scope decision still open with the project owner: a reproducibility report only, or a reproducibility report plus a research paper built on Phases 4–8.
 
 ---
 
