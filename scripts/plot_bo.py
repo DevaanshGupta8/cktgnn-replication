@@ -32,6 +32,10 @@ PRIMARY = [('scbo', 'cbo'), ('scbo', 'rs')]                      # Phase 5 prima
 PHASE5_SPACES = ('CktGNN', 'SubgDVAEpos')                        # these two latent spaces (Holm across 4)
 SECONDARY = [('cbo', 'fom_bo'), ('cbo', 'rs'), ('fom_bo', 'rs'), ('scbo', 'fom_bo')]
 EXPLORATORY = [('scbo_g', 'scbo'), ('scbo_g', 'cbo'), ('scbo_g', 'rs')]    # added after the Phase 5 results
+# Phase 7 (reports/phase7_protocol.md): confirmatory test of scbo_g on fresh seeds 21-40, Holm across 3 spaces
+TESTS = {'bo7': dict(primary=[('scbo_g', 'scbo')], primary_spaces=('CktGNN', 'SubgDVAEpos', 'SubgDVAEprop'),
+                     secondary=[('scbo_g', 'cbo'), ('scbo_g', 'rs'), ('scbo', 'cbo'), ('cbo', 'rs'), ('scbo', 'rs')],
+                     exploratory=[])}
 BIMODAL = 0.20                                                   # a run "exploits a basin" above this feasible share
 SPACE = {'CktGNN': 'CktGNN latent space', 'SubgDVAEpos': 'A2 latent space (per-node device values)',
          'SubgDVAEprop': 'P latent space (A2 + property predictor)'}
@@ -58,6 +62,8 @@ def main():
     df['best'] = df.best_feasible_ugf.replace(-np.inf, 0.0)
     spaces = [s for s in SPACE if s in set(df.model)]
     methods = [m for m in METHODS if m in set(df.method)]
+    cfg = TESTS.get(args.dir, dict(primary=PRIMARY, primary_spaces=PHASE5_SPACES, secondary=SECONDARY,
+                                   exploratory=EXPLORATORY))
 
     fig, axes = plt.subplots(1, len(spaces), figsize=(6 * len(spaces), 4.2), squeeze=False)
     for ax, sp in zip(axes[0], spaces):
@@ -103,20 +109,20 @@ def main():
     tests = []
     for sp in spaces:
         fin = df[df.model == sp].sort_values('eval').groupby(['method', 'seed']).tail(1).pivot(index='seed', columns='method', values='best')
-        for a, b in PRIMARY + SECONDARY + EXPLORATORY:
+        for a, b in cfg['primary'] + cfg['secondary'] + cfg['exploratory']:
             if a in fin and b in fin:
                 both = fin[[a, b]].dropna()                       # paired: same seeds, same initial design
                 x, y = both[a].values, both[b].values
                 p = stats.wilcoxon(x, y).pvalue if np.any(x != y) else 1.0
                 tests.append({'space': sp, 'a': a, 'b': b, 'metric': 'best_feasible_ugf', 'n': len(x),
-                              'primary': (a, b) in PRIMARY and sp in PHASE5_SPACES, 'exploratory': (a, b) in EXPLORATORY, 'median_a': np.median(x), 'median_b': np.median(y),
+                              'primary': (a, b) in cfg['primary'] and sp in cfg['primary_spaces'], 'exploratory': (a, b) in cfg['exploratory'], 'median_a': np.median(x), 'median_b': np.median(y),
                               'a_better_in_runs': int((x > y).sum()), 'ties': int((x == y).sum()), 'wilcoxon_p': p})
         ff = df[df.model == sp].groupby(['method', 'seed']).feasible.mean().unstack(0)
         for a, b in (('cbo', 'fom_bo'), ('scbo', 'cbo'), ('scbo', 'rs'), ('scbo_g', 'scbo')):
             if a in ff and b in ff:
                 both = ff[[a, b]].dropna()
                 tests.append({'space': sp, 'a': a, 'b': b, 'metric': 'frac_evals_feasible', 'n': len(both), 'primary': False,
-                              'exploratory': a == 'scbo_g',
+                              'exploratory': a == 'scbo_g' and args.dir != 'bo7',
                               'median_a': both[a].median(), 'median_b': both[b].median(),
                               'a_better_in_runs': int((both[a] > both[b]).sum()), 'ties': int((both[a] == both[b]).sum()),
                               'wilcoxon_p': stats.wilcoxon(both[a], both[b]).pvalue if np.any(both[a] != both[b]) else 1.0})
