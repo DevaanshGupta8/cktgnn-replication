@@ -31,6 +31,7 @@ A reproduction and critical evaluation of **CktGNN** (Dong et al., *Circuit Grap
 | Authors' code (not in this repo) | `external/CktGNN`, unmodified, commit `416cd035f79dd8cfcb60ac0a4792b43255adf0b7` |
 | Datasets, checkpoints, full results | data folder, default `D:\CktGNN_data` (override with the `CKTGNN_DATA` environment variable; see `scripts/paths.py`) |
 | Small results under version control | `results/`, refreshed by `bash scripts/export_results.sh` |
+| Trained checkpoints (all 18 runs) | GitHub release [`models-v1`](https://github.com/DevaanshGupta8/cktgnn-replication/releases/tag/models-v1): one zip per model, unpacks to `results/vae/<run>/` in the data folder |
 
 Data-folder layout:
 ```

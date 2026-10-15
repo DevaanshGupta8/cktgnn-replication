@@ -15,6 +15,36 @@ A research project to reproduce, critically evaluate and extend
 - **Phase 7 report** (confirmatory test of graded-stability SCBO on fresh seeds, and a replication check of the optimisation results): [`reports/phase7_report.md`](reports/phase7_report.md), protocol [`reports/phase7_protocol.md`](reports/phase7_protocol.md)
 - **Phase 8 report** (area-under-the-curve endpoint, reliability of optimisation endpoints across seed sets, and a summary of what the optimisation study can claim): [`reports/phase8_report.md`](reports/phase8_report.md), protocol [`reports/phase8_protocol.md`](reports/phase8_protocol.md)
 
+## Using this repository without training anything
+
+**Re-run every analysis (tables, figures, significance tests) from the committed results.** No GPU, data folder or training is needed: point the data path at the repository itself.
+
+In bash:
+```bash
+export CKTGNN_DATA="$PWD"
+```
+```bash
+.venv/Scripts/python.exe scripts/plot_ablation.py
+```
+```bash
+.venv/Scripts/python.exe scripts/plot_bo.py --dir bo5
+```
+```bash
+.venv/Scripts/python.exe scripts/bo_auc.py
+```
+These scripts reproduce the committed tables and figures byte for byte.
+
+**Use the trained models without retraining.** The [`models-v1` release](https://github.com/DevaanshGupta8/cktgnn-replication/releases/tag/models-v1) holds the 18 trained runs:
+- 6 models × 3 seeds: CktGNN, D-VAE, A1 `SubgDVAE`, A2 `SubgDVAEpos`, A3 `SubgDVAEslot`, P `SubgDVAEprop`;
+- each run has its full `last.pt` (weights plus optimiser state, 300 epochs), `latents.npz` and `config.json`;
+- one zip per model, ~75–80 MB each; `SHA256SUMS.txt` lists the checksums.
+
+Each zip unpacks to `results/vae/<run>/`. Extract it into your data folder (`D:\CktGNN_data` by default, or `$CKTGNN_DATA`), then run `scripts/setup_data.py` for the datasets. From there, evaluation (`run_vae.py --eval-only`), the SGP regression, circuit evaluation and every optimisation script work without training. Re-running a stored optimisation run with these files reproduces its trace exactly.
+
+Training from scratch instead takes roughly 1.5–2 GPU-hours per model (3 seeds in parallel on an RTX 3050); D-VAE takes about 4 hours.
+
+The weights are derived from the authors' Ckt-Bench-101 dataset and code ([MIT licence](https://github.com/zehao-dong/CktGNN/blob/main/LICENSE), © 2023 zehao-dong).
+
 ## Layout
 | Path | Purpose |
 |---|---|
