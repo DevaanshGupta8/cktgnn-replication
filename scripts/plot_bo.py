@@ -64,6 +64,7 @@ def main():
     methods = [m for m in METHODS if m in set(df.method)]
     cfg = TESTS.get(args.dir, dict(primary=PRIMARY, primary_spaces=PHASE5_SPACES, secondary=SECONDARY,
                                    exploratory=EXPLORATORY))
+    mlabel = dict(MLABEL, scbo_g='SCBO, graded stability') if args.dir == 'bo7' else MLABEL   # confirmatory there
 
     fig, axes = plt.subplots(1, len(spaces), figsize=(6 * len(spaces), 4.2), squeeze=False)
     for ax, sp in zip(axes[0], spaces):
@@ -73,7 +74,7 @@ def main():
                 continue
             piv = d.pivot_table(index='eval', columns='seed', values='best').astype(float)
             med, lo, hi = piv.median(axis=1), piv.quantile(0.25, axis=1), piv.quantile(0.75, axis=1)
-            ax.plot(piv.index, med, color=MCOLOR[m], linewidth=2, label=f'{MLABEL[m]} (median of {piv.shape[1]})')
+            ax.plot(piv.index, med, color=MCOLOR[m], linewidth=2, label=f'{mlabel[m]} (median of {piv.shape[1]})')
             ax.fill_between(piv.index, lo, hi, color=MCOLOR[m], alpha=0.15, linewidth=0)
         ax.axhline(ORACLE_UGF, color=INK2, linestyle='--', linewidth=1)
         ax.annotate('best feasible circuit in the 9,000 training circuits', (5, ORACLE_UGF), xytext=(0, 4),
@@ -159,7 +160,7 @@ def main():
     for i, m in enumerate(methods):
         x0 = np.arange(len(spaces)) - 0.4 + w * (i + 0.5)
         vals = [t[(t.space == sp) & (t.method == m)].frac_evals_feasible.mean() for sp in spaces]
-        ax.bar(x0, vals, w * 0.9, color=MCOLOR[m], label=MLABEL[m], zorder=2)
+        ax.bar(x0, vals, w * 0.9, color=MCOLOR[m], label=mlabel[m], zorder=2)
         for j, sp in enumerate(spaces):                          # per-run shares: shows the bimodality
             pr = df[(df.model == sp) & (df.method == m)].groupby('seed').feasible.mean().values
             ax.scatter(np.full(len(pr), x0[j]), pr, s=10, color=INK, edgecolor=SURFACE, linewidth=0.6, zorder=4)

@@ -2,6 +2,8 @@
 
 **Date:** 2026-10-15. The protocol was fixed and committed before the model was trained (`reports/phase6_protocol.md`, commit `302d22d`).
 
+> **Replication note (Phase 7, 2026-10-15):** on 20 fresh seeds, cBO in P's latent space again reached a median of 17.6 GHz. But cBO in A2's space reached 19.0 GHz, so the P-vs-A2 optimisation direction reported below **does not replicate**. The model-level findings (reconstruction, SGP regression, predictor accuracy) do not depend on BO seeds and stand. See `reports/phase7_report.md`.
+
 **Question:** Phase 4 found that the latent space matters more than the optimiser. Does a VAE trained **jointly with a predictor of circuit properties** give a latent space in which stability-constrained optimisation works better? This is the authors' own idea (`--predictor` in `main.py`), which is broken in their code.
 
 **Model P** (`SubgDVAEprop`) is A2 (`SubgDVAEpos`) plus a small MLP on the latent mean (66 → 128 → 7), trained jointly from scratch with weight λ = 1. The predictor's targets come from the open simulator on the real training circuits:

@@ -2,6 +2,13 @@
 
 **Date:** 2026-10-14. The protocol was fixed and committed before any run (`reports/phase5_protocol.md`, commit `edc9997`; one computational amendment before any result, `4393eb5`).
 
+> **Replication note (Phase 7, 2026-10-15):** the optimisation results in Part B were re-run on 20 fresh seeds (`reports/phase7_report.md`).
+> - **Replicate:** feasibility-rate results (constrained methods propose far more feasible circuits).
+> - **Do not replicate:** the exploratory graded-SCBO advantage, and "cBO beats random search in CktGNN's space".
+> - **Reverses:** "random search is as good as any optimiser in A2's space".
+>
+> With 20 runs, best-design comparisons in this setup are not reliable. Part A (A3) is unaffected.
+
 Phase 5 closes two items left open by earlier phases:
 - **Part A:** what in CktGNN's last design step causes its reconstruction gain and its unphysical device values (ablation A3).
 - **Part B:** whether a trust-region constrained optimiser (SCBO) fixes constrained BO's bimodality and beats random search. Every comparison is re-run with 20 runs per cell instead of 9.

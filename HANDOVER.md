@@ -1,8 +1,8 @@
 # Handover: CktGNN replication and extension
 
-*Last updated: 2026-10-15. State: Phases 1–6 complete and pushed; nothing running.*
+*Last updated: 2026-10-15. State: Phases 1–7 complete and pushed; nothing running.*
 
-This file lets someone continue the project without the original working session. Read it first, then the six phase reports. Phases 5 and 6 were pre-registered: each protocol file was committed before its results existed.
+This file lets someone continue the project without the original working session. Read it first, then the seven phase reports. Phases 5–7 were pre-registered: each protocol file was committed before its results existed.
 
 ---
 
@@ -18,6 +18,7 @@ A reproduction and critical evaluation of **CktGNN** (Dong et al., *Circuit Grap
 | 4. Optimisation | [`reports/phase4_optimization.md`](reports/phase4_optimization.md) | 63% of OCB circuits are open-loop unstable; optimising the paper's FoM picks unstable circuits; constrained BO finds feasible circuits in 16/18 runs (FoM-BO 9/18), but its best-design gain over random search is not significant in a good latent space |
 | 5. A3 + SCBO | [`reports/phase5_report.md`](reports/phase5_report.md) | A3 shows CktGNN's value pathway alone explains its reconstruction gain and its unphysical device values. SCBO does not beat cBO or random search (pre-registered, negative) because the constraint score is flat for unstable circuits; an exploratory graded score repairs it. With 20 runs, cBO clearly beats random search and FoM-BO in CktGNN's space |
 | 6. Property-aware latent | [`reports/phase6_report.md`](reports/phase6_report.md) | A2 + a jointly trained property predictor: better reconstruction, far better SGP regression (FoM RMSE 0.475, the best of all models), predictor AUC 0.94 for "meets spec"; cBO's best design improves (median 17.6 vs 6.6 GHz) but not significantly (Holm p = 0.28) |
+| 7. Confirmatory + replication | [`reports/phase7_report.md`](reports/phase7_report.md) | Graded-stability SCBO does not beat plain SCBO on fresh seeds (Holm p = 1.0). Several best-design conclusions from Phases 5–6 flip between seed sets; feasibility-rate conclusions replicate. Best-design comparisons need ≥ 40 runs or a lower-variance endpoint |
 
 ---
 
@@ -36,7 +37,8 @@ Data-folder layout:
 <DATA>/results/vae/<MODEL>_seed<k>/        config, train_log.csv, last.pt, model_checkpoint*.pth, latents.npz,
                                            results.json, sgp_results.csv, circuit_eval.json
 <DATA>/results/bo/<MODEL>_<METHOD>_seed<k>.csv   Phase 4 optimisation traces (not bit-reproducible, see Phase 5 §B.7)
-<DATA>/results/bo5/<MODEL>_<METHOD>_seed<k>.csv  Phases 5-6 traces (20 seeds, deterministic)
+<DATA>/results/bo5/<MODEL>_<METHOD>_seed<k>.csv  Phases 5-6 traces (seeds 1-20, deterministic)
+<DATA>/results/bo7/<MODEL>_<METHOD>_seed<k>.csv  Phase 7 traces (seeds 21-40)
 <DATA>/results/simulator/analysis_all.csv  simulator labels of all 10,000 circuits (scripts/circuit_labels.py)
 <DATA>/results/summary/                    aggregated tables, tests, reference evaluations
 <DATA>/results/audit|simulator/            Phase 1 outputs
@@ -142,8 +144,10 @@ Sanity checks after setup:
 
 *Done in Phases 5–6: the A3 ablation, SCBO with 20 runs per cell, and the property-aware latent space.*
 
-1. **Pre-registered test of graded-constraint SCBO** (`scbo_g`, exploratory in Phase 5: repairs SCBO, p ≈ 0.04 uncorrected) and graded constraints for cBO too.
-2. **Use P's predictor inside the optimiser** (feasibility filter or GP prior mean), and a lower-variance endpoint (area under the best-so-far curve) or more runs; best-design medians vary by several GHz between 9 and 20 runs.
+*Phase 7 tested graded SCBO (not confirmed) and showed that 20-run best-design comparisons are unreliable here.*
+
+1. **A lower-variance optimisation endpoint**, e.g. area under the best-so-far curve or time to the k-th distinct feasible circuit, pre-registered and applied to the existing 40 seeds per cell; or ≥ 40 runs per cell for best-design claims.
+2. **Use P's predictor inside the optimiser** (feasibility filter or GP prior mean).
 3. **Why the value pathway helps reconstruction:** test feeding normalised (not raw 1–101) device values to A2/A3, or dropping them from the decoder input.
 4. **Missing paper baselines:** DAGNN (needs a PyG 2.x port of `layers/dagnn_pyg.py`), PACE/GCN/GIN/NGNN/Graphormer (not in the authors' repo).
 5. **The paper's BO on Ckt-Bench-301:** needs `pybnn`; the authors' EI code is wrong (incumbent fixed at 1.0, stray `+1`).

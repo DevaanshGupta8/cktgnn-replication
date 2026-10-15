@@ -12,6 +12,7 @@ A research project to reproduce, critically evaluate and extend
 - **Phase 4 report** (stability-aware optimisation: exact stability check, the paper's FoM objective vs constrained Bayesian optimisation): [`reports/phase4_optimization.md`](reports/phase4_optimization.md)
 - **Phase 5 report** (ablation A3 separating CktGNN's value pathway from its slot-aware decoder; trust-region constrained BO with 20 runs per cell): [`reports/phase5_report.md`](reports/phase5_report.md), protocol [`reports/phase5_protocol.md`](reports/phase5_protocol.md)
 - **Phase 6 report** (a property-aware latent space: VAE trained jointly with a stability/performance predictor): [`reports/phase6_report.md`](reports/phase6_report.md), protocol [`reports/phase6_protocol.md`](reports/phase6_protocol.md)
+- **Phase 7 report** (confirmatory test of graded-stability SCBO on fresh seeds, and a replication check of the optimisation results): [`reports/phase7_report.md`](reports/phase7_report.md), protocol [`reports/phase7_protocol.md`](reports/phase7_protocol.md)
 
 ## Layout
 | Path | Purpose |
