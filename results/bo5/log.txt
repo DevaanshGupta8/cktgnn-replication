@@ -1,0 +1,289 @@
+SubgDVAEpos scbo seed 1: best feasible UGF 17.865 GHz, 0.260 of evaluations feasible, 255s, 1 TR restarts, final length 0.100
+CktGNN scbo seed 1: best feasible UGF 1.995 GHz, 0.220 of evaluations feasible, 317s, 1 TR restarts, final length 0.050
+CktGNN scbo seed 2: best feasible UGF 1.052 GHz, 0.190 of evaluations feasible, 179s, 1 TR restarts, final length 0.050
+SubgDVAEpos scbo seed 2: best feasible UGF 2.555 GHz, 0.260 of evaluations feasible, 290s, 1 TR restarts, final length 0.200
+SubgDVAEpos scbo seed 3: best feasible UGF 23.163 GHz, 0.275 of evaluations feasible, 348s, 1 TR restarts, final length 0.025
+CktGNN scbo seed 3: best feasible UGF 6.046 GHz, 0.195 of evaluations feasible, 314s, 1 TR restarts, final length 0.050
+CktGNN scbo seed 4: best feasible UGF 3.112 GHz, 0.200 of evaluations feasible, 342s, 1 TR restarts, final length 0.200
+SubgDVAEpos scbo seed 4: best feasible UGF 4.065 GHz, 0.170 of evaluations feasible, 377s, 1 TR restarts, final length 0.025
+CktGNN scbo seed 5: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 336s, 1 TR restarts, final length 0.025
+SubgDVAEpos scbo seed 5: best feasible UGF 22.002 GHz, 0.265 of evaluations feasible, 396s, 1 TR restarts, final length 0.050
+CktGNN scbo seed 6: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 247s, 1 TR restarts, final length 0.100
+SubgDVAEpos scbo seed 6: best feasible UGF 4.731 GHz, 0.070 of evaluations feasible, 462s, 2 TR restarts, final length 0.800
+SubgDVAEpos scbo seed 7: best feasible UGF 28.345 GHz, 0.455 of evaluations feasible, 224s, 0 TR restarts, final length 0.013
+CktGNN fom_bo seed 20: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 44s
+SubgDVAEpos fom_bo seed 20: best feasible UGF 17.104 GHz, 0.020 of evaluations feasible, 33s
+CktGNN fom_bo seed 19: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 30s
+SubgDVAEpos scbo seed 8: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 129s, 2 TR restarts, final length 0.050
+SubgDVAEpos fom_bo seed 19: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 47s
+CktGNN scbo seed 7: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 247s, 2 TR restarts, final length 0.400
+CktGNN fom_bo seed 18: best feasible UGF 1.151 GHz, 0.005 of evaluations feasible, 41s
+SubgDVAEpos fom_bo seed 18: best feasible UGF 13.230 GHz, 0.015 of evaluations feasible, 41s
+CktGNN fom_bo seed 17: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 35s
+SubgDVAEpos fom_bo seed 17: best feasible UGF 11.934 GHz, 0.005 of evaluations feasible, 36s
+CktGNN fom_bo seed 16: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 49s
+SubgDVAEpos fom_bo seed 16: best feasible UGF 14.628 GHz, 0.010 of evaluations feasible, 39s
+SubgDVAEpos scbo seed 9: best feasible UGF 14.443 GHz, 0.245 of evaluations feasible, 314s, 1 TR restarts, final length 0.100
+CktGNN fom_bo seed 15: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 50s
+SubgDVAEpos fom_bo seed 15: best feasible UGF 5.251 GHz, 0.010 of evaluations feasible, 30s
+CktGNN fom_bo seed 14: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 27s
+SubgDVAEpos fom_bo seed 14: best feasible UGF 2.104 GHz, 0.010 of evaluations feasible, 32s
+CktGNN scbo seed 8: best feasible UGF 0.194 GHz, 0.005 of evaluations feasible, 555s, 2 TR restarts, final length 0.400
+CktGNN fom_bo seed 13: best feasible UGF 13.270 GHz, 0.005 of evaluations feasible, 47s
+SubgDVAEpos fom_bo seed 13: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 36s
+CktGNN scbo seed 9: best feasible UGF 18.035 GHz, 0.190 of evaluations feasible, 248s, 1 TR restarts, final length 0.200
+CktGNN fom_bo seed 12: best feasible UGF 6.276 GHz, 0.005 of evaluations feasible, 34s
+SubgDVAEpos fom_bo seed 12: best feasible UGF 3.026 GHz, 0.005 of evaluations feasible, 37s
+CktGNN fom_bo seed 11: best feasible UGF 20.554 GHz, 0.085 of evaluations feasible, 54s
+CktGNN scbo seed 10: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 128s, 2 TR restarts, final length 0.050
+SubgDVAEpos fom_bo seed 11: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 32s
+CktGNN fom_bo seed 10: best feasible UGF 5.377 GHz, 0.010 of evaluations feasible, 36s
+SubgDVAEpos fom_bo seed 10: best feasible UGF 4.604 GHz, 0.010 of evaluations feasible, 35s
+CktGNN fom_bo seed 9: best feasible UGF 2.013 GHz, 0.005 of evaluations feasible, 37s
+SubgDVAEpos scbo seed 11: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 167s, 2 TR restarts, final length 0.050
+SubgDVAEpos fom_bo seed 9: best feasible UGF 19.041 GHz, 0.010 of evaluations feasible, 30s
+CktGNN fom_bo seed 8: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 47s
+SubgDVAEpos scbo seed 10: best feasible UGF 9.433 GHz, 0.160 of evaluations feasible, 477s, 2 TR restarts, final length 0.400
+SubgDVAEpos fom_bo seed 8: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 26s
+CktGNN fom_bo seed 7: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 45s
+SubgDVAEpos fom_bo seed 7: best feasible UGF 20.301 GHz, 0.235 of evaluations feasible, 36s
+CktGNN fom_bo seed 6: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 43s
+SubgDVAEpos scbo seed 12: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 175s, 2 TR restarts, final length 0.050
+SubgDVAEpos fom_bo seed 6: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 50s
+CktGNN fom_bo seed 5: best feasible UGF 4.219 GHz, 0.005 of evaluations feasible, 34s
+SubgDVAEpos fom_bo seed 5: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 29s
+CktGNN fom_bo seed 4: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 46s
+CktGNN scbo seed 11: best feasible UGF 2.818 GHz, 0.390 of evaluations feasible, 502s, 0 TR restarts, final length 0.013
+SubgDVAEpos fom_bo seed 4: best feasible UGF 27.035 GHz, 0.040 of evaluations feasible, 32s
+CktGNN fom_bo seed 3: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 48s
+SubgDVAEpos fom_bo seed 3: best feasible UGF 3.658 GHz, 0.010 of evaluations feasible, 39s
+CktGNN scbo seed 12: best feasible UGF 14.083 GHz, 0.335 of evaluations feasible, 373s, 1 TR restarts, final length 0.800
+CktGNN fom_bo seed 2: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 41s
+SubgDVAEpos fom_bo seed 2: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 32s
+CktGNN fom_bo seed 1: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 47s
+SubgDVAEpos fom_bo seed 1: best feasible UGF 5.784 GHz, 0.005 of evaluations feasible, 44s
+CktGNN rs seed 20: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 7s
+SubgDVAEpos rs seed 20: best feasible UGF 12.658 GHz, 0.015 of evaluations feasible, 7s
+CktGNN rs seed 19: best feasible UGF 0.025 GHz, 0.005 of evaluations feasible, 7s
+SubgDVAEpos rs seed 19: best feasible UGF 21.035 GHz, 0.010 of evaluations feasible, 6s
+CktGNN scbo seed 13: best feasible UGF 24.187 GHz, 0.490 of evaluations feasible, 230s, 1 TR restarts, final length 0.400
+SubgDVAEpos scbo seed 13: best feasible UGF 1.728 GHz, 0.145 of evaluations feasible, 380s, 2 TR restarts, final length 0.400
+CktGNN rs seed 18: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 7s
+SubgDVAEpos rs seed 18: best feasible UGF 1.821 GHz, 0.015 of evaluations feasible, 6s
+CktGNN rs seed 17: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 7s
+SubgDVAEpos rs seed 17: best feasible UGF 20.510 GHz, 0.010 of evaluations feasible, 6s
+CktGNN rs seed 16: best feasible UGF 2.628 GHz, 0.015 of evaluations feasible, 7s
+SubgDVAEpos rs seed 16: best feasible UGF 4.939 GHz, 0.010 of evaluations feasible, 6s
+CktGNN rs seed 15: best feasible UGF 0.892 GHz, 0.005 of evaluations feasible, 7s
+SubgDVAEpos rs seed 15: best feasible UGF 14.201 GHz, 0.015 of evaluations feasible, 7s
+CktGNN rs seed 14: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 7s
+SubgDVAEpos rs seed 14: best feasible UGF 17.107 GHz, 0.010 of evaluations feasible, 7s
+CktGNN rs seed 13: best feasible UGF 13.270 GHz, 0.010 of evaluations feasible, 9s
+SubgDVAEpos rs seed 13: best feasible UGF 6.090 GHz, 0.015 of evaluations feasible, 7s
+CktGNN rs seed 12: best feasible UGF 6.276 GHz, 0.005 of evaluations feasible, 9s
+SubgDVAEpos rs seed 12: best feasible UGF 1.586 GHz, 0.010 of evaluations feasible, 7s
+CktGNN rs seed 11: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 9s
+SubgDVAEpos rs seed 11: best feasible UGF 5.900 GHz, 0.010 of evaluations feasible, 7s
+CktGNN rs seed 10: best feasible UGF 1.365 GHz, 0.005 of evaluations feasible, 10s
+SubgDVAEpos rs seed 10: best feasible UGF 3.428 GHz, 0.010 of evaluations feasible, 8s
+CktGNN rs seed 9: best feasible UGF 12.641 GHz, 0.010 of evaluations feasible, 10s
+SubgDVAEpos scbo seed 14: best feasible UGF 1.951 GHz, 0.320 of evaluations feasible, 318s, 1 TR restarts, final length 0.200
+SubgDVAEpos rs seed 9: best feasible UGF 5.889 GHz, 0.010 of evaluations feasible, 7s
+CktGNN rs seed 8: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 8s
+SubgDVAEpos rs seed 8: best feasible UGF 14.853 GHz, 0.005 of evaluations feasible, 6s
+CktGNN rs seed 7: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 8s
+SubgDVAEpos rs seed 7: best feasible UGF 15.466 GHz, 0.005 of evaluations feasible, 5s
+CktGNN rs seed 6: best feasible UGF 1.424 GHz, 0.005 of evaluations feasible, 7s
+SubgDVAEpos rs seed 6: best feasible UGF 12.041 GHz, 0.010 of evaluations feasible, 5s
+CktGNN rs seed 5: best feasible UGF 12.283 GHz, 0.010 of evaluations feasible, 6s
+CktGNN scbo seed 14: best feasible UGF 5.512 GHz, 0.105 of evaluations feasible, 433s, 1 TR restarts, final length 0.013
+SubgDVAEpos rs seed 5: best feasible UGF 18.248 GHz, 0.020 of evaluations feasible, 5s
+CktGNN rs seed 4: best feasible UGF 22.770 GHz, 0.020 of evaluations feasible, 6s
+SubgDVAEpos rs seed 4: best feasible UGF 15.560 GHz, 0.015 of evaluations feasible, 6s
+CktGNN rs seed 3: best feasible UGF 6.287 GHz, 0.010 of evaluations feasible, 7s
+SubgDVAEpos rs seed 3: best feasible UGF 10.595 GHz, 0.020 of evaluations feasible, 6s
+SubgDVAEpos scbo seed 15: best feasible UGF 10.290 GHz, 0.335 of evaluations feasible, 183s, 0 TR restarts, final length 0.013
+CktGNN rs seed 2: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 6s
+SubgDVAEpos rs seed 2: best feasible UGF 3.764 GHz, 0.005 of evaluations feasible, 6s
+CktGNN rs seed 1: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 6s
+SubgDVAEpos rs seed 1: best feasible UGF 5.784 GHz, 0.010 of evaluations feasible, 5s
+CktGNN cbo seed 20: best feasible UGF 3.779 GHz, 0.010 of evaluations feasible, 42s
+CktGNN scbo seed 15: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 174s, 2 TR restarts, final length 0.050
+SubgDVAEpos cbo seed 20: best feasible UGF 1.565 GHz, 0.010 of evaluations feasible, 41s
+SubgDVAEpos scbo seed 16: best feasible UGF 7.482 GHz, 0.025 of evaluations feasible, 154s, 2 TR restarts, final length 0.200
+CktGNN cbo seed 19: best feasible UGF 18.045 GHz, 0.150 of evaluations feasible, 49s
+SubgDVAEpos cbo seed 19: best feasible UGF 1.615 GHz, 0.010 of evaluations feasible, 55s
+CktGNN scbo seed 16: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 183s, 2 TR restarts, final length 0.050
+CktGNN cbo seed 18: best feasible UGF 17.114 GHz, 0.035 of evaluations feasible, 29s
+SubgDVAEpos cbo seed 18: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 24s
+SubgDVAEpos scbo seed 17: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 196s, 2 TR restarts, final length 0.050
+CktGNN cbo seed 17: best feasible UGF 5.710 GHz, 0.005 of evaluations feasible, 59s
+SubgDVAEpos cbo seed 17: best feasible UGF 30.894 GHz, 0.140 of evaluations feasible, 47s
+CktGNN cbo seed 16: best feasible UGF 0.203 GHz, 0.005 of evaluations feasible, 47s
+SubgDVAEpos cbo seed 16: best feasible UGF 22.286 GHz, 0.210 of evaluations feasible, 47s
+CktGNN cbo seed 15: best feasible UGF 8.551 GHz, 0.130 of evaluations feasible, 42s
+CktGNN scbo seed 17: best feasible UGF 12.101 GHz, 0.105 of evaluations feasible, 322s, 1 TR restarts, final length 0.013
+SubgDVAEpos scbo seed 18: best feasible UGF 15.051 GHz, 0.190 of evaluations feasible, 271s, 1 TR restarts, final length 0.050
+SubgDVAEpos cbo seed 15: best feasible UGF 11.566 GHz, 0.350 of evaluations feasible, 62s
+CktGNN cbo seed 14: best feasible UGF 7.921 GHz, 0.020 of evaluations feasible, 27s
+SubgDVAEpos cbo seed 14: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 26s
+CktGNN scbo seed 18: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 159s, 2 TR restarts, final length 0.050
+CktGNN cbo seed 13: best feasible UGF 13.270 GHz, 0.010 of evaluations feasible, 42s
+SubgDVAEpos cbo seed 13: best feasible UGF 0.709 GHz, 0.010 of evaluations feasible, 44s
+SubgDVAEpos scbo seed 19: best feasible UGF 0.471 GHz, 0.140 of evaluations feasible, 254s, 1 TR restarts, final length 0.013
+CktGNN cbo seed 12: best feasible UGF 6.276 GHz, 0.010 of evaluations feasible, 46s
+SubgDVAEpos cbo seed 12: best feasible UGF 1.333 GHz, 0.130 of evaluations feasible, 43s
+CktGNN cbo seed 11: best feasible UGF 2.376 GHz, 0.005 of evaluations feasible, 21s
+SubgDVAEpos cbo seed 11: best feasible UGF 4.069 GHz, 0.015 of evaluations feasible, 46s
+SubgDVAEpos scbo seed 20: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 137s, 2 TR restarts, final length 0.050
+CktGNN cbo seed 10: best feasible UGF 17.639 GHz, 0.160 of evaluations feasible, 50s
+SubgDVAEpos cbo seed 10: best feasible UGF 22.046 GHz, 0.105 of evaluations feasible, 44s
+CktGNN scbo seed 19: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 381s, 0 TR restarts, final length 0.013
+CktGNN cbo seed 9: best feasible UGF 5.072 GHz, 0.005 of evaluations feasible, 47s
+CktGNN scbo seed 20: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 201s, 2 TR restarts, final length 0.400
+SubgDVAEpos cbo seed 1: best feasible UGF 23.009 GHz, 0.335 of evaluations feasible, 69s
+SubgDVAEpos cbo seed 9: best feasible UGF 1.367 GHz, 0.490 of evaluations feasible, 56s
+CktGNN cbo seed 1: best feasible UGF 1.353 GHz, 0.040 of evaluations feasible, 42s
+SubgDVAEpos cbo seed 2: best feasible UGF 29.335 GHz, 0.155 of evaluations feasible, 47s
+CktGNN cbo seed 8: best feasible UGF 3.095 GHz, 0.005 of evaluations feasible, 40s
+SubgDVAEpos cbo seed 3: best feasible UGF 0.699 GHz, 0.010 of evaluations feasible, 52s
+CktGNN cbo seed 2: best feasible UGF 9.314 GHz, 0.025 of evaluations feasible, 60s
+SubgDVAEpos cbo seed 8: best feasible UGF 28.649 GHz, 0.290 of evaluations feasible, 67s
+SubgDVAEpos cbo seed 4: best feasible UGF 9.191 GHz, 0.020 of evaluations feasible, 45s
+CktGNN cbo seed 3: best feasible UGF 2.732 GHz, 0.030 of evaluations feasible, 58s
+CktGNN cbo seed 7: best feasible UGF 14.115 GHz, 0.010 of evaluations feasible, 59s
+SubgDVAEpos cbo seed 5: best feasible UGF 27.804 GHz, 0.110 of evaluations feasible, 51s
+CktGNN cbo seed 4: best feasible UGF 31.011 GHz, 0.710 of evaluations feasible, 94s
+SubgDVAEpos cbo seed 7: best feasible UGF 22.053 GHz, 0.385 of evaluations feasible, 73s
+CktGNN cbo seed 5: best feasible UGF 7.523 GHz, 0.005 of evaluations feasible, 39s
+CktGNN cbo seed 6: best feasible UGF 0.088 GHz, 0.005 of evaluations feasible, 33s
+CktGNN cbo seed 6: best feasible UGF 0.088 GHz, 0.005 of evaluations feasible, 34s
+SubgDVAEpos cbo seed 6: best feasible UGF 0.531 GHz, 0.005 of evaluations feasible, 52s
+SubgDVAEpos cbo seed 6: best feasible UGF 0.531 GHz, 0.005 of evaluations feasible, 46s
+CktGNN scbo_g seed 1: best feasible UGF 14.028 GHz, 0.590 of evaluations feasible, 468s, 1 TR restarts, final length 0.400
+SubgDVAEpos scbo_g seed 1: best feasible UGF 26.677 GHz, 0.325 of evaluations feasible, 489s, 1 TR restarts, final length 0.100
+SubgDVAEprop scbo seed 1: best feasible UGF 30.060 GHz, 0.105 of evaluations feasible, 595s, 1 TR restarts, final length 0.100
+SubgDVAEpos scbo_g seed 2: best feasible UGF 2.329 GHz, 0.300 of evaluations feasible, 501s, 1 TR restarts, final length 0.025
+CktGNN scbo_g seed 2: best feasible UGF 16.992 GHz, 0.205 of evaluations feasible, 528s, 1 TR restarts, final length 0.100
+CktGNN scbo_g seed 3: best feasible UGF 13.147 GHz, 0.360 of evaluations feasible, 504s, 0 TR restarts, final length 0.050
+SubgDVAEprop scbo seed 2: best feasible UGF 12.431 GHz, 0.325 of evaluations feasible, 578s, 1 TR restarts, final length 0.050
+SubgDVAEpos scbo_g seed 3: best feasible UGF 26.694 GHz, 0.310 of evaluations feasible, 572s, 1 TR restarts, final length 0.025
+SubgDVAEpos scbo_g seed 4: best feasible UGF 0.756 GHz, 0.150 of evaluations feasible, 628s, 1 TR restarts, final length 0.050
+CktGNN scbo_g seed 4: best feasible UGF 6.167 GHz, 0.240 of evaluations feasible, 622s, 1 TR restarts, final length 0.025
+SubgDVAEprop scbo seed 3: best feasible UGF 4.501 GHz, 0.220 of evaluations feasible, 681s, 1 TR restarts, final length 0.013
+SubgDVAEprop scbo seed 4: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 262s, 2 TR restarts, final length 0.050
+CktGNN scbo_g seed 5: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 456s, 1 TR restarts, final length 0.013
+SubgDVAEpos scbo_g seed 5: best feasible UGF 3.188 GHz, 0.325 of evaluations feasible, 478s, 0 TR restarts, final length 0.013
+CktGNN scbo_g seed 6: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 473s, 0 TR restarts, final length 0.013
+SubgDVAEprop scbo seed 5: best feasible UGF 6.314 GHz, 0.155 of evaluations feasible, 638s, 2 TR restarts, final length 0.800
+SubgDVAEpos scbo_g seed 6: best feasible UGF 18.651 GHz, 0.205 of evaluations feasible, 648s, 1 TR restarts, final length 0.025
+SubgDVAEpos scbo_g seed 7: best feasible UGF 25.241 GHz, 0.330 of evaluations feasible, 507s, 1 TR restarts, final length 0.200
+CktGNN scbo_g seed 7: best feasible UGF 10.374 GHz, 0.465 of evaluations feasible, 467s, 0 TR restarts, final length 0.013
+SubgDVAEprop scbo seed 6: best feasible UGF 19.959 GHz, 0.455 of evaluations feasible, 709s, 0 TR restarts, final length 0.025
+SubgDVAEprop scbo seed 7: best feasible UGF 2.664 GHz, 0.005 of evaluations feasible, 222s, 2 TR restarts, final length 0.400
+SubgDVAEpos scbo_g seed 8: best feasible UGF 13.250 GHz, 0.490 of evaluations feasible, 516s, 1 TR restarts, final length 0.025
+CktGNN scbo_g seed 8: best feasible UGF 0.831 GHz, 0.045 of evaluations feasible, 713s, 2 TR restarts, final length 0.400
+SubgDVAEpos scbo_g seed 9: best feasible UGF 1.469 GHz, 0.200 of evaluations feasible, 521s, 1 TR restarts, final length 0.100
+SubgDVAEprop scbo seed 8: best feasible UGF 1.654 GHz, 0.205 of evaluations feasible, 637s, 1 TR restarts, final length 0.013
+CktGNN scbo_g seed 9: best feasible UGF 9.881 GHz, 0.180 of evaluations feasible, 662s, 1 TR restarts, final length 0.400
+SubgDVAEpos scbo_g seed 10: best feasible UGF 8.474 GHz, 0.165 of evaluations feasible, 598s, 1 TR restarts, final length 0.025
+SubgDVAEprop scbo seed 9: best feasible UGF 1.246 GHz, 0.220 of evaluations feasible, 746s, 1 TR restarts, final length 0.100
+CktGNN scbo_g seed 10: best feasible UGF 0.944 GHz, 0.165 of evaluations feasible, 650s, 1 TR restarts, final length 0.100
+SubgDVAEpos scbo_g seed 11: best feasible UGF 1.769 GHz, 0.035 of evaluations feasible, 554s, 1 TR restarts, final length 0.025
+SubgDVAEprop fom_bo seed 20: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 65s
+SubgDVAEprop fom_bo seed 19: best feasible UGF 25.129 GHz, 0.290 of evaluations feasible, 66s
+SubgDVAEprop fom_bo seed 18: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 90s
+SubgDVAEprop fom_bo seed 17: best feasible UGF 2.246 GHz, 0.005 of evaluations feasible, 53s
+SubgDVAEprop scbo seed 10: best feasible UGF 1.571 GHz, 0.140 of evaluations feasible, 712s, 1 TR restarts, final length 0.013
+SubgDVAEprop fom_bo seed 16: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 88s
+SubgDVAEprop fom_bo seed 15: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 78s
+SubgDVAEprop fom_bo seed 14: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 56s
+SubgDVAEpos scbo_g seed 12: best feasible UGF 17.483 GHz, 0.380 of evaluations feasible, 518s, 1 TR restarts, final length 0.025
+CktGNN scbo_g seed 11: best feasible UGF 2.020 GHz, 0.130 of evaluations feasible, 577s, 1 TR restarts, final length 0.013
+SubgDVAEprop fom_bo seed 13: best feasible UGF 29.150 GHz, 0.105 of evaluations feasible, 65s
+SubgDVAEprop fom_bo seed 12: best feasible UGF 27.278 GHz, 0.110 of evaluations feasible, 84s
+SubgDVAEprop fom_bo seed 11: best feasible UGF 2.512 GHz, 0.010 of evaluations feasible, 48s
+SubgDVAEprop fom_bo seed 10: best feasible UGF 29.311 GHz, 0.420 of evaluations feasible, 78s
+SubgDVAEpos scbo_g seed 13: best feasible UGF 26.096 GHz, 0.515 of evaluations feasible, 375s, 1 TR restarts, final length 0.400
+SubgDVAEprop fom_bo seed 9: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 70s
+SubgDVAEprop scbo seed 11: best feasible UGF 6.553 GHz, 0.300 of evaluations feasible, 626s, 0 TR restarts, final length 0.025
+SubgDVAEprop fom_bo seed 8: best feasible UGF 29.103 GHz, 0.015 of evaluations feasible, 67s
+SubgDVAEprop fom_bo seed 7: best feasible UGF 6.714 GHz, 0.005 of evaluations feasible, 53s
+SubgDVAEprop fom_bo seed 6: best feasible UGF 28.996 GHz, 0.150 of evaluations feasible, 52s
+CktGNN scbo_g seed 12: best feasible UGF 9.653 GHz, 0.155 of evaluations feasible, 643s, 2 TR restarts, final length 0.400
+SubgDVAEprop fom_bo seed 5: best feasible UGF 30.180 GHz, 0.170 of evaluations feasible, 62s
+SubgDVAEprop fom_bo seed 4: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 72s
+CktGNN scbo_g seed 13: best feasible UGF 29.463 GHz, 0.435 of evaluations feasible, 411s, 1 TR restarts, final length 0.100
+SubgDVAEprop fom_bo seed 3: best feasible UGF 0.057 GHz, 0.005 of evaluations feasible, 71s
+SubgDVAEprop scbo seed 12: best feasible UGF 10.174 GHz, 0.200 of evaluations feasible, 446s, 1 TR restarts, final length 0.800
+SubgDVAEprop fom_bo seed 2: best feasible UGF 7.309 GHz, 0.005 of evaluations feasible, 81s
+SubgDVAEprop fom_bo seed 1: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 80s
+SubgDVAEprop rs seed 20: best feasible UGF 15.792 GHz, 0.025 of evaluations feasible, 13s
+SubgDVAEprop rs seed 19: best feasible UGF 3.113 GHz, 0.015 of evaluations feasible, 13s
+SubgDVAEprop rs seed 18: best feasible UGF 18.784 GHz, 0.010 of evaluations feasible, 13s
+SubgDVAEprop rs seed 17: best feasible UGF 0.183 GHz, 0.005 of evaluations feasible, 13s
+SubgDVAEprop rs seed 16: best feasible UGF 4.813 GHz, 0.010 of evaluations feasible, 13s
+SubgDVAEprop rs seed 15: best feasible UGF 10.848 GHz, 0.015 of evaluations feasible, 12s
+SubgDVAEprop rs seed 14: best feasible UGF 13.175 GHz, 0.030 of evaluations feasible, 12s
+SubgDVAEprop rs seed 13: best feasible UGF 21.729 GHz, 0.030 of evaluations feasible, 13s
+SubgDVAEprop rs seed 12: best feasible UGF 3.676 GHz, 0.015 of evaluations feasible, 12s
+SubgDVAEprop rs seed 11: best feasible UGF 21.921 GHz, 0.015 of evaluations feasible, 13s
+SubgDVAEprop rs seed 10: best feasible UGF 23.102 GHz, 0.035 of evaluations feasible, 12s
+CktGNN scbo_g seed 14: best feasible UGF 9.406 GHz, 0.295 of evaluations feasible, 526s, 0 TR restarts, final length 0.050
+SubgDVAEpos scbo_g seed 14: best feasible UGF 3.461 GHz, 0.195 of evaluations feasible, 690s, 1 TR restarts, final length 0.100
+SubgDVAEprop rs seed 9: best feasible UGF 19.855 GHz, 0.020 of evaluations feasible, 12s
+SubgDVAEprop rs seed 8: best feasible UGF 5.505 GHz, 0.015 of evaluations feasible, 12s
+SubgDVAEprop rs seed 7: best feasible UGF 14.270 GHz, 0.015 of evaluations feasible, 12s
+SubgDVAEprop rs seed 6: best feasible UGF 21.165 GHz, 0.030 of evaluations feasible, 13s
+SubgDVAEprop rs seed 5: best feasible UGF 5.256 GHz, 0.020 of evaluations feasible, 13s
+SubgDVAEprop rs seed 4: best feasible UGF 22.024 GHz, 0.015 of evaluations feasible, 13s
+SubgDVAEprop rs seed 3: best feasible UGF 6.343 GHz, 0.020 of evaluations feasible, 12s
+SubgDVAEprop rs seed 2: best feasible UGF 18.785 GHz, 0.015 of evaluations feasible, 12s
+SubgDVAEprop rs seed 1: best feasible UGF 16.176 GHz, 0.020 of evaluations feasible, 13s
+SubgDVAEprop cbo seed 20: best feasible UGF 28.281 GHz, 0.440 of evaluations feasible, 98s
+SubgDVAEprop scbo seed 13: best feasible UGF 17.579 GHz, 0.130 of evaluations feasible, 830s, 2 TR restarts, final length 0.800
+CktGNN scbo_g seed 15: best feasible UGF 30.039 GHz, 0.470 of evaluations feasible, 377s, 1 TR restarts, final length 0.800
+SubgDVAEprop cbo seed 19: best feasible UGF 28.655 GHz, 0.025 of evaluations feasible, 77s
+SubgDVAEpos scbo_g seed 15: best feasible UGF 16.348 GHz, 0.270 of evaluations feasible, 495s, 1 TR restarts, final length 0.050
+SubgDVAEprop cbo seed 18: best feasible UGF 27.127 GHz, 0.180 of evaluations feasible, 75s
+SubgDVAEprop cbo seed 17: best feasible UGF 31.021 GHz, 0.255 of evaluations feasible, 74s
+SubgDVAEprop cbo seed 16: best feasible UGF 0.119 GHz, 0.005 of evaluations feasible, 93s
+SubgDVAEprop cbo seed 15: best feasible UGF 21.703 GHz, 0.035 of evaluations feasible, 46s
+SubgDVAEprop cbo seed 14: best feasible UGF 2.112 GHz, 0.005 of evaluations feasible, 56s
+SubgDVAEprop scbo seed 14: best feasible UGF 22.441 GHz, 0.160 of evaluations feasible, 555s, 1 TR restarts, final length 0.013
+SubgDVAEpos scbo_g seed 16: best feasible UGF 20.937 GHz, 0.270 of evaluations feasible, 621s, 1 TR restarts, final length 0.050
+SubgDVAEprop cbo seed 13: best feasible UGF 11.087 GHz, 0.020 of evaluations feasible, 161s
+CktGNN scbo_g seed 16: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 593s, 1 TR restarts, final length 0.025
+SubgDVAEprop cbo seed 12: best feasible UGF 1.758 GHz, 0.050 of evaluations feasible, 100s
+SubgDVAEprop cbo seed 11: best feasible UGF 26.797 GHz, 0.185 of evaluations feasible, 98s
+SubgDVAEprop cbo seed 10: best feasible UGF 29.877 GHz, 0.115 of evaluations feasible, 94s
+SubgDVAEprop scbo seed 15: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 436s, 2 TR restarts, final length 0.100
+SubgDVAEprop cbo seed 9: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 39s
+SubgDVAEprop cbo seed 8: best feasible UGF 29.605 GHz, 0.510 of evaluations feasible, 102s
+SubgDVAEprop cbo seed 7: best feasible UGF 14.291 GHz, 0.020 of evaluations feasible, 65s
+SubgDVAEpos scbo_g seed 17: best feasible UGF 5.154 GHz, 0.040 of evaluations feasible, 605s, 1 TR restarts, final length 0.013
+SubgDVAEprop scbo seed 16: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 237s, 2 TR restarts, final length 0.050
+CktGNN scbo_g seed 17: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 568s, 1 TR restarts, final length 0.025
+SubgDVAEprop cbo seed 6: best feasible UGF 29.749 GHz, 0.495 of evaluations feasible, 100s
+SubgDVAEprop scbo seed 15: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 422s, 2 TR restarts, final length 0.100
+SubgDVAEprop cbo seed 5: best feasible UGF 3.994 GHz, 0.080 of evaluations feasible, 98s
+SubgDVAEprop cbo seed 4: best feasible UGF 17.452 GHz, 0.015 of evaluations feasible, 76s
+SubgDVAEprop cbo seed 3: best feasible UGF 17.825 GHz, 0.025 of evaluations feasible, 71s
+SubgDVAEprop scbo seed 17: best feasible UGF 30.173 GHz, 0.430 of evaluations feasible, 356s, 1 TR restarts, final length 0.013
+SubgDVAEprop cbo seed 2: best feasible UGF 7.309 GHz, 0.015 of evaluations feasible, 74s
+SubgDVAEprop scbo seed 17: best feasible UGF 30.173 GHz, 0.430 of evaluations feasible, 365s, 1 TR restarts, final length 0.013
+SubgDVAEpos scbo_g seed 18: best feasible UGF 15.487 GHz, 0.170 of evaluations feasible, 513s, 2 TR restarts, final length 0.400
+CktGNN scbo_g seed 18: best feasible UGF 20.944 GHz, 0.140 of evaluations feasible, 473s, 1 TR restarts, final length 0.025
+SubgDVAEprop cbo seed 1: best feasible UGF 15.457 GHz, 0.135 of evaluations feasible, 73s
+SubgDVAEprop scbo seed 18: best feasible UGF 0.919 GHz, 0.075 of evaluations feasible, 433s, 2 TR restarts, final length 0.200
+SubgDVAEprop scbo seed 18: best feasible UGF 0.919 GHz, 0.075 of evaluations feasible, 437s, 2 TR restarts, final length 0.200
+CktGNN scbo_g seed 19: best feasible UGF 10.328 GHz, 0.015 of evaluations feasible, 665s, 1 TR restarts, final length 0.400
+SubgDVAEpos scbo_g seed 19: best feasible UGF 5.414 GHz, 0.250 of evaluations feasible, 725s, 1 TR restarts, final length 0.025
+SubgDVAEprop scbo seed 20: best feasible UGF 3.500 GHz, 0.140 of evaluations feasible, 742s, 2 TR restarts, final length 0.800
+SubgDVAEprop scbo seed 19: best feasible UGF 13.404 GHz, 0.310 of evaluations feasible, 746s, 1 TR restarts, final length 0.200
+SubgDVAEprop scbo seed 19: best feasible UGF 13.404 GHz, 0.310 of evaluations feasible, 725s, 1 TR restarts, final length 0.200
+SubgDVAEpos scbo_g seed 20: best feasible UGF 13.823 GHz, 0.305 of evaluations feasible, 494s, 1 TR restarts, final length 0.100
+CktGNN scbo_g seed 20: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 582s, 1 TR restarts, final length 0.200
+SubgDVAEprop scbo seed 19: best feasible UGF 13.404 GHz, 0.310 of evaluations feasible, 575s, 1 TR restarts, final length 0.200
+SubgDVAEpos scbo_g seed 20: best feasible UGF 13.823 GHz, 0.305 of evaluations feasible, 301s, 1 TR restarts, final length 0.100
+CktGNN scbo_g seed 20: best feasible UGF -inf GHz, 0.000 of evaluations feasible, 377s, 1 TR restarts, final length 0.200

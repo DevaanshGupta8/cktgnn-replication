@@ -1,0 +1,43 @@
+fold 1 gain rmse 0.2931 pearson 0.9553
+fold 1 bw   rmse 0.4767 pearson 0.8818
+fold 1 pm   rmse 0.9729 pearson 0.3476
+fold 1 fom  rmse 0.4733 pearson 0.8838
+fold 2 gain rmse 0.2914 pearson 0.9558
+fold 2 bw   rmse 0.4747 pearson 0.8825
+fold 2 pm   rmse 0.9727 pearson 0.3495
+fold 2 fom  rmse 0.4708 pearson 0.8846
+fold 3 gain rmse 0.2912 pearson 0.9554
+fold 3 bw   rmse 0.4753 pearson 0.8822
+fold 3 pm   rmse 0.9725 pearson 0.3503
+fold 3 fom  rmse 0.4725 pearson 0.8837
+fold 4 gain rmse 0.2887 pearson 0.9563
+fold 4 bw   rmse 0.4742 pearson 0.8827
+fold 4 pm   rmse 0.9743 pearson 0.3430
+fold 4 fom  rmse 0.4739 pearson 0.8832
+fold 5 gain rmse 0.2884 pearson 0.9563
+fold 5 bw   rmse 0.4766 pearson 0.8816
+fold 5 pm   rmse 0.9731 pearson 0.3475
+fold 5 fom  rmse 0.4708 pearson 0.8846
+fold 6 gain rmse 0.2941 pearson 0.9554
+fold 6 bw   rmse 0.4748 pearson 0.8826
+fold 6 pm   rmse 0.9724 pearson 0.3488
+fold 6 fom  rmse 0.4733 pearson 0.8834
+fold 7 gain rmse 0.2901 pearson 0.9561
+fold 7 bw   rmse 0.4745 pearson 0.8825
+fold 7 pm   rmse 0.9724 pearson 0.3504
+fold 7 fom  rmse 0.4740 pearson 0.8829
+fold 8 gain rmse 0.2918 pearson 0.9553
+fold 8 bw   rmse 0.4771 pearson 0.8812
+fold 8 pm   rmse 0.9724 pearson 0.3489
+fold 8 fom  rmse 0.4740 pearson 0.8829
+fold 9 gain rmse 0.2920 pearson 0.9552
+fold 9 bw   rmse 0.4746 pearson 0.8826
+fold 9 pm   rmse 0.9720 pearson 0.3501
+fold 9 fom  rmse 0.4707 pearson 0.8851
+          rmse         pearson        
+          mean     std    mean     std
+target                                
+bw      0.4754  0.0011  0.8822  0.0005
+fom     0.4726  0.0014  0.8838  0.0008
+gain    0.2912  0.0019  0.9557  0.0005
+pm      0.9727  0.0007  0.3485  0.0023

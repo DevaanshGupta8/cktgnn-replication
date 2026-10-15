@@ -1,0 +1,20 @@
+{
+  "valid_dag": 0.9826,
+  "decomposable": 0.789,
+  "ambiguous": 0.1666,
+  "values_ok": 0.9436,
+  "simulates": 0.789,
+  "functional": 0.7645,
+  "pm45": 0.3943,
+  "stable": 0.0368,
+  "meets_spec": 0.0082,
+  "novel": 0.6691,
+  "slot_consistent": 0.5778,
+  "n": 10000,
+  "unique_functional_topologies": 2414,
+  "median_gain_db": 184.93486759243237,
+  "median_ugf_ghz": 4.143877653547866,
+  "model": "SubgDVAEslot",
+  "run": "SubgDVAEslot_seed1",
+  "epoch": 300
+}

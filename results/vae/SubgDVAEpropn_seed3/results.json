@@ -1,0 +1,20 @@
+{
+  "n_params": 2497370,
+  "epochs": 300,
+  "device": "cuda",
+  "eval_device": "cpu",
+  "test_recon_nll": 7.337062683105469,
+  "recon_acc": 0.29613,
+  "recon_seconds": 161.31199645996094,
+  "valid_dag": 0.9425,
+  "valid_ckt": 0.9376,
+  "novel": 0.9588328912466844,
+  "eval_seconds": 169.90844106674194,
+  "prop_auc_functional": 0.9710300596211024,
+  "prop_auc_ol_stable": 0.9032669241456669,
+  "prop_auc_cl_stable": 0.8715875265768958,
+  "prop_auc_feasible": 0.9396310993533216,
+  "prop_rmse_log10_ugf": 0.5084453344635577,
+  "prop_rmse_gain": 0.2592024995758623,
+  "prop_rmse_pm": 0.6904894806940244
+}

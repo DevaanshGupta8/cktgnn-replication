@@ -1,0 +1,3 @@
+# Keep Unix line endings for shell scripts and job lists (a stray carriage return breaks bash and the BO job runner)
+*.sh text eol=lf
+results/jobs/*.txt text eol=lf

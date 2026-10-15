@@ -1,0 +1,14 @@
+CktGNN fom_bo 1
+SubgDVAEpos cbo 1
+SubgDVAEpos rs 2
+CktGNN fom_bo 3
+SubgDVAEpos cbo 3
+SubgDVAEpos rs 4
+CktGNN fom_bo 5
+SubgDVAEpos cbo 5
+SubgDVAEpos rs 6
+CktGNN fom_bo 7
+SubgDVAEpos cbo 7
+SubgDVAEpos rs 8
+CktGNN fom_bo 9
+SubgDVAEpos cbo 9

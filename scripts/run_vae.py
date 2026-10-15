@@ -148,7 +148,8 @@ def load_state():
     st = torch.load(last_path, map_location=device, weights_only=False)
     model.load_state_dict(st['model']); optimizer.load_state_dict(st['optimizer'])
     scheduler.load_state_dict(st['scheduler'])
-    torch.set_rng_state(st['rng_torch']); np.random.set_state(st['rng_numpy']); random.setstate(st['rng_python'])
+    torch.set_rng_state(st['rng_torch'].cpu())  # map_location may have moved it to the GPU
+    np.random.set_state(st['rng_numpy']); random.setstate(st['rng_python'])
     return st['epoch']
 
 

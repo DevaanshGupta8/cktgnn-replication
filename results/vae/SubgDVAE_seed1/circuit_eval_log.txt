@@ -1,0 +1,23 @@
+C:\Users\LENOVO\Documents\ai for engineers\scripts\ocb_sim.py:172: RuntimeWarning: divide by zero encountered in log10
+  mag_db = 20 * np.log10(np.abs(H))
+C:\Users\LENOVO\Documents\ai for engineers\scripts\ocb_sim.py:161: RuntimeWarning: divide by zero encountered in log10
+  mag_db = 20 * np.log10(np.abs(H))
+{
+  "valid_dag": 0.9849,
+  "decomposable": 0.7162,
+  "ambiguous": 0.2259,
+  "values_ok": 0.9008,
+  "simulates": 0.7162,
+  "functional": 0.6708,
+  "pm45": 0.5215,
+  "stable": 0.0568,
+  "meets_spec": 0.0179,
+  "novel": 0.6175,
+  "n": 10000,
+  "unique_functional_topologies": 2686,
+  "median_gain_db": 138.5883785142644,
+  "median_ugf_ghz": 3.6880364724981813,
+  "model": "SubgDVAE",
+  "run": "SubgDVAE_seed1",
+  "epoch": 300
+}

@@ -1,81 +1,167 @@
 # Handover: CktGNN replication and extension
 
-*Last updated: 2026-10-15. State: Phases 1–8 complete and pushed; nothing running.*
+*Final handover, 2026-10-15. State: Phases 1–9 complete and pushed; nothing running; no training is needed to continue.*
 
-This file lets someone continue the project without the original working session. Read it first, then [`reports/project_summary.md`](reports/project_summary.md) (claims vs findings, improvement status), then the eight phase reports; Phase 8 §3 summarises what the optimisation study can claim. Phases 5–8 were pre-registered: each protocol file was committed before its results existed.
+This file is for the person taking over. It is meant to be enough on its own: what was done, where every file is, how to get a working setup **without training anything**, how to reproduce every number, what went wrong along the way, and what is left to do.
+
+**Reading order:**
+1. This file.
+2. [`reports/project_summary.md`](reports/project_summary.md): the paper's claims vs our findings, and the status of the proposed improvements.
+3. The phase reports you need (§1).
+
+Phases 5–9 were pre-registered: each protocol file was committed (and from Phase 7 on, pushed) before its results existed.
 
 ---
 
-## 1. What this project is
+## 1. What this project is and what it found
 
-A reproduction and critical evaluation of **CktGNN** (Dong et al., *Circuit Graph Neural Network for Electronic Design Automation*, ICLR 2023; [arXiv 2308.16406](https://arxiv.org/abs/2308.16406); [authors' code](https://github.com/zehao-dong/CktGNN)), plus a first research extension: stability-aware circuit optimisation.
+A reproduction and critical evaluation of **CktGNN** (Dong et al., *CktGNN: Circuit Graph Neural Network for Electronic Design Automation*, ICLR 2023; [arXiv 2308.16406](https://arxiv.org/abs/2308.16406); [authors' code](https://github.com/zehao-dong/CktGNN)). CktGNN learns a latent space of op-amp circuit graphs with a VAE and optimises circuits in it with Bayesian optimisation (BO). The project went on to stability-aware optimisation and better generative models.
 
-| Phase | Report | One-line result |
+| Phase | Report | Result |
 |---|---|---|
-| 1. Analysis | [`reports/phase1_report.md`](reports/phase1_report.md) | The released code differs from the paper (no inner GNN, a hidden slot prior); FoM ≈ 99% bandwidth; ~8% of labels come from failed simulations; an open simulator reproduces the Cadence labels (~96%) |
-| 2. Reproduction | [`reports/phase2_reproduction.md`](reports/phase2_reproduction.md) | CktGNN and D-VAE, 3 seeds each: the authors' released-data numbers reproduce. "CktGNN is state of the art" does not hold (it wins BW/FoM, loses gain); the paper's error bars are 5–20× too small |
-| 3. Ablations | [`reports/phase3_ablation.md`](reports/phase3_ablation.md) | CktGNN's latent advantage comes from the subgraph representation alone; the slot prior helps generation; CktGNN's value pathway halves physical device values. Corrected after Phase 4: CktGNN generates the fewest stable circuits |
-| 4. Optimisation | [`reports/phase4_optimization.md`](reports/phase4_optimization.md) | 63% of OCB circuits are open-loop unstable; optimising the paper's FoM picks unstable circuits; constrained BO finds feasible circuits in 16/18 runs (FoM-BO 9/18), but its best-design gain over random search is not significant in a good latent space |
-| 5. A3 + SCBO | [`reports/phase5_report.md`](reports/phase5_report.md) | A3 shows CktGNN's value pathway alone explains its reconstruction gain and its unphysical device values. SCBO does not beat cBO or random search (pre-registered, negative) because the constraint score is flat for unstable circuits; an exploratory graded score repairs it. With 20 runs, cBO clearly beats random search and FoM-BO in CktGNN's space |
-| 6. Property-aware latent | [`reports/phase6_report.md`](reports/phase6_report.md) | A2 + a jointly trained property predictor: better reconstruction, far better SGP regression (FoM RMSE 0.475, the best of all models), predictor AUC 0.94 for "meets spec"; cBO's best design improves (median 17.6 vs 6.6 GHz) but not significantly (Holm p = 0.28) |
-| 7. Confirmatory + replication | [`reports/phase7_report.md`](reports/phase7_report.md) | Graded-stability SCBO does not beat plain SCBO on fresh seeds (Holm p = 1.0). Several best-design conclusions from Phases 5–6 flip between seed sets; feasibility-rate conclusions replicate. Best-design comparisons need ≥ 40 runs or a lower-variance endpoint |
-| 8. Endpoint reliability | [`reports/phase8_report.md`](reports/phase8_report.md) | AUC is no more reliable than final best (cross-seed-set sign agreement 6/15 vs 7/15); feasibility share is (ρ = 0.92, 13/15, post hoc). With 40 paired runs only cBO > SCBO in P's space survives correction |
+| 1. Analysis | [`phase1_report.md`](reports/phase1_report.md) | The released code differs from the paper: no inner GNN, an undocumented slot prior. FoM ≈ 99% bandwidth. ~8% of labels come from failed simulations. Our open simulator matches the Cadence labels on ~96% of circuits |
+| 2. Reproduction | [`phase2_reproduction.md`](reports/phase2_reproduction.md) | CktGNN and D-VAE, 3 seeds each: the authors' released-data numbers reproduce. "CktGNN is state of the art" does not hold (it wins BW/FoM, loses gain). The paper's error bars are 5–20× too small |
+| 3. Ablations | [`phase3_ablation.md`](reports/phase3_ablation.md) | CktGNN's latent advantage comes from the subgraph representation; the slot prior helps generation. CktGNN generates the fewest stable circuits |
+| 4. Optimisation | [`phase4_optimization.md`](reports/phase4_optimization.md) | 63% of OCB circuits are open-loop unstable; optimising the paper's FoM picks unstable circuits. Constrained BO (cBO) finds spec-meeting circuits far more often |
+| 5. A3 + SCBO | [`phase5_report.md`](reports/phase5_report.md) | CktGNN's value pathway alone explains its reconstruction gain and its unphysical device values. Trust-region constrained BO (SCBO) does not beat cBO (pre-registered, negative) |
+| 6. Property-aware latent space | [`phase6_report.md`](reports/phase6_report.md) | P = A2 + a jointly trained property predictor: the best latent regression of all models (FoM RMSE 0.475) and AUC 0.94 for "meets spec". Its optimisation gain did not replicate (Phase 7) |
+| 7. Confirmation + replication | [`phase7_report.md`](reports/phase7_report.md) | Graded-stability SCBO not confirmed on fresh seeds. Best-design conclusions from 20 runs flip between seed sets; feasibility-rate conclusions replicate |
+| 8. Endpoint reliability | [`phase8_report.md`](reports/phase8_report.md) | AUC is no more reliable than the final best (sign agreement 6/15 vs 7/15); feasibility share is (ρ = 0.92, post hoc). §3 lists what the optimisation study can and cannot claim |
+| 9. Better generation | [`phase9_report.md`](reports/phase9_report.md) | **Predictor-guided generation works** (confirmed): selecting latents with P's predictor raises the spec-meeting share of generated circuits 1.6× (2.62% vs 1.62%) and increases diversity. A linear classifier fitted afterwards does nothing for A2 or CktGNN. Normalised value inputs (Pn): reconstruction 0.24 → 0.32 and physical values 82% → 95% (primary endpoints p = 0.11 and 0.050, not significant), at the cost of worse latent regression (p = 0.007) |
+
+**The models to build on:**
+- **P (`SubgDVAEprop`) with predictor-guided generation** (`scripts/guided_generation.py`) when the goal is circuits that meet a stability spec. It has the best latent space and the best spec-meeting rate.
+- **Pn (`SubgDVAEpropn`)** when reconstruction accuracy and physical device values matter more.
+
+All trained runs are in the release; nothing needs retraining.
 
 ---
 
-## 2. Where everything lives
+## 2. Where everything is
 
 | What | Where |
 |---|---|
-| Code, reports, small results | this repository: https://github.com/DevaanshGupta8/cktgnn-replication (branch `main`) |
-| Authors' code (not in this repo) | `external/CktGNN`, unmodified, commit `416cd035f79dd8cfcb60ac0a4792b43255adf0b7` |
-| Datasets, checkpoints, full results | data folder, default `D:\CktGNN_data` (override with the `CKTGNN_DATA` environment variable; see `scripts/paths.py`) |
-| Small results under version control | `results/`, refreshed by `bash scripts/export_results.sh` |
-| Trained checkpoints (all 18 runs) | GitHub release [`models-v1`](https://github.com/DevaanshGupta8/cktgnn-replication/releases/tag/models-v1): one zip per model, unpacks to `results/vae/<run>/` in the data folder |
+| Code, reports, figures, all small results and logs | This repository, branch `main`: https://github.com/DevaanshGupta8/cktgnn-replication |
+| **Trained models: all 21 runs**, final checkpoint + latents + config | GitHub release [`models-v1`](https://github.com/DevaanshGupta8/cktgnn-replication/releases/tag/models-v1), one zip per model (~80 MB each) plus `SHA256SUMS.txt` |
+| Datasets (Ckt-Bench-101/301) | Not redistributed. `scripts/setup_data.py` copies them from the authors' repo |
+| Authors' code | `external/CktGNN` (not in this repo; clone it, §3), unmodified, commit `416cd035f79dd8cfcb60ac0a4792b43255adf0b7` |
+| The working data folder | `D:\CktGNN_data` on the original laptop. Change it with the `CKTGNN_DATA` environment variable (`scripts/paths.py`) |
 
-Data-folder layout:
-```
-<DATA>/datasets/CktBench101|CktBench301/   copied/extracted by scripts/setup_data.py
-<DATA>/results/vae/<MODEL>_seed<k>/        config, train_log.csv, last.pt, model_checkpoint*.pth, latents.npz,
-                                           results.json, sgp_results.csv, circuit_eval.json
-<DATA>/results/bo/<MODEL>_<METHOD>_seed<k>.csv   Phase 4 optimisation traces (not bit-reproducible, see Phase 5 §B.7)
-<DATA>/results/bo5/<MODEL>_<METHOD>_seed<k>.csv  Phases 5-6 traces (seeds 1-20, deterministic)
-<DATA>/results/bo7/<MODEL>_<METHOD>_seed<k>.csv  Phase 7 traces (seeds 21-40)
-<DATA>/results/simulator/analysis_all.csv  simulator labels of all 10,000 circuits (scripts/circuit_labels.py)
-<DATA>/results/summary/                    aggregated tables, tests, reference evaluations
-<DATA>/results/audit|simulator/            Phase 1 outputs
-```
-Trained runs that exist: `CktGNN_seed1..3`, `DVAE_seed1..3`, `SubgDVAE_seed1..3` (ablation A1), `SubgDVAEpos_seed1..3` (A2), `SubgDVAEslot_seed1..3` (A3), `SubgDVAEprop_seed1..3` (P), all 300 epochs.
+**Trained runs** (each `<MODEL>_seed1..3`, 300 epochs, in the release):
+
+| Run name | Model | Phase |
+|---|---|---|
+| `CktGNN` | the authors' model (batched, verified-equivalent training path) | 2 |
+| `DVAE` | D-VAE baseline on the device graph | 2 |
+| `SubgDVAE` | A1: D-VAE equations on the subgraph graph | 3 |
+| `SubgDVAEpos` | A2: A1 + slot prior | 3 |
+| `SubgDVAEslot` | A3: A2 + CktGNN's slot-aware messages/edge scorer | 5 |
+| `SubgDVAEprop` | P: A2 + jointly trained property predictor | 6 |
+| `SubgDVAEpropn` | Pn: P with normalised device-value inputs | 9 |
+
+**`results/` in this repository** (copied from the data folder by `scripts/export_results.sh`):
+
+| Path | Contents |
+|---|---|
+| `results/vae/<run>/` | Per run: `config.json`, `train_log.csv`, `stdout.log`, `results.json` (decoder metrics, predictor AUCs), `sgp_results.csv` + `sgp_log.txt` (latent regression), `circuit_eval.json` + log (10,000 simulated samples), `guided_generation.json` + `guided_latents.csv` (Phase 9) |
+| `results/bo/`, `results/bo5/`, `results/bo7/` | One CSV per optimisation run (every simulation of every run), plus `log.txt`. `bo`: Phase 4; `bo5`: Phases 5–6 (seeds 1–20); `bo7`: Phase 7 (seeds 21–40) |
+| `results/jobs/` | The job lists that defined every BO batch |
+| `results/summary/` | Every aggregated table and test behind the reports (`per_run.csv`, `ablation_*`, `bo*_table/tests`, `bo_auc_*`, `guided_*`, …) |
+| `results/simulator/` | Simulator validation, label diagnostics, and `analysis_all.csv`: simulator labels (gain, UGF, PM, pole stability, meets-spec) for all 10,000 real circuits |
+| `results/audit/` | Phase 1 dataset audit |
+
+**Not kept anywhere public:** intermediate checkpoints (epochs 50–250) and the smoke-test folders. Nothing in the reports depends on them.
 
 ---
 
-## 3. Setting up from scratch
+## 3. Getting a working setup without training
+
+### 3.1 Install (≈ 10 minutes)
 
 ```bash
 git clone https://github.com/DevaanshGupta8/cktgnn-replication
 ```
 ```bash
-git clone https://github.com/zehao-dong/CktGNN cktgnn-replication/external/CktGNN
+cd cktgnn-replication
 ```
 ```bash
-git -C cktgnn-replication/external/CktGNN checkout 416cd035f79dd8cfcb60ac0a4792b43255adf0b7
+git clone https://github.com/zehao-dong/CktGNN external/CktGNN
 ```
-Then, inside `cktgnn-replication`:
 ```bash
-python -m venv --system-site-packages .venv
+git -C external/CktGNN checkout 416cd035f79dd8cfcb60ac0a4792b43255adf0b7
 ```
+```bash
+python -m venv .venv
+```
+Install PyTorch. The CPU build is enough for everything except training:
+```bash
+.venv/Scripts/python.exe -m pip install "torch==2.13.0" --index-url https://download.pytorch.org/whl/cpu
+```
+or, to train on an NVIDIA GPU, the CUDA build used here:
 ```bash
 .venv/Scripts/python.exe -m pip install "torch==2.13.0+cu130" --index-url https://download.pytorch.org/whl/cu130
 ```
 ```bash
 .venv/Scripts/python.exe -m pip install -r requirements.txt
 ```
-```bash
-.venv/Scripts/python.exe scripts/setup_data.py
-```
-The original environment: Windows 11, Python 3.13, PyTorch 2.13.0+cu130, RTX 3050 6 GB laptop GPU, i5-12450HX, 16 GB RAM. numpy, scipy, pandas, matplotlib, networkx and tqdm come from the system interpreter (`--system-site-packages`); versions are listed in `requirements.txt`.
+On Linux/macOS, use `.venv/bin/python` instead of `.venv/Scripts/python.exe`.
 
-Sanity checks after setup:
+### 3.2 Re-run every analysis immediately (no data folder needed)
+
+Point the data path at the repository; all summary tables and figures are regenerated from `results/`:
+```bash
+export CKTGNN_DATA="$PWD"
+```
+```bash
+.venv/Scripts/python.exe scripts/plot_ablation.py
+```
+```bash
+.venv/Scripts/python.exe scripts/plot_bo.py --dir bo5
+```
+```bash
+.venv/Scripts/python.exe scripts/plot_bo.py --dir bo7
+```
+```bash
+.venv/Scripts/python.exe scripts/bo_auc.py
+```
+```bash
+.venv/Scripts/python.exe scripts/guided_analysis.py --models SubgDVAEprop SubgDVAEpropn SubgDVAEpos CktGNN
+```
+These reproduce the committed tables and figures; for the Phase 5–8 scripts this was checked byte for byte.
+
+### 3.3 Use the trained models (no training)
+
+1. Choose a data folder, e.g. `~/cktgnn_data`, and set `CKTGNN_DATA` to it.
+2. Copy the datasets into it:
+   ```bash
+   .venv/Scripts/python.exe scripts/setup_data.py
+   ```
+3. Download the models from the release, all at once with the GitHub CLI:
+   ```bash
+   gh release download models-v1 --repo DevaanshGupta8/cktgnn-replication --dir release_zips
+   ```
+   Or download them from the release page in a browser. Check them against `SHA256SUMS.txt`.
+4. Unzip every model zip **into the data folder**; each zip contains `results/vae/<run>/`.
+5. Copy the simulator labels in (P and Pn need them for evaluation):
+   ```bash
+   mkdir -p "$CKTGNN_DATA/results/simulator" && cp results/simulator/analysis_all.csv "$CKTGNN_DATA/results/simulator/"
+   ```
+   Alternatively, regenerate them with `scripts/circuit_labels.py`.
+
+Then everything downstream works. Examples:
+
+| Task | Command |
+|---|---|
+| Decoder metrics of a run | `.venv/Scripts/python.exe scripts/run_vae.py --model SubgDVAEprop --seed 1 --eval-only` |
+| Latent SGP regression | `.venv/Scripts/python.exe scripts/sgp_regression.py --run $CKTGNN_DATA/results/vae/SubgDVAEprop_seed1` |
+| Simulate 10,000 generated circuits | `.venv/Scripts/python.exe scripts/eval_circuits.py --run $CKTGNN_DATA/results/vae/SubgDVAEprop_seed1 --model SubgDVAEprop` |
+| Guided generation | `.venv/Scripts/python.exe scripts/guided_generation.py --model SubgDVAEprop --seed 1` |
+| One optimisation run | `.venv/Scripts/python.exe scripts/latent_bo.py --model SubgDVAEprop --method cbo --seed 1 --out <dir>` |
+| A batch of optimisation runs | `PAR=4 OUT=<dir> bash scripts/run_bo_jobs.sh results/jobs/bo5_jobs.txt` |
+
+**Exactness:** re-running a stored optimisation run with the released files reproduces its trace exactly (checked for CktGNN and P). `run_vae.py --eval-only`, `eval_circuits.py` and `guided_generation.py` are seeded and reproduce the stored numbers on the same software versions. The SGP regression is float64 and seeded.
+
+### 3.4 Sanity checks
 ```bash
 .venv/Scripts/python.exe tests/test_fast_models.py --device cpu
 ```
@@ -87,87 +173,114 @@ Sanity checks after setup:
 ```bash
 .venv/Scripts/python.exe scripts/validate_simulator.py --n 10000
 ```
-(about 95.7% BW+gain match; see `results/simulator/label_diagnostics.json`)
+(≈ 95.7% bandwidth + gain match)
+
+### 3.5 If you do want to train
+
+```bash
+DEVICE=cuda bash scripts/launch_job.sh SubgDVAEprop 1 --epochs 300 --patience 10
+```
+- Logs go to the data folder.
+- Re-running the same command resumes from `last.pt`.
+- Training takes 1.5–2 GPU-hours per model, three seeds in parallel on an RTX 3050 6 GB (D-VAE ≈ 4 h); much slower on a CPU.
 
 ---
 
-## 4. Code map
+## 4. Reproducing each phase
+
+Each report ends with a **Reproduce** section listing its commands. In short:
+
+| Phase | Generates | Analyses |
+|---|---|---|
+| 1 | `audit_dataset.py`, `validate_simulator.py` | in the scripts |
+| 2, 3, 5, 6, 9B | `launch_job.sh` (training), `sgp_regression.py`, `eval_circuits.py` | `aggregate_results.py`, then `plot_results.py` (Phase 2), `plot_ablation.py` (Phases 3, 5, 6, 9B) |
+| 4 | `run_bo_jobs.sh` with `latent_bo.py` → `results/bo` | `plot_bo.py` |
+| 5, 6 | `run_bo_jobs.sh` → `results/bo5` (job lists in `results/jobs/`) | `plot_bo.py --dir bo5` |
+| 7 | `run_bo_jobs.sh` → `results/bo7` | `plot_bo.py --dir bo7` |
+| 8 | (uses bo5 + bo7) | `bo_auc.py` |
+| 9A | `guided_generation.py` | `guided_analysis.py` |
+
+---
+
+## 5. Code map (`scripts/`)
 
 | Script | Purpose |
 |---|---|
-| `paths.py` | All locations (repo, data folder) |
-| `setup_data.py` | Populate the data folder from the authors' repo |
-| `audit_dataset.py` | Dataset audit, simple baselines (Phase 1) |
-| `ocb_sim.py` | **Open simulator**: netlist rules of `graph_to_fom.py`, MNA AC solver, `measure`, `stability` (exact poles), `analyze` |
-| `validate_simulator.py` | Simulator vs released labels |
-| `fast_models.py` | Batched, numerically equivalent `encode`/`loss` for the authors' CktGNN and DVAE (5–9× faster) |
-| `ablation_models.py` | A1/A2/A3/P models (`SubgDVAE` with `use_pos`, `slot_struct`, `n_props`); `decompositions`/`infer_slots`, which read a slot-free graph as an OCB op-amp |
-| `run_vae.py` | Training and evaluation runner (`--model CktGNN|DVAE|SubgDVAE|SubgDVAEpos|SubgDVAEslot|SubgDVAEprop`, `--resume`, `--eval-only`, `--eval-device`) |
-| `circuit_labels.py` | Simulator labels for every real circuit (used by P) |
-| `launch_job.sh` | Launch one run with logs in the data folder; auto-resumes (`DEVICE=cuda bash scripts/launch_job.sh MODEL SEED --epochs 300 --patience 10`) |
+| `paths.py` | All locations: repository, data folder (`CKTGNN_DATA`) |
+| `setup_data.py` | Copy the datasets from the authors' repo into the data folder |
+| `audit_dataset.py` | Dataset audit and simple baselines (Phase 1) |
+| `ocb_sim.py` | **Open simulator**: the netlist rules of the authors' `graph_to_fom.py`, an MNA AC solver, `measure`, `stability` (exact poles), `analyze` |
+| `validate_simulator.py`, `circuit_labels.py` | Simulator vs released labels; simulator labels for all real circuits |
+| `fast_models.py` | Batched, numerically equivalent `encode`/`loss` for the authors' CktGNN and D-VAE (5–9× faster) |
+| `ablation_models.py` | `SubgDVAE` with flags `use_pos` (A2), `slot_struct` (A3), `n_props` (P), `norm_values` (Pn). `decompositions`/`infer_slots` read a slot-free graph as an OCB op-amp |
+| `run_vae.py` | Train / evaluate one run (`--model`, `--seed`, `--resume`, `--eval-only`, `--eval-device`) |
+| `launch_job.sh` | Launch one run with logs in the data folder; auto-resumes |
 | `sparse_gp_torch.py`, `sgp_regression.py` | PyTorch port of the authors' Theano sparse GP; the paper's latent-regression protocol |
-| `eval_circuits.py` | Circuit-level evaluation of generated circuits (`--reference` for real data) |
-| `latent_bo.py`, `run_bo_jobs.sh` | Optimisation (`--model ... --method rs|fom_bo|cbo|scbo|scbo_g --seed k --out DIR`); the runner takes `PAR=n OUT=dir`, skips finished runs and pins BLAS to one thread per job |
-| `bo_auc.py` | Phase 8 endpoints (AUC, time to first feasible) and their reliability across seed sets |
-| `aggregate_results.py`, `plot_results.py`, `plot_ablation.py`, `plot_bo.py` | Tables, figures, significance tests (`plot_bo.py --dir bo5` for Phases 5–6) |
-| `export_results.sh` | Copy small results into `results/` before committing |
-| `finish_run_on_cpu.sh` | Legacy helper: move the evaluation of an already-running old-style job to the CPU |
+| `eval_circuits.py` | Decode → read as an op-amp → simulate → score (functional, stable, meets spec, novel, values in range); `--reference` scores real data |
+| `latent_bo.py` | Optimisation in a latent space: `rs`, `fom_bo` (the paper's objective), `cbo`, `scbo`, `scbo_g` |
+| `run_bo_jobs.sh` | Parallel, resumable batch runner (`PAR=n OUT=dir`); pins BLAS to one thread per job |
+| `guided_generation.py`, `guided_analysis.py` | Phase 9A: predictor-guided generation and its analysis |
+| `aggregate_results.py`, `plot_results.py`, `plot_ablation.py`, `plot_bo.py`, `bo_auc.py` | Tables, figures and statistical tests |
+| `export_results.sh` | Copy all small results and logs from the data folder into `results/` (run before committing) |
+| `finish_run_on_cpu.sh` | Legacy helper from Phase 2 |
+
+Tests: `tests/test_fast_models.py` (fast path ≡ authors' code), `tests/test_ablation_models.py` (A1–A3, P, Pn consistency).
 
 ---
 
-## 5. Gotchas (learned the hard way)
+## 6. Gotchas (learned the hard way)
 
-1. **Train on the GPU, evaluate on the CPU.** With the fast path the GPU is fastest (CktGNN 0.13 s, D-VAE 0.25 s per batch). The authors' per-graph *decoder* (used for CktGNN/D-VAE evaluation) is ~15× slower on the GPU, hence `--eval-device cpu` (the default).
-2. **RAM is the parallelism limit.** Each training run uses ~1–1.4 GB and each SGP/BO process ~0.5–0.8 GB. Three GPU training runs side by side is the safe maximum on 16 GB.
-3. **On Windows, stopping a background shell does not always kill its Python child.** Kill leftovers by command line, e.g. matching `run_vae.py` with `Get-CimInstance Win32_Process`.
-4. **`models_ig.py` caches the device on first use.** After `model.to(...)`, set `model.device = None` (`run_vae.py` does this).
-5. **Theano does not install on Python 3.13.** Use `sparse_gp_torch.py`. With the authors' settings (lr 5e-4, 100 epochs) the SGP underfits; keep those settings for comparability, but be aware of it.
-6. **Phase margin is not a stability test on OCB.** Most circuits are open-loop unstable. Use `ocb_sim.stability` (poles).
-7. **Slot-free subgraph graphs can be ambiguous.** OCB uses different edge meanings for main-path and extra subgraphs. 21% of real circuits have more than one reading; only 1.7% differ electrically. D-VAE's device graphs cannot be turned into netlists.
-8. **Windows paths.** Use `D:/...` (not `/d/...`) inside Python strings. Set `PYTHONIOENCODING=utf-8` when printing tables with ± or Δ.
-9. **Learning rate.** `ReduceLROnPlateau` (patience 10) never fired in 300 epochs, and no run converged. Results could change with longer training.
-10. **BLAS threads.** numpy/sklearn use every core by default; one BO job slowed GPU training by ~65%. `run_bo_jobs.sh` sets `OMP/OPENBLAS/MKL_NUM_THREADS=1`.
-11. **SGP regression is the slow step**: about 1–2 h per run on a busy CPU (9 folds × 100 epochs). BO runs only need `last.pt` and `latents.npz`, so they can start before the SGP finishes.
-12. **Never seed with `hash()`.** Python salts string hashes per process; Phase 4's BO runs cannot be re-run bit-for-bit for this reason. `latent_bo.py` now uses `zlib.crc32`.
-
----
-
-## 6. Known deviations from the authors' setup (all documented in the reports)
-
-- Released Ckt-Bench-101 instead of the paper's (unreleased) dataset.
-- 300 epochs / patience 10 (README) rather than 200 / 20 (paper).
-- Batched training path (verified equivalent), float64 PyTorch SGP instead of Theano, hashed novelty (exact).
-- Training on GPU vs evaluation on CPU (different random streams, same distributions).
-- A1/A2 use a batched decoder with the same sampling steps as D-VAE's.
-- Open simulator instead of Cadence Spectre (validated; ~2.7% of circuits unexplained).
+1. **Train on the GPU, evaluate on the CPU.** The authors' per-graph decoder (used to evaluate CktGNN and D-VAE) is ~15× slower on the GPU; `--eval-device cpu` is the default.
+2. **RAM limits parallelism.** A training run takes ~1–1.4 GB, an SGP or BO process ~0.5–0.8 GB. Three GPU training runs side by side is the maximum on 16 GB.
+3. **BLAS threads.** numpy/sklearn use every core by default; one BO job slowed GPU training by ~65%. Set `OMP_NUM_THREADS` / `OPENBLAS_NUM_THREADS` / `MKL_NUM_THREADS` (`run_bo_jobs.sh` sets them to 1).
+4. **The SGP regression is the slowest step**: 1–2 h per run on a busy CPU. Optimisation runs need only `last.pt` and `latents.npz`, so they can run in parallel with it.
+5. **Never seed with `hash()`.** Python salts string hashes per process, which is why Phase 4's BO runs cannot be re-run bit-for-bit. `latent_bo.py` uses `zlib.crc32`.
+6. **Resuming on the GPU** used to crash (`RNG state must be a torch.ByteTensor`), because the saved CPU RNG state was loaded onto the GPU. Fixed in Phase 9 (`run_vae.py`, `load_state`).
+7. **Check for real completion before chaining jobs.** A failed run still appends an `exit` line to `stdout.log`; wait for `results.json` instead.
+8. **On Windows, stopping a background shell may leave its Python child running.** Kill leftovers by command line (`Get-CimInstance Win32_Process`).
+9. **`models_ig.py` caches the device on first use.** After `model.to(...)`, set `model.device = None` (`run_vae.py` does this).
+10. **Theano does not install on Python 3.13**, so `sparse_gp_torch.py` replaces it. With the authors' settings the SGP underfits; we kept them for comparability.
+11. **Phase margin is not a stability test on OCB.** Use `ocb_sim.stability` (poles).
+12. **Slot-free graphs can be read in more than one way** (21% of real circuits; 1.7% electrically different). D-VAE's device graphs cannot be turned into netlists at all.
+13. **No run has converged** in 300 epochs; `ReduceLROnPlateau` never fired.
+14. **Windows paths:** use `D:/...` in Python strings; set `PYTHONIOENCODING=utf-8` when printing ± or Δ.
+15. **Best-design optimisation results are noisy.** With 20 runs, comparisons flip between seed sets (Phases 7–8). Use the feasible-proposal share, or many more runs.
 
 ---
 
-## 7. Open work, in priority order
+## 7. Known deviations from the authors' setup
 
-*Done in Phases 5–6: the A3 ablation, SCBO with 20 runs per cell, and the property-aware latent space.*
+- The released Ckt-Bench-101 instead of the paper's (unreleased) dataset.
+- 300 epochs / patience 10 (the authors' README) instead of 200 / 20 (the paper).
+- Batched training path (verified equivalent); float64 PyTorch SGP instead of Theano; exact hashed novelty check.
+- Training on the GPU, evaluation on the CPU: different random streams, same distributions.
+- The ablation models use a batched decoder with the same sampling steps as D-VAE's.
+- An open simulator instead of Cadence Spectre (validated; ~2.7% of circuits unexplained).
 
-*Phase 7 tested graded SCBO (not confirmed) and showed that 20-run best-design comparisons are unreliable here.*
+---
 
-1. **Optimiser comparisons:** use the feasible-proposal share (or a similar per-proposal measure) as the primary endpoint; it is reliable across seed sets (Phase 8). Best-design claims need far more runs or a larger budget per run (AUC did not help).
-2. **Use P's predictor inside the optimiser** (feasibility filter or GP prior mean).
-3. **Why the value pathway helps reconstruction:** test feeding normalised (not raw 1–101) device values to A2/A3, or dropping them from the decoder input.
-4. **Missing paper baselines:** DAGNN (needs a PyG 2.x port of `layers/dagnn_pyg.py`), PACE/GCN/GIN/NGNN/Graphormer (not in the authors' repo).
-5. **The paper's BO on Ckt-Bench-301:** needs `pybnn`; the authors' EI code is wrong (incumbent fixed at 1.0, stray `+1`).
-6. **Paper hyperparameters** (200 epochs, patience 20), and longer training to check convergence.
-7. **Transistor-level validation** of the best feasible designs (ngspice + an open PDK such as SKY130). This is also the first step towards the proposed *real-chip-conditions* improvement (PVT corners, Monte Carlo mismatch, parasitics).
-8. **Power/area objectives** (proposed *multi-objective* improvement). The behavioural OCB circuits have no power or area, so this needs either a proxy (e.g. total gm as a bias-current proxy, total C as an area proxy) or the transistor-level flow of item 7. Constrained BO (Phases 4–8) is the natural starting point; Pareto-front methods (e.g. qNEHVI) or RL are alternatives.
-9. **Other circuit classes** (proposed *dataset expansion*: filters, ADC sub-blocks, RF). This needs a generator and simulator per class; filters with biquad sections as blocks are the closest fit to the subgraph-basis idea.
+## 8. Open work, in priority order
+
+1. **Close the stability gap.** Even guided P generates stable circuits at 6.8%, against 11.6% for real circuits. Options: a larger predictor weight λ (only λ = 1 was tried), a stability-weighted loss, or decoding with predictor feedback.
+2. **Use P's predictor inside the optimiser:** as a feasibility filter for candidate latents, or as a GP prior mean. Guided generation shows the predictor carries real signal (Phase 9).
+3. **Settle Pn:** more seeds (≥ 5), and the same normalisation applied to A2/A3 to separate it from the predictor. Phase 9's primary endpoints were p = 0.11 / 0.050 with 3 seeds.
+4. **Optimiser comparisons:** use the feasible-proposal share as the primary endpoint (reliable across seed sets, Phase 8). Best-design claims need many more runs or a larger budget per run.
+5. **Missing paper baselines:** DAGNN (needs a PyG 2.x port of `layers/dagnn_pyg.py`); PACE/GCN/GIN/NGNN/Graphormer (not in the authors' repo).
+6. **The paper's BO on Ckt-Bench-301:** needs `pybnn`. The authors' EI code is wrong (incumbent fixed at 1.0, stray `+1`).
+7. **Paper hyperparameters** (200 epochs, patience 20) and longer training, to check convergence.
+8. **Transistor-level validation** of the best designs (ngspice + an open PDK such as SKY130). This is the first step towards the proposed *real-chip-conditions* improvement: PVT corners, Monte Carlo mismatch, parasitics.
+9. **Power/area objectives** (the proposed *multi-objective* improvement). OCB circuits have no power or area, so this needs a proxy (e.g. total gm for bias current, total C for area) or the transistor-level flow of item 8. Constrained BO is the starting point; Pareto methods (qNEHVI) or RL are alternatives.
+10. **Other circuit classes** (the proposed *dataset expansion*: filters, ADC sub-blocks, RF). This needs a generator and simulator per class; filters built from biquad blocks fit the subgraph idea best.
 
 The status of every proposed improvement is in [`reports/project_summary.md`](reports/project_summary.md) §6.
 
-Scope decision still open with the project owner: a reproducibility report only, or a reproducibility report plus a research paper built on Phases 4–8.
+**Open decision:** the project scope, i.e. a reproducibility report only, or a reproducibility report plus a research paper building on Phases 4–9.
 
 ---
 
-## 8. Conventions
+## 9. Conventions
 
-- **Evidence tags in the reports:** [P] paper, [C] code-verified, [E] measured here, [X] external, [H] hypothesis.
-- **One change at a time:** each ablation or method change gets ≥ 3 seeds and paired tests.
-- **Before committing:** run `bash scripts/export_results.sh`; never commit checkpoints, datasets, `.venv`, `external/` or the paper PDF (`.gitignore` covers these).
-- **Commit messages** describe the phase or change; results stay reproducible from the scripts listed in each report's "Reproduce" section.
+- **Evidence tags in the reports:** [P] paper, [C] verified in the code, [E] measured here, [X] external source, [H] hypothesis.
+- **Pre-registration:** each new phase has a `phaseN_protocol.md`, committed and pushed before running; exploratory analyses are labelled as such.
+- **One change at a time:** each model or method change gets ≥ 3 seeds (models) or ≥ 20 paired runs (optimisers), with stated tests and multiple-comparison correction.
+- **Before committing:** `bash scripts/export_results.sh`. Never commit checkpoints, datasets, `.venv`, `external/` or the paper PDF (`.gitignore` covers them). New trained runs go into a GitHub release.

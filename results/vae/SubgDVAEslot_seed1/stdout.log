@@ -1,0 +1,323 @@
+SubgDVAEslot_seed1: 2510767 parameters, device=cuda, threads=2
+epoch 1 (141 batches, 20.8s) loss=39.5562 recon=39.4115 kld=28.9386 type=15.6224 pos=9.4698 feat=2.5510
+epoch 2 (141 batches, 21.1s) loss=25.9364 recon=25.8437 kld=18.5306 type=12.3076 pos=5.8538 feat=2.0483
+epoch 3 (141 batches, 20.5s) loss=21.5617 recon=21.4642 kld=19.4995 type=11.6346 pos=4.8201 feat=1.7084
+epoch 4 (141 batches, 19.5s) loss=19.3469 recon=19.2477 kld=19.8256 type=11.1626 pos=4.1291 feat=1.5942
+epoch 5 (141 batches, 19.3s) loss=17.9498 recon=17.8534 kld=19.2667 type=10.8277 pos=3.6415 feat=1.5375
+epoch 6 (141 batches, 19.8s) loss=16.8235 recon=16.7300 kld=18.6948 type=10.5387 pos=3.2092 feat=1.4952
+epoch 7 (141 batches, 19.8s) loss=15.7619 recon=15.6661 kld=19.1626 type=10.2197 pos=2.7664 feat=1.4606
+epoch 8 (141 batches, 20.0s) loss=14.8837 recon=14.7781 kld=21.1043 type=9.9227 pos=2.3632 feat=1.4303
+epoch 9 (141 batches, 19.8s) loss=14.2656 recon=14.1558 kld=21.9591 type=9.6896 pos=2.1001 feat=1.4026
+epoch 10 (141 batches, 20.0s) loss=13.7550 recon=13.6449 kld=22.0082 type=9.5012 pos=1.9000 feat=1.3763
+epoch 11 (141 batches, 19.8s) loss=13.3924 recon=13.2848 kld=21.5103 type=9.3703 pos=1.7681 feat=1.3536
+epoch 12 (141 batches, 20.0s) loss=13.0815 recon=12.9736 kld=21.5756 type=9.2583 pos=1.6519 feat=1.3338
+epoch 13 (141 batches, 30.3s) loss=12.7967 recon=12.6905 kld=21.2378 type=9.1555 pos=1.5356 feat=1.3167
+epoch 14 (141 batches, 28.7s) loss=12.5253 recon=12.4190 kld=21.2520 type=9.0557 pos=1.4288 feat=1.3012
+epoch 15 (141 batches, 31.8s) loss=12.3416 recon=12.2368 kld=20.9486 type=8.9832 pos=1.3446 feat=1.2911
+epoch 16 (141 batches, 30.5s) loss=12.0856 recon=11.9807 kld=20.9804 type=8.8872 pos=1.2551 feat=1.2798
+epoch 17 (141 batches, 30.5s) loss=11.8579 recon=11.7547 kld=20.6265 type=8.7937 pos=1.1571 feat=1.2713
+epoch 18 (141 batches, 30.5s) loss=11.6609 recon=11.5601 kld=20.1560 type=8.7190 pos=1.0859 feat=1.2628
+epoch 19 (141 batches, 30.9s) loss=11.5004 recon=11.4026 kld=19.5646 type=8.6548 pos=1.0160 feat=1.2554
+epoch 20 (141 batches, 30.5s) loss=11.3325 recon=11.2371 kld=19.0875 type=8.5899 pos=0.9562 feat=1.2476
+epoch 21 (141 batches, 31.2s) loss=11.2501 recon=11.1538 kld=19.2574 type=8.5540 pos=0.9183 feat=1.2434
+epoch 22 (141 batches, 31.3s) loss=11.0936 recon=11.0001 kld=18.7146 type=8.4883 pos=0.8631 feat=1.2355
+epoch 23 (141 batches, 31.4s) loss=10.9477 recon=10.8560 kld=18.3495 type=8.4258 pos=0.8191 feat=1.2284
+epoch 24 (141 batches, 33.2s) loss=10.8453 recon=10.7552 kld=18.0138 type=8.3742 pos=0.7848 feat=1.2228
+epoch 25 (141 batches, 31.4s) loss=10.7221 recon=10.6337 kld=17.6837 type=8.3313 pos=0.7440 feat=1.2172
+epoch 26 (141 batches, 31.9s) loss=10.6104 recon=10.5240 kld=17.2941 type=8.2690 pos=0.7048 feat=1.2107
+epoch 27 (141 batches, 31.0s) loss=10.7271 recon=10.6381 kld=17.8037 type=8.3078 pos=0.7557 feat=1.2127
+epoch 28 (141 batches, 31.9s) loss=10.3805 recon=10.2949 kld=17.1117 type=8.1560 pos=0.6443 feat=1.2010
+epoch 29 (141 batches, 32.3s) loss=10.2977 recon=10.2141 kld=16.7180 type=8.1092 pos=0.6213 feat=1.1951
+epoch 30 (141 batches, 31.6s) loss=10.2005 recon=10.1181 kld=16.4963 type=8.0429 pos=0.6075 feat=1.1899
+epoch 31 (141 batches, 31.3s) loss=10.1215 recon=10.0395 kld=16.3901 type=8.0022 pos=0.5850 feat=1.1867
+epoch 32 (141 batches, 23.5s) loss=10.0686 recon=9.9866 kld=16.4016 type=7.9524 pos=0.5780 feat=1.1836
+epoch 33 (141 batches, 30.0s) loss=9.9104 recon=9.8308 kld=15.9267 type=7.8683 pos=0.5454 feat=1.1757
+epoch 34 (141 batches, 28.1s) loss=9.7811 recon=9.7021 kld=15.8055 type=7.7919 pos=0.5091 feat=1.1706
+epoch 35 (141 batches, 20.6s) loss=9.7541 recon=9.6752 kld=15.7860 type=7.7723 pos=0.4979 feat=1.1682
+epoch 36 (141 batches, 20.3s) loss=9.6659 recon=9.5877 kld=15.6497 type=7.7159 pos=0.4782 feat=1.1640
+epoch 37 (141 batches, 24.3s) loss=9.5590 recon=9.4804 kld=15.7323 type=7.6540 pos=0.4464 feat=1.1592
+epoch 38 (141 batches, 22.4s) loss=9.4497 recon=9.3720 kld=15.5240 type=7.5831 pos=0.4277 feat=1.1537
+epoch 39 (141 batches, 20.2s) loss=9.3973 recon=9.3183 kld=15.7966 type=7.5519 pos=0.4128 feat=1.1514
+epoch 40 (141 batches, 20.2s) loss=9.2873 recon=9.2091 kld=15.6418 type=7.4852 pos=0.3833 feat=1.1464
+epoch 41 (141 batches, 19.5s) loss=9.2518 recon=9.1738 kld=15.6055 type=7.4490 pos=0.3858 feat=1.1448
+epoch 42 (141 batches, 20.9s) loss=9.1270 recon=9.0485 kld=15.6983 type=7.3811 pos=0.3470 feat=1.1381
+epoch 43 (141 batches, 35.4s) loss=9.0197 recon=8.9421 kld=15.5304 type=7.3148 pos=0.3288 feat=1.1337
+epoch 44 (141 batches, 34.5s) loss=8.9485 recon=8.8708 kld=15.5461 type=7.2512 pos=0.3211 feat=1.1293
+epoch 45 (141 batches, 29.5s) loss=8.8532 recon=8.7755 kld=15.5435 type=7.1827 pos=0.3005 feat=1.1252
+epoch 46 (141 batches, 25.7s) loss=8.7574 recon=8.6800 kld=15.4738 type=7.1079 pos=0.2926 feat=1.1210
+epoch 47 (141 batches, 21.6s) loss=8.6707 recon=8.5934 kld=15.4726 type=7.0352 pos=0.2873 feat=1.1158
+epoch 48 (141 batches, 21.7s) loss=8.5683 recon=8.4900 kld=15.6580 type=6.9552 pos=0.2811 feat=1.1118
+epoch 49 (141 batches, 22.7s) loss=8.4892 recon=8.4095 kld=15.9433 type=6.8757 pos=0.2673 feat=1.1079
+epoch 50 (141 batches, 23.2s) loss=8.3786 recon=8.2987 kld=15.9699 type=6.7899 pos=0.2636 feat=1.1020
+epoch 51 (141 batches, 23.5s) loss=8.2581 recon=8.1789 kld=15.8282 type=6.6893 pos=0.2506 feat=1.0966
+epoch 52 (141 batches, 24.1s) loss=8.1146 recon=8.0352 kld=15.8876 type=6.5809 pos=0.2340 feat=1.0896
+epoch 53 (141 batches, 25.1s) loss=8.0887 recon=8.0088 kld=15.9673 type=6.5346 pos=0.2562 feat=1.0853
+epoch 54 (141 batches, 26.4s) loss=7.9096 recon=7.8292 kld=16.0686 type=6.4055 pos=0.2195 feat=1.0764
+epoch 55 (141 batches, 27.1s) loss=7.8018 recon=7.7219 kld=15.9836 type=6.3076 pos=0.2220 feat=1.0697
+epoch 56 (141 batches, 27.4s) loss=7.8006 recon=7.7211 kld=15.9121 type=6.2775 pos=0.2480 feat=1.0651
+epoch 57 (141 batches, 27.8s) loss=7.6185 recon=7.5380 kld=16.0836 type=6.1487 pos=0.2100 feat=1.0547
+epoch 58 (141 batches, 27.8s) loss=7.5306 recon=7.4497 kld=16.1787 type=6.0755 pos=0.2166 feat=1.0477
+epoch 59 (141 batches, 25.6s) loss=7.3747 recon=7.2943 kld=16.0940 type=5.9523 pos=0.1973 feat=1.0392
+epoch 60 (141 batches, 23.4s) loss=7.3093 recon=7.2284 kld=16.1697 type=5.8837 pos=0.2026 feat=1.0323
+epoch 61 (141 batches, 25.0s) loss=7.1604 recon=7.0800 kld=16.0787 type=5.7647 pos=0.1890 feat=1.0249
+epoch 62 (141 batches, 25.2s) loss=7.1109 recon=7.0301 kld=16.1432 type=5.7002 pos=0.1927 feat=1.0192
+epoch 63 (141 batches, 24.0s) loss=6.9638 recon=6.8833 kld=16.1018 type=5.5959 pos=0.1807 feat=1.0115
+epoch 64 (141 batches, 25.0s) loss=6.8655 recon=6.7853 kld=16.0374 type=5.5017 pos=0.1764 feat=1.0066
+epoch 65 (141 batches, 25.6s) loss=6.8096 recon=6.7290 kld=16.1261 type=5.4368 pos=0.1910 feat=1.0017
+epoch 66 (141 batches, 26.4s) loss=6.7126 recon=6.6322 kld=16.0689 type=5.3640 pos=0.1730 feat=0.9963
+epoch 67 (141 batches, 26.9s) loss=6.6290 recon=6.5487 kld=16.0505 type=5.2803 pos=0.1799 feat=0.9930
+epoch 68 (141 batches, 27.2s) loss=6.5260 recon=6.4461 kld=15.9833 type=5.2012 pos=0.1629 feat=0.9872
+epoch 69 (141 batches, 27.4s) loss=6.4144 recon=6.3343 kld=16.0072 type=5.1232 pos=0.1476 feat=0.9818
+epoch 70 (141 batches, 27.4s) loss=6.4057 recon=6.3250 kld=16.1548 type=5.0812 pos=0.1686 feat=0.9798
+epoch 71 (141 batches, 28.4s) loss=6.2836 recon=6.2031 kld=16.1023 type=4.9910 pos=0.1554 feat=0.9744
+epoch 72 (141 batches, 26.6s) loss=6.2325 recon=6.1514 kld=16.2174 type=4.9442 pos=0.1530 feat=0.9727
+epoch 73 (141 batches, 25.9s) loss=6.1243 recon=6.0444 kld=15.9889 type=4.8533 pos=0.1440 feat=0.9667
+epoch 74 (141 batches, 23.3s) loss=6.0622 recon=5.9828 kld=15.8770 type=4.7977 pos=0.1379 feat=0.9641
+epoch 75 (141 batches, 23.3s) loss=6.0390 recon=5.9603 kld=15.7504 type=4.7588 pos=0.1548 feat=0.9620
+epoch 76 (141 batches, 23.4s) loss=5.9342 recon=5.8552 kld=15.7951 type=4.6891 pos=0.1367 feat=0.9577
+epoch 77 (141 batches, 24.3s) loss=5.8967 recon=5.8176 kld=15.8106 type=4.6484 pos=0.1363 feat=0.9557
+epoch 78 (141 batches, 25.5s) loss=5.9218 recon=5.8421 kld=15.9404 type=4.6420 pos=0.1646 feat=0.9558
+epoch 79 (141 batches, 20.9s) loss=5.7439 recon=5.6646 kld=15.8610 type=4.5178 pos=0.1291 feat=0.9491
+epoch 80 (141 batches, 19.4s) loss=5.6819 recon=5.6030 kld=15.7824 type=4.4681 pos=0.1243 feat=0.9474
+epoch 81 (141 batches, 22.0s) loss=5.6351 recon=5.5563 kld=15.7579 type=4.4200 pos=0.1201 feat=0.9458
+epoch 82 (141 batches, 21.6s) loss=5.6970 recon=5.6194 kld=15.5211 type=4.4470 pos=0.1523 feat=0.9464
+epoch 83 (141 batches, 21.7s) loss=5.5104 recon=5.4324 kld=15.6085 type=4.3146 pos=0.1155 feat=0.9407
+epoch 84 (141 batches, 21.8s) loss=5.4868 recon=5.4091 kld=15.5494 type=4.2850 pos=0.1203 feat=0.9402
+epoch 85 (141 batches, 21.8s) loss=5.4918 recon=5.4146 kld=15.4515 type=4.2717 pos=0.1370 feat=0.9407
+epoch 86 (141 batches, 21.3s) loss=5.3720 recon=5.2954 kld=15.3181 type=4.1807 pos=0.1150 feat=0.9386
+epoch 87 (141 batches, 21.8s) loss=5.2664 recon=5.1895 kld=15.3679 type=4.0864 pos=0.1095 feat=0.9368
+epoch 88 (141 batches, 21.7s) loss=5.2278 recon=5.1511 kld=15.3440 type=4.0400 pos=0.1064 feat=0.9377
+epoch 89 (141 batches, 21.8s) loss=5.3506 recon=5.2731 kld=15.5119 type=4.0918 pos=0.1437 feat=0.9436
+epoch 90 (141 batches, 21.9s) loss=5.0309 recon=4.9540 kld=15.3835 type=3.8705 pos=0.0908 feat=0.9374
+epoch 91 (141 batches, 21.5s) loss=5.0389 recon=4.9620 kld=15.3806 type=3.8390 pos=0.1208 feat=0.9416
+epoch 92 (141 batches, 21.8s) loss=4.9050 recon=4.8283 kld=15.3430 type=3.7363 pos=0.1023 feat=0.9400
+epoch 93 (141 batches, 22.1s) loss=4.8159 recon=4.7391 kld=15.3643 type=3.6494 pos=0.0986 feat=0.9414
+epoch 94 (141 batches, 22.6s) loss=4.7809 recon=4.7039 kld=15.3864 type=3.6079 pos=0.0982 feat=0.9419
+epoch 95 (141 batches, 21.9s) loss=4.7098 recon=4.6328 kld=15.3926 type=3.5315 pos=0.1035 feat=0.9437
+epoch 96 (141 batches, 21.0s) loss=4.6363 recon=4.5592 kld=15.4196 type=3.4765 pos=0.0963 feat=0.9419
+epoch 97 (141 batches, 22.1s) loss=4.5939 recon=4.5164 kld=15.5034 type=3.4215 pos=0.1035 feat=0.9412
+epoch 98 (141 batches, 21.1s) loss=4.5106 recon=4.4333 kld=15.4614 type=3.3531 pos=0.0945 feat=0.9407
+epoch 99 (141 batches, 21.4s) loss=4.4367 recon=4.3592 kld=15.5018 type=3.2806 pos=0.0850 feat=0.9403
+epoch 100 (141 batches, 21.9s) loss=4.4628 recon=4.3856 kld=15.4324 type=3.2810 pos=0.1029 feat=0.9412
+epoch 101 (141 batches, 21.1s) loss=4.3903 recon=4.3132 kld=15.4130 type=3.2338 pos=0.0894 feat=0.9390
+epoch 102 (141 batches, 20.9s) loss=4.3370 recon=4.2595 kld=15.4959 type=3.1786 pos=0.0942 feat=0.9392
+epoch 103 (141 batches, 21.2s) loss=4.2275 recon=4.1505 kld=15.3917 type=3.0947 pos=0.0817 feat=0.9366
+epoch 104 (141 batches, 21.1s) loss=4.2275 recon=4.1503 kld=15.4571 type=3.0715 pos=0.0917 feat=0.9368
+epoch 105 (141 batches, 21.0s) loss=4.1604 recon=4.0835 kld=15.3845 type=3.0321 pos=0.0749 feat=0.9353
+epoch 106 (141 batches, 21.1s) loss=4.0899 recon=4.0132 kld=15.3399 type=2.9663 pos=0.0741 feat=0.9330
+epoch 107 (141 batches, 20.9s) loss=4.1717 recon=4.0939 kld=15.5575 type=2.9996 pos=0.1001 feat=0.9341
+epoch 108 (141 batches, 21.2s) loss=4.0042 recon=3.9269 kld=15.4504 type=2.8913 pos=0.0684 feat=0.9307
+epoch 109 (141 batches, 22.1s) loss=4.0386 recon=3.9611 kld=15.5001 type=2.9015 pos=0.0845 feat=0.9321
+epoch 110 (141 batches, 21.7s) loss=3.8870 recon=3.8096 kld=15.4710 type=2.7861 pos=0.0605 feat=0.9272
+epoch 111 (141 batches, 21.3s) loss=3.9058 recon=3.8289 kld=15.3660 type=2.7777 pos=0.0700 feat=0.9286
+epoch 112 (141 batches, 21.1s) loss=3.8870 recon=3.8099 kld=15.4221 type=2.7707 pos=0.0721 feat=0.9282
+epoch 113 (141 batches, 21.5s) loss=3.9954 recon=3.9190 kld=15.2889 type=2.8390 pos=0.1085 feat=0.9307
+epoch 114 (141 batches, 21.3s) loss=3.9260 recon=3.8494 kld=15.3246 type=2.7889 pos=0.0797 feat=0.9281
+epoch 115 (141 batches, 21.9s) loss=3.7167 recon=3.6402 kld=15.3055 type=2.6291 pos=0.0507 feat=0.9230
+epoch 116 (141 batches, 22.3s) loss=3.6363 recon=3.5596 kld=15.3434 type=2.5627 pos=0.0482 feat=0.9210
+epoch 117 (141 batches, 21.4s) loss=3.5820 recon=3.5049 kld=15.4175 type=2.5132 pos=0.0449 feat=0.9201
+epoch 118 (141 batches, 21.2s) loss=3.6054 recon=3.5287 kld=15.3280 type=2.5210 pos=0.0557 feat=0.9203
+epoch 119 (141 batches, 21.1s) loss=3.5769 recon=3.5007 kld=15.2250 type=2.4934 pos=0.0552 feat=0.9190
+epoch 120 (141 batches, 21.2s) loss=3.6535 recon=3.5774 kld=15.2150 type=2.5334 pos=0.0841 feat=0.9202
+epoch 121 (141 batches, 21.2s) loss=3.6198 recon=3.5435 kld=15.2630 type=2.5156 pos=0.0695 feat=0.9198
+epoch 122 (141 batches, 20.1s) loss=3.5286 recon=3.4523 kld=15.2461 type=2.4422 pos=0.0636 feat=0.9179
+epoch 123 (141 batches, 20.7s) loss=3.4336 recon=3.3574 kld=15.2423 type=2.3606 pos=0.0518 feat=0.9137
+epoch 124 (141 batches, 20.5s) loss=3.4040 recon=3.3276 kld=15.2722 type=2.3427 pos=0.0451 feat=0.9144
+epoch 125 (141 batches, 20.2s) loss=3.3891 recon=3.3130 kld=15.2232 type=2.3253 pos=0.0445 feat=0.9122
+epoch 126 (141 batches, 20.7s) loss=3.2780 recon=3.2021 kld=15.1820 type=2.2234 pos=0.0402 feat=0.9101
+epoch 127 (141 batches, 21.5s) loss=3.3175 recon=3.2419 kld=15.1190 type=2.2570 pos=0.0476 feat=0.9104
+epoch 128 (141 batches, 21.7s) loss=3.3177 recon=3.2422 kld=15.0982 type=2.2500 pos=0.0549 feat=0.9097
+epoch 129 (141 batches, 21.0s) loss=3.3583 recon=3.2829 kld=15.0837 type=2.2661 pos=0.0690 feat=0.9120
+epoch 130 (141 batches, 21.5s) loss=3.2337 recon=3.1580 kld=15.1369 type=2.1804 pos=0.0466 feat=0.9064
+epoch 131 (141 batches, 21.9s) loss=3.3612 recon=3.2846 kld=15.3261 type=2.2600 pos=0.0688 feat=0.9097
+epoch 132 (141 batches, 21.7s) loss=3.0975 recon=3.0211 kld=15.2734 type=2.0584 pos=0.0330 feat=0.9025
+epoch 133 (141 batches, 22.2s) loss=3.0499 recon=2.9740 kld=15.1883 type=2.0248 pos=0.0319 feat=0.9014
+epoch 134 (141 batches, 21.5s) loss=3.0853 recon=3.0097 kld=15.1165 type=2.0476 pos=0.0393 feat=0.9010
+epoch 135 (141 batches, 20.9s) loss=3.1006 recon=3.0257 kld=14.9664 type=2.0430 pos=0.0444 feat=0.9018
+epoch 136 (141 batches, 21.8s) loss=3.0824 recon=3.0068 kld=15.1213 type=2.0266 pos=0.0547 feat=0.9000
+epoch 137 (141 batches, 21.1s) loss=3.0351 recon=2.9597 kld=15.0700 type=1.9859 pos=0.0443 feat=0.8994
+epoch 138 (141 batches, 21.2s) loss=3.0892 recon=3.0136 kld=15.1219 type=2.0178 pos=0.0783 feat=0.8995
+epoch 139 (141 batches, 21.0s) loss=3.0271 recon=2.9520 kld=15.0172 type=1.9859 pos=0.0490 feat=0.8983
+epoch 140 (141 batches, 20.6s) loss=2.8709 recon=2.7956 kld=15.0627 type=1.8534 pos=0.0336 feat=0.8920
+epoch 141 (141 batches, 21.4s) loss=2.8685 recon=2.7929 kld=15.1218 type=1.8513 pos=0.0361 feat=0.8923
+epoch 142 (141 batches, 21.4s) loss=3.0376 recon=2.9624 kld=15.0413 type=1.9574 pos=0.0736 feat=0.8967
+epoch 143 (141 batches, 21.4s) loss=2.8664 recon=2.7907 kld=15.1259 type=1.8422 pos=0.0373 feat=0.8920
+epoch 144 (141 batches, 21.9s) loss=2.8138 recon=2.7382 kld=15.1205 type=1.7956 pos=0.0386 feat=0.8898
+epoch 145 (141 batches, 21.6s) loss=2.7992 recon=2.7242 kld=15.0030 type=1.7814 pos=0.0384 feat=0.8890
+epoch 146 (141 batches, 21.2s) loss=2.8351 recon=2.7601 kld=14.9994 type=1.7967 pos=0.0440 feat=0.8895
+epoch 147 (141 batches, 21.4s) loss=2.8691 recon=2.7937 kld=15.0773 type=1.8237 pos=0.0587 feat=0.8904
+epoch 148 (141 batches, 21.1s) loss=2.7931 recon=2.7175 kld=15.1229 type=1.7691 pos=0.0404 feat=0.8882
+epoch 149 (141 batches, 21.1s) loss=2.6814 recon=2.6059 kld=15.0983 type=1.6775 pos=0.0267 feat=0.8845
+epoch 150 (141 batches, 20.9s) loss=2.6469 recon=2.5719 kld=14.9888 type=1.6470 pos=0.0295 feat=0.8822
+epoch 151 (141 batches, 21.7s) loss=2.6027 recon=2.5279 kld=14.9572 type=1.6133 pos=0.0236 feat=0.8810
+epoch 152 (141 batches, 21.0s) loss=2.8512 recon=2.7758 kld=15.0781 type=1.7669 pos=0.0774 feat=0.8875
+epoch 153 (141 batches, 21.9s) loss=2.5719 recon=2.4968 kld=15.0115 type=1.5769 pos=0.0270 feat=0.8794
+epoch 154 (141 batches, 21.6s) loss=2.4929 recon=2.4180 kld=14.9748 type=1.5119 pos=0.0195 feat=0.8763
+epoch 155 (141 batches, 21.2s) loss=2.5404 recon=2.4656 kld=14.9532 type=1.5382 pos=0.0350 feat=0.8761
+epoch 156 (141 batches, 21.2s) loss=2.6125 recon=2.5381 kld=14.8780 type=1.5910 pos=0.0508 feat=0.8789
+epoch 157 (141 batches, 20.7s) loss=2.4729 recon=2.3986 kld=14.8752 type=1.4895 pos=0.0222 feat=0.8747
+epoch 158 (141 batches, 21.4s) loss=2.4529 recon=2.3780 kld=14.9815 type=1.4505 pos=0.0267 feat=0.8720
+epoch 159 (141 batches, 21.5s) loss=2.6979 recon=2.6230 kld=14.9779 type=1.6401 pos=0.0754 feat=0.8800
+epoch 160 (141 batches, 21.6s) loss=2.6003 recon=2.5249 kld=15.0749 type=1.5667 pos=0.0555 feat=0.8780
+epoch 161 (141 batches, 21.7s) loss=2.3425 recon=2.2675 kld=15.0007 type=1.3662 pos=0.0207 feat=0.8704
+epoch 162 (141 batches, 22.0s) loss=2.3504 recon=2.2756 kld=14.9618 type=1.3708 pos=0.0252 feat=0.8677
+epoch 163 (141 batches, 20.8s) loss=2.5181 recon=2.4429 kld=15.0337 type=1.5018 pos=0.0534 feat=0.8730
+epoch 164 (141 batches, 21.0s) loss=2.2812 recon=2.2063 kld=14.9780 type=1.3119 pos=0.0190 feat=0.8659
+epoch 165 (141 batches, 21.2s) loss=2.2204 recon=2.1455 kld=14.9902 type=1.2562 pos=0.0171 feat=0.8619
+epoch 166 (141 batches, 21.3s) loss=2.2332 recon=2.1582 kld=14.9846 type=1.2660 pos=0.0209 feat=0.8623
+epoch 167 (141 batches, 21.6s) loss=2.2340 recon=2.1593 kld=14.9555 type=1.2652 pos=0.0220 feat=0.8624
+epoch 168 (141 batches, 21.5s) loss=2.6530 recon=2.5786 kld=14.8750 type=1.5584 pos=0.1189 feat=0.8736
+epoch 169 (141 batches, 21.3s) loss=2.4715 recon=2.3962 kld=15.0575 type=1.4393 pos=0.0598 feat=0.8707
+epoch 170 (141 batches, 20.7s) loss=2.2140 recon=2.1387 kld=15.0462 type=1.2402 pos=0.0182 feat=0.8621
+epoch 171 (141 batches, 21.2s) loss=2.0951 recon=2.0201 kld=14.9970 type=1.1466 pos=0.0127 feat=0.8555
+epoch 172 (141 batches, 21.4s) loss=2.0780 recon=2.0034 kld=14.9183 type=1.1276 pos=0.0159 feat=0.8546
+epoch 173 (141 batches, 21.4s) loss=2.1720 recon=2.0975 kld=14.9096 type=1.1976 pos=0.0257 feat=0.8583
+epoch 174 (141 batches, 21.1s) loss=2.2470 recon=2.1724 kld=14.9172 type=1.2673 pos=0.0343 feat=0.8603
+epoch 175 (141 batches, 20.9s) loss=2.5099 recon=2.4341 kld=15.1609 type=1.4330 pos=0.1053 feat=0.8667
+epoch 176 (141 batches, 20.8s) loss=2.1041 recon=2.0287 kld=15.0831 type=1.1391 pos=0.0232 feat=0.8551
+epoch 177 (141 batches, 20.8s) loss=2.0094 recon=1.9345 kld=14.9764 type=1.0612 pos=0.0158 feat=0.8505
+epoch 178 (141 batches, 21.5s) loss=1.9517 recon=1.8765 kld=15.0329 type=1.0147 pos=0.0110 feat=0.8463
+epoch 179 (141 batches, 22.8s) loss=1.9612 recon=1.8864 kld=14.9622 type=1.0172 pos=0.0189 feat=0.8450
+epoch 180 (141 batches, 22.9s) loss=1.9825 recon=1.9079 kld=14.9177 type=1.0360 pos=0.0185 feat=0.8473
+epoch 181 (141 batches, 23.2s) loss=1.9757 recon=1.9011 kld=14.9280 type=1.0291 pos=0.0192 feat=0.8465
+epoch 182 (141 batches, 23.1s) loss=2.2309 recon=2.1567 kld=14.8449 type=1.2229 pos=0.0652 feat=0.8531
+epoch 183 (141 batches, 22.9s) loss=2.2068 recon=2.1324 kld=14.8638 type=1.1938 pos=0.0493 feat=0.8551
+epoch 184 (141 batches, 23.2s) loss=1.9534 recon=1.8789 kld=14.8909 type=1.0001 pos=0.0165 feat=0.8454
+epoch 185 (141 batches, 23.4s) loss=1.8824 recon=1.8083 kld=14.8325 type=0.9415 pos=0.0126 feat=0.8424
+epoch 186 (141 batches, 22.9s) loss=1.9077 recon=1.8336 kld=14.8284 type=0.9559 pos=0.0208 feat=0.8417
+epoch 187 (141 batches, 21.9s) loss=1.8122 recon=1.7381 kld=14.8262 type=0.8815 pos=0.0132 feat=0.8366
+epoch 188 (141 batches, 22.1s) loss=1.8556 recon=1.7812 kld=14.8730 type=0.9145 pos=0.0218 feat=0.8377
+epoch 189 (141 batches, 21.7s) loss=2.0811 recon=2.0071 kld=14.8116 type=1.0910 pos=0.0522 feat=0.8459
+epoch 190 (141 batches, 22.3s) loss=1.8705 recon=1.7969 kld=14.7300 type=0.9183 pos=0.0205 feat=0.8377
+epoch 191 (141 batches, 23.5s) loss=1.9129 recon=1.8393 kld=14.7296 type=0.9554 pos=0.0287 feat=0.8409
+epoch 192 (141 batches, 23.8s) loss=2.2481 recon=2.1739 kld=14.8273 type=1.2187 pos=0.0793 feat=0.8501
+epoch 193 (141 batches, 23.6s) loss=1.8575 recon=1.7838 kld=14.7489 type=0.9113 pos=0.0219 feat=0.8394
+epoch 194 (141 batches, 24.1s) loss=1.6979 recon=1.6238 kld=14.8023 type=0.7819 pos=0.0089 feat=0.8298
+epoch 195 (141 batches, 24.2s) loss=1.6705 recon=1.5964 kld=14.8014 type=0.7592 pos=0.0091 feat=0.8254
+epoch 196 (141 batches, 24.1s) loss=1.6667 recon=1.5928 kld=14.7853 type=0.7549 pos=0.0098 feat=0.8252
+epoch 197 (141 batches, 24.1s) loss=1.9026 recon=1.8290 kld=14.7353 type=0.9305 pos=0.0491 feat=0.8311
+epoch 198 (141 batches, 24.0s) loss=2.1517 recon=2.0773 kld=14.8986 type=1.0968 pos=0.0747 feat=0.8426
+epoch 199 (141 batches, 24.0s) loss=1.6637 recon=1.5897 kld=14.8019 type=0.7456 pos=0.0112 feat=0.8254
+epoch 200 (141 batches, 24.1s) loss=1.6260 recon=1.5520 kld=14.8043 type=0.7172 pos=0.0085 feat=0.8208
+epoch 201 (141 batches, 24.0s) loss=1.5931 recon=1.5189 kld=14.8363 type=0.6895 pos=0.0092 feat=0.8174
+epoch 202 (141 batches, 24.1s) loss=1.6288 recon=1.5552 kld=14.7140 type=0.7222 pos=0.0130 feat=0.8172
+epoch 203 (141 batches, 23.3s) loss=1.6779 recon=1.6048 kld=14.6088 type=0.7503 pos=0.0279 feat=0.8208
+epoch 204 (141 batches, 24.4s) loss=1.7831 recon=1.7109 kld=14.4338 type=0.8346 pos=0.0391 feat=0.8249
+epoch 205 (141 batches, 22.5s) loss=1.6543 recon=1.5812 kld=14.6185 type=0.7324 pos=0.0212 feat=0.8203
+epoch 206 (141 batches, 21.9s) loss=1.5754 recon=1.5024 kld=14.6155 type=0.6744 pos=0.0101 feat=0.8146
+epoch 207 (141 batches, 23.2s) loss=1.5370 recon=1.4640 kld=14.6058 type=0.6399 pos=0.0110 feat=0.8102
+epoch 208 (141 batches, 23.3s) loss=2.3742 recon=2.3003 kld=14.7657 type=1.2569 pos=0.1551 feat=0.8345
+epoch 209 (141 batches, 23.7s) loss=1.7773 recon=1.7028 kld=14.8991 type=0.8216 pos=0.0331 feat=0.8266
+epoch 210 (141 batches, 23.5s) loss=1.4950 recon=1.4209 kld=14.8301 type=0.5992 pos=0.0055 feat=0.8099
+epoch 211 (141 batches, 22.2s) loss=1.4474 recon=1.3738 kld=14.7230 type=0.5627 pos=0.0051 feat=0.8037
+epoch 212 (141 batches, 22.8s) loss=1.4356 recon=1.3623 kld=14.6552 type=0.5520 pos=0.0060 feat=0.8008
+epoch 213 (141 batches, 22.8s) loss=1.4206 recon=1.3476 kld=14.6106 type=0.5398 pos=0.0080 feat=0.7978
+epoch 214 (141 batches, 23.3s) loss=1.4401 recon=1.3672 kld=14.5763 type=0.5531 pos=0.0137 feat=0.7970
+epoch 215 (141 batches, 22.9s) loss=1.5211 recon=1.4483 kld=14.5666 type=0.6223 pos=0.0222 feat=0.8005
+epoch 216 (141 batches, 23.1s) loss=2.1472 recon=2.0741 kld=14.6225 type=1.1099 pos=0.1066 feat=0.8215
+epoch 217 (141 batches, 22.8s) loss=1.5646 recon=1.4920 kld=14.5222 type=0.6484 pos=0.0217 feat=0.8104
+epoch 218 (141 batches, 23.6s) loss=1.4017 recon=1.3293 kld=14.4834 type=0.5235 pos=0.0066 feat=0.7966
+epoch 219 (141 batches, 23.8s) loss=1.3601 recon=1.2877 kld=14.4699 type=0.4904 pos=0.0047 feat=0.7908
+epoch 220 (141 batches, 23.1s) loss=1.3443 recon=1.2726 kld=14.3539 type=0.4780 pos=0.0051 feat=0.7875
+epoch 221 (141 batches, 23.9s) loss=1.3415 recon=1.2698 kld=14.3394 type=0.4776 pos=0.0057 feat=0.7842
+epoch 222 (141 batches, 24.0s) loss=1.3612 recon=1.2897 kld=14.2953 type=0.4941 pos=0.0077 feat=0.7852
+epoch 223 (141 batches, 24.0s) loss=1.3686 recon=1.2971 kld=14.2950 type=0.4981 pos=0.0121 feat=0.7840
+epoch 224 (141 batches, 24.0s) loss=1.6077 recon=1.5369 kld=14.1719 type=0.6772 pos=0.0522 feat=0.7937
+epoch 225 (141 batches, 23.7s) loss=1.7601 recon=1.6890 kld=14.2263 type=0.7696 pos=0.0653 feat=0.8041
+epoch 226 (141 batches, 23.5s) loss=1.4322 recon=1.3612 kld=14.2019 type=0.5385 pos=0.0162 feat=0.7936
+epoch 227 (141 batches, 23.2s) loss=1.2826 recon=1.2117 kld=14.1903 type=0.4252 pos=0.0049 feat=0.7794
+epoch 228 (141 batches, 22.1s) loss=1.2685 recon=1.1978 kld=14.1425 type=0.4156 pos=0.0049 feat=0.7735
+epoch 229 (141 batches, 22.6s) loss=1.2605 recon=1.1900 kld=14.1008 type=0.4119 pos=0.0070 feat=0.7693
+epoch 230 (141 batches, 22.4s) loss=1.6647 recon=1.5943 kld=14.0901 type=0.7271 pos=0.0625 feat=0.7888
+epoch 231 (141 batches, 21.6s) loss=1.8201 recon=1.7484 kld=14.3383 type=0.8570 pos=0.0713 feat=0.8001
+epoch 232 (141 batches, 22.3s) loss=1.2909 recon=1.2199 kld=14.2015 type=0.4321 pos=0.0059 feat=0.7787
+epoch 233 (141 batches, 23.3s) loss=1.2259 recon=1.1553 kld=14.1131 type=0.3814 pos=0.0039 feat=0.7683
+epoch 234 (141 batches, 23.3s) loss=1.2370 recon=1.1668 kld=14.0278 type=0.3919 pos=0.0062 feat=0.7649
+epoch 235 (141 batches, 23.3s) loss=1.2079 recon=1.1379 kld=14.0006 type=0.3686 pos=0.0040 feat=0.7618
+epoch 236 (141 batches, 23.9s) loss=1.1978 recon=1.1282 kld=13.9257 type=0.3632 pos=0.0047 feat=0.7576
+epoch 237 (141 batches, 24.1s) loss=1.1946 recon=1.1256 kld=13.7943 type=0.3626 pos=0.0055 feat=0.7554
+epoch 238 (141 batches, 23.6s) loss=2.1499 recon=2.0780 kld=14.3830 type=1.0657 pos=0.1683 feat=0.7892
+epoch 239 (141 batches, 23.7s) loss=1.4311 recon=1.3602 kld=14.1877 type=0.5333 pos=0.0221 feat=0.7799
+epoch 240 (141 batches, 23.6s) loss=1.1996 recon=1.1293 kld=14.0652 type=0.3608 pos=0.0049 feat=0.7608
+epoch 241 (141 batches, 24.6s) loss=1.1538 recon=1.0836 kld=14.0269 type=0.3273 pos=0.0040 feat=0.7508
+epoch 242 (141 batches, 23.5s) loss=1.1343 recon=1.0645 kld=13.9617 type=0.3148 pos=0.0036 feat=0.7447
+epoch 243 (141 batches, 24.7s) loss=1.1317 recon=1.0622 kld=13.8930 type=0.3150 pos=0.0046 feat=0.7412
+epoch 244 (141 batches, 23.5s) loss=1.1344 recon=1.0653 kld=13.8160 type=0.3187 pos=0.0054 feat=0.7394
+epoch 245 (141 batches, 23.7s) loss=1.1165 recon=1.0478 kld=13.7326 type=0.3047 pos=0.0055 feat=0.7361
+epoch 246 (141 batches, 24.0s) loss=1.1029 recon=1.0346 kld=13.6426 type=0.2963 pos=0.0057 feat=0.7312
+epoch 247 (141 batches, 23.2s) loss=1.1530 recon=1.0853 kld=13.5441 type=0.3442 pos=0.0090 feat=0.7302
+epoch 248 (141 batches, 23.8s) loss=2.1456 recon=2.0750 kld=14.1132 type=1.0842 pos=0.1472 feat=0.7762
+epoch 249 (141 batches, 23.1s) loss=1.3025 recon=1.2333 kld=13.8462 type=0.4427 pos=0.0182 feat=0.7577
+epoch 250 (141 batches, 22.6s) loss=1.1100 recon=1.0414 kld=13.7332 type=0.2977 pos=0.0038 feat=0.7380
+epoch 251 (141 batches, 23.0s) loss=1.0663 recon=0.9980 kld=13.6776 type=0.2664 pos=0.0029 feat=0.7272
+epoch 252 (141 batches, 23.4s) loss=1.0520 recon=0.9841 kld=13.5854 type=0.2596 pos=0.0030 feat=0.7203
+epoch 253 (141 batches, 23.0s) loss=1.0451 recon=0.9773 kld=13.5637 type=0.2564 pos=0.0036 feat=0.7160
+epoch 254 (141 batches, 23.6s) loss=1.0342 recon=0.9668 kld=13.4647 type=0.2508 pos=0.0035 feat=0.7111
+epoch 255 (141 batches, 23.6s) loss=1.8888 recon=1.8196 kld=13.8559 type=0.9107 pos=0.1262 feat=0.7500
+epoch 256 (141 batches, 23.2s) loss=1.3123 recon=1.2437 kld=13.7146 type=0.4707 pos=0.0204 feat=0.7446
+epoch 257 (141 batches, 24.4s) loss=1.0627 recon=0.9948 kld=13.5693 type=0.2641 pos=0.0039 feat=0.7246
+epoch 258 (141 batches, 23.4s) loss=1.0253 recon=0.9575 kld=13.5447 type=0.2405 pos=0.0031 feat=0.7125
+epoch 259 (141 batches, 23.3s) loss=1.0052 recon=0.9381 kld=13.4237 type=0.2293 pos=0.0030 feat=0.7046
+epoch 260 (141 batches, 23.2s) loss=0.9918 recon=0.9249 kld=13.3896 type=0.2222 pos=0.0029 feat=0.6986
+epoch 261 (141 batches, 23.6s) loss=0.9901 recon=0.9238 kld=13.2719 type=0.2249 pos=0.0032 feat=0.6943
+epoch 262 (141 batches, 22.7s) loss=1.1319 recon=1.0655 kld=13.2746 type=0.3462 pos=0.0154 feat=0.7014
+epoch 263 (141 batches, 23.2s) loss=1.7893 recon=1.7209 kld=13.6948 type=0.8003 pos=0.1168 feat=0.7411
+epoch 264 (141 batches, 23.1s) loss=1.1833 recon=1.1150 kld=13.6676 type=0.3648 pos=0.0194 feat=0.7229
+epoch 265 (141 batches, 22.8s) loss=1.0004 recon=0.9327 kld=13.5376 type=0.2244 pos=0.0043 feat=0.7024
+epoch 266 (141 batches, 22.2s) loss=0.9852 recon=0.9180 kld=13.4440 type=0.2180 pos=0.0057 feat=0.6930
+epoch 267 (141 batches, 22.1s) loss=0.9584 recon=0.8918 kld=13.3176 type=0.2017 pos=0.0032 feat=0.6859
+epoch 268 (141 batches, 22.6s) loss=0.9411 recon=0.8752 kld=13.1796 type=0.1938 pos=0.0026 feat=0.6778
+epoch 269 (141 batches, 23.3s) loss=1.0333 recon=0.9676 kld=13.1313 type=0.2718 pos=0.0101 feat=0.6836
+epoch 270 (141 batches, 22.8s) loss=1.5195 recon=1.4530 kld=13.3000 type=0.6439 pos=0.0760 feat=0.7130
+epoch 271 (141 batches, 23.0s) loss=1.0930 recon=1.0266 kld=13.2821 type=0.3014 pos=0.0143 feat=0.7034
+epoch 272 (141 batches, 23.5s) loss=0.9493 recon=0.8834 kld=13.1932 type=0.1959 pos=0.0033 feat=0.6827
+epoch 273 (141 batches, 23.7s) loss=0.9206 recon=0.8551 kld=13.0967 type=0.1806 pos=0.0024 feat=0.6710
+epoch 274 (141 batches, 24.5s) loss=0.9074 recon=0.8424 kld=12.9851 type=0.1761 pos=0.0025 feat=0.6627
+epoch 275 (141 batches, 23.9s) loss=0.9009 recon=0.8362 kld=12.9544 type=0.1744 pos=0.0030 feat=0.6573
+epoch 276 (141 batches, 24.0s) loss=0.8937 recon=0.8295 kld=12.8348 type=0.1731 pos=0.0025 feat=0.6527
+epoch 277 (141 batches, 24.6s) loss=0.8948 recon=0.8314 kld=12.6855 type=0.1761 pos=0.0036 feat=0.6506
+epoch 278 (141 batches, 24.0s) loss=1.0133 recon=0.9501 kld=12.6243 type=0.2731 pos=0.0189 feat=0.6553
+epoch 279 (141 batches, 23.7s) loss=1.8939 recon=1.8276 kld=13.2569 type=0.9314 pos=0.1325 feat=0.7088
+epoch 280 (141 batches, 22.5s) loss=1.0376 recon=0.9725 kld=13.0198 type=0.2677 pos=0.0143 feat=0.6800
+epoch 281 (141 batches, 19.8s) loss=0.9061 recon=0.8418 kld=12.8659 type=0.1761 pos=0.0036 feat=0.6606
+epoch 282 (141 batches, 18.9s) loss=0.8732 recon=0.8096 kld=12.7202 type=0.1582 pos=0.0023 feat=0.6482
+epoch 283 (141 batches, 19.1s) loss=0.8563 recon=0.7930 kld=12.6537 type=0.1509 pos=0.0021 feat=0.6391
+epoch 284 (141 batches, 18.4s) loss=0.8474 recon=0.7846 kld=12.5658 type=0.1482 pos=0.0024 feat=0.6330
+epoch 285 (141 batches, 17.6s) loss=0.8658 recon=0.8031 kld=12.5483 type=0.1671 pos=0.0036 feat=0.6312
+epoch 286 (141 batches, 18.1s) loss=1.1276 recon=1.0650 kld=12.5067 type=0.3797 pos=0.0267 feat=0.6515
+epoch 287 (141 batches, 19.2s) loss=1.2407 recon=1.1772 kld=12.6980 type=0.4465 pos=0.0370 feat=0.6721
+epoch 288 (141 batches, 19.1s) loss=1.0441 recon=0.9805 kld=12.7164 type=0.2914 pos=0.0179 feat=0.6620
+epoch 289 (141 batches, 18.7s) loss=0.8860 recon=0.8227 kld=12.6650 type=0.1719 pos=0.0057 feat=0.6430
+epoch 290 (141 batches, 18.9s) loss=0.8284 recon=0.7658 kld=12.5156 type=0.1354 pos=0.0020 feat=0.6274
+epoch 291 (141 batches, 18.7s) loss=0.8131 recon=0.7511 kld=12.4023 type=0.1313 pos=0.0020 feat=0.6170
+epoch 292 (141 batches, 19.3s) loss=0.8073 recon=0.7456 kld=12.3250 type=0.1311 pos=0.0024 feat=0.6113
+epoch 293 (141 batches, 18.9s) loss=0.8151 recon=0.7537 kld=12.2682 type=0.1418 pos=0.0038 feat=0.6072
+epoch 294 (141 batches, 19.1s) loss=0.9339 recon=0.8729 kld=12.1970 type=0.2332 pos=0.0159 feat=0.6195
+epoch 295 (141 batches, 18.9s) loss=1.7575 recon=1.6933 kld=12.8315 type=0.8565 pos=0.1301 feat=0.6692
+epoch 296 (141 batches, 18.5s) loss=1.0709 recon=1.0059 kld=12.9960 type=0.3113 pos=0.0256 feat=0.6530
+epoch 297 (141 batches, 19.3s) loss=0.8418 recon=0.7786 kld=12.6385 type=0.1455 pos=0.0030 feat=0.6271
+epoch 298 (141 batches, 18.6s) loss=0.8021 recon=0.7394 kld=12.5278 type=0.1241 pos=0.0021 feat=0.6124
+epoch 299 (141 batches, 18.9s) loss=0.7833 recon=0.7215 kld=12.3726 type=0.1169 pos=0.0017 feat=0.6021
+epoch 300 (141 batches, 19.4s) loss=0.7724 recon=0.7112 kld=12.2406 type=0.1138 pos=0.0017 feat=0.5950
+  0%|          | 0/9000 [00:00<?, ?it/s]  4%|4         | 384/9000 [00:00<00:02, 3222.81it/s]  9%|8         | 768/9000 [00:00<00:02, 3402.91it/s] 13%|#2        | 1152/9000 [00:00<00:02, 3454.18it/s] 17%|#7        | 1536/9000 [00:00<00:02, 3314.42it/s] 21%|##1       | 1920/9000 [00:00<00:02, 3381.61it/s] 26%|##5       | 2304/9000 [00:00<00:01, 3444.97it/s] 30%|##9       | 2688/9000 [00:00<00:01, 3420.98it/s] 34%|###4      | 3072/9000 [00:00<00:01, 3440.65it/s] 38%|###8      | 3456/9000 [00:01<00:01, 3378.25it/s] 43%|####2     | 3840/9000 [00:01<00:01, 3400.37it/s] 47%|####6     | 4224/9000 [00:01<00:01, 3395.30it/s] 51%|#####1    | 4608/9000 [00:01<00:01, 3408.61it/s] 55%|#####5    | 4992/9000 [00:01<00:01, 3321.39it/s] 60%|#####9    | 5376/9000 [00:01<00:01, 3364.10it/s] 64%|######4   | 5760/9000 [00:01<00:00, 3244.59it/s] 68%|######8   | 6144/9000 [00:01<00:00, 3109.64it/s] 73%|#######2  | 6528/9000 [00:01<00:00, 3159.79it/s] 77%|#######6  | 6912/9000 [00:02<00:00, 3106.93it/s] 81%|########1 | 7296/9000 [00:02<00:00, 3171.48it/s] 85%|########5 | 7680/9000 [00:02<00:00, 3067.11it/s] 90%|########9 | 8064/9000 [00:02<00:00, 3031.65it/s] 94%|#########3| 8448/9000 [00:02<00:00, 3142.80it/s] 98%|#########8| 8832/9000 [00:02<00:00, 3036.14it/s]100%|##########| 9000/9000 [00:02<00:00, 3236.63it/s]
+  0%|          | 0/1000 [00:00<?, ?it/s] 38%|###8      | 384/1000 [00:00<00:00, 2870.57it/s] 77%|#######6  | 768/1000 [00:00<00:00, 2955.31it/s]100%|##########| 1000/1000 [00:00<00:00, 3042.59it/s]
+  0%|          | 0/9000 [00:00<?, ?it/s]  6%|5         | 512/9000 [00:00<00:02, 4116.82it/s] 11%|#1        | 1024/9000 [00:00<00:01, 4103.72it/s] 16%|#5        | 1435/9000 [00:00<00:01, 3945.24it/s] 20%|##        | 1829/9000 [00:00<00:01, 3829.64it/s] 25%|##4       | 2225/9000 [00:00<00:01, 3872.67it/s] 29%|##9       | 2612/9000 [00:00<00:01, 3434.30it/s] 33%|###2      | 2962/9000 [00:00<00:01, 3183.99it/s] 37%|###6      | 3328/9000 [00:00<00:01, 3150.50it/s] 41%|####1     | 3712/9000 [00:01<00:01, 3111.88it/s] 46%|####5     | 4096/9000 [00:01<00:01, 3246.24it/s] 49%|####9     | 4424/9000 [00:01<00:01, 3172.03it/s] 53%|#####2    | 4744/9000 [00:01<00:01, 3056.65it/s] 57%|#####6    | 5120/9000 [00:01<00:01, 2882.87it/s] 61%|######1   | 5504/9000 [00:01<00:01, 2838.93it/s] 65%|######5   | 5888/9000 [00:01<00:01, 2813.61it/s] 70%|######9   | 6272/9000 [00:01<00:00, 2777.25it/s] 74%|#######3  | 6656/9000 [00:02<00:00, 2971.76it/s] 78%|#######8  | 7040/9000 [00:02<00:00, 3083.73it/s] 82%|########2 | 7424/9000 [00:02<00:00, 3013.69it/s] 87%|########6 | 7808/9000 [00:02<00:00, 2979.74it/s] 91%|#########1| 8192/9000 [00:02<00:00, 3096.81it/s] 97%|#########6| 8704/9000 [00:02<00:00, 3312.83it/s]100%|##########| 9000/9000 [00:02<00:00, 3180.47it/s]
+Prior validity experiment begins...
+  0%|          | 0/1000 [00:00<?, ?it/s] 13%|#2        | 128/1000 [00:02<00:13, 63.29it/s] 26%|##5       | 256/1000 [00:03<00:11, 67.33it/s] 38%|###8      | 384/1000 [00:05<00:09, 65.73it/s] 51%|#####1    | 512/1000 [00:07<00:07, 66.79it/s] 64%|######4   | 640/1000 [00:09<00:05, 68.72it/s] 77%|#######6  | 768/1000 [00:11<00:03, 66.46it/s] 90%|########9 | 896/1000 [00:13<00:01, 66.51it/s]100%|##########| 1000/1000 [00:15<00:00, 64.81it/s]100%|##########| 1000/1000 [00:15<00:00, 65.96it/s]
+Ratio of valid DAG decodings from the prior: 0.9811
+Ratio of valid Circuits decodings from the prior: 0.9773
+Ratio of novel graphs out of training data: 0.9241
+{
+  "n_params": 2510767,
+  "epochs": 300,
+  "device": "cuda",
+  "eval_device": "cpu",
+  "test_recon_nll": 7.970584655761718,
+  "recon_acc": 0.17919,
+  "recon_seconds": 160.01475739479065,
+  "valid_dag": 0.9811,
+  "valid_ckt": 0.9773,
+  "novel": 0.9240648251962084,
+  "eval_seconds": 178.71099209785461
+}
+exit 0 2026-10-14T19:55:01+05:30

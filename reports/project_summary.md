@@ -1,6 +1,6 @@
 # Project summary: CktGNN claims, what this project verified, and the status of the proposed improvements
 
-*Last updated: 2026-10-15, after Phases 1–8.*
+*Last updated: 2026-10-15, after Phases 1–9.*
 
 This page summarises the whole project against the paper's claims and the improvements proposed for it. Each row points to the phase report with the evidence.
 
@@ -75,6 +75,9 @@ Analog circuit design is largely manual. Engineers choose the components, their 
 | **3. Real chip conditions** (PVT variation, parasitics) | ❌ not done | **Done (a first step):** an open AC simulator with an exact pole-based stability check, used in every evaluation. **Not done:** transistor-level validation (planned: ngspice with the open SKY130 PDK) and any variation-aware training. | Phases 1, 4; HANDOVER open work |
 
 **Further work beyond the original proposals:**
+- **Better generation** (Phase 9):
+  - Selecting latent points with P's jointly trained predictor raises the share of generated circuits that meet the spec 1.6× (2.62% vs 1.62%, confirmed) and increases the variety of working designs. A classifier fitted afterwards does nothing.
+  - Normalising device-value inputs (Pn) improves reconstruction (0.24 → 0.32) and physical device values (82% → 95%), not significantly with 3 seeds, but costs latent-space quality.
 - **Property-aware latent space** (Phase 6). A VAE trained jointly with a stability/performance predictor gave the best latent-space regression of all models (FoM RMSE 0.475 vs 0.631 for CktGNN) and predicts "meets spec" with AUC 0.94. It did not measurably improve optimisation.
 - **Reliability of optimisation results** (Phases 7–8):
   - how *often* a method proposes valid circuits is a stable property (cross-seed rank correlation 0.92);

@@ -1,8 +1,14 @@
-# Installed in .venv (Python 3.13, Windows 11)
+# Exact versions used for every result in this repository (Python 3.13, Windows 11).
+# Install PyTorch first (it is not on PyPI with CUDA builds):
+#   CUDA 13.0 (as used here):  pip install "torch==2.13.0+cu130" --index-url https://download.pytorch.org/whl/cu130
+#   CPU only (enough to use the released models, evaluate, optimise and re-run all analyses):
+#                              pip install "torch==2.13.0" --index-url https://download.pytorch.org/whl/cpu
+# then:  pip install -r requirements.txt
+numpy==2.5.1
+scipy==1.18.0
+pandas==3.0.6
+matplotlib==3.11.2
+networkx==3.6.1
+tqdm==4.70.1
 python-igraph==1.0.0
 scikit-learn==1.9.1
-# CUDA build (RTX 3050, driver CUDA 13.0):
-#   pip install "torch==2.13.0+cu130" --index-url https://download.pytorch.org/whl/cu130
-torch==2.13.0
-# Provided by the system interpreter via --system-site-packages (versions used):
-# numpy==2.5.1  scipy==1.18.0  pandas==3.0.6  matplotlib==3.11.2  networkx==3.6.1  tqdm==4.70.1

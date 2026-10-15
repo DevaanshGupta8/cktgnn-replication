@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Run a list of latent_bo.py jobs ("MODEL METHOD SEED" per line) on the CPU, PAR at a time (default 1).
 # Jobs whose trace CSV already exists are skipped, so an interrupted batch can simply be restarted.
+# Carriage returns are stripped, so job lists with Windows line endings also work.
 # Usage: [PAR=4] [OUT=<data>/results/bo] bash scripts/run_bo_jobs.sh JOBFILE
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1   # one core per job (BLAS would take all)
@@ -12,4 +13,4 @@ job() {
       --method "$2" --seed "$3" --threads 1 --out "$OUT" 2>>"$OUT/errors.txt" | tail -1 >> "$OUT/log.txt"
 }
 export -f job
-grep -v '^\s*$' "$1" | xargs -P "${PAR:-1}" -L 1 bash -c 'job "$@"' _
+tr -d '\r' < "$1" | grep -v '^\s*$' | xargs -P "${PAR:-1}" -L 1 bash -c 'job "$@"' _
