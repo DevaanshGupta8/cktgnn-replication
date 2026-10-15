@@ -1,8 +1,8 @@
 # Handover: CktGNN replication and extension
 
-*Last updated: 2026-10-15. State: Phases 1–7 complete and pushed; nothing running.*
+*Last updated: 2026-10-15. State: Phases 1–8 complete and pushed; nothing running.*
 
-This file lets someone continue the project without the original working session. Read it first, then the seven phase reports. Phases 5–7 were pre-registered: each protocol file was committed before its results existed.
+This file lets someone continue the project without the original working session. Read it first, then the eight phase reports; Phase 8 §3 summarises what the optimisation study can claim. Phases 5–8 were pre-registered: each protocol file was committed before its results existed.
 
 ---
 
@@ -19,6 +19,7 @@ A reproduction and critical evaluation of **CktGNN** (Dong et al., *Circuit Grap
 | 5. A3 + SCBO | [`reports/phase5_report.md`](reports/phase5_report.md) | A3 shows CktGNN's value pathway alone explains its reconstruction gain and its unphysical device values. SCBO does not beat cBO or random search (pre-registered, negative) because the constraint score is flat for unstable circuits; an exploratory graded score repairs it. With 20 runs, cBO clearly beats random search and FoM-BO in CktGNN's space |
 | 6. Property-aware latent | [`reports/phase6_report.md`](reports/phase6_report.md) | A2 + a jointly trained property predictor: better reconstruction, far better SGP regression (FoM RMSE 0.475, the best of all models), predictor AUC 0.94 for "meets spec"; cBO's best design improves (median 17.6 vs 6.6 GHz) but not significantly (Holm p = 0.28) |
 | 7. Confirmatory + replication | [`reports/phase7_report.md`](reports/phase7_report.md) | Graded-stability SCBO does not beat plain SCBO on fresh seeds (Holm p = 1.0). Several best-design conclusions from Phases 5–6 flip between seed sets; feasibility-rate conclusions replicate. Best-design comparisons need ≥ 40 runs or a lower-variance endpoint |
+| 8. Endpoint reliability | [`reports/phase8_report.md`](reports/phase8_report.md) | AUC is no more reliable than final best (cross-seed-set sign agreement 6/15 vs 7/15); feasibility share is (ρ = 0.92, 13/15, post hoc). With 40 paired runs only cBO > SCBO in P's space survives correction |
 
 ---
 
@@ -106,6 +107,7 @@ Sanity checks after setup:
 | `sparse_gp_torch.py`, `sgp_regression.py` | PyTorch port of the authors' Theano sparse GP; the paper's latent-regression protocol |
 | `eval_circuits.py` | Circuit-level evaluation of generated circuits (`--reference` for real data) |
 | `latent_bo.py`, `run_bo_jobs.sh` | Optimisation (`--model ... --method rs|fom_bo|cbo|scbo|scbo_g --seed k --out DIR`); the runner takes `PAR=n OUT=dir`, skips finished runs and pins BLAS to one thread per job |
+| `bo_auc.py` | Phase 8 endpoints (AUC, time to first feasible) and their reliability across seed sets |
 | `aggregate_results.py`, `plot_results.py`, `plot_ablation.py`, `plot_bo.py` | Tables, figures, significance tests (`plot_bo.py --dir bo5` for Phases 5–6) |
 | `export_results.sh` | Copy small results into `results/` before committing |
 | `finish_run_on_cpu.sh` | Legacy helper: move the evaluation of an already-running old-style job to the CPU |
@@ -146,7 +148,7 @@ Sanity checks after setup:
 
 *Phase 7 tested graded SCBO (not confirmed) and showed that 20-run best-design comparisons are unreliable here.*
 
-1. **A lower-variance optimisation endpoint**, e.g. area under the best-so-far curve or time to the k-th distinct feasible circuit, pre-registered and applied to the existing 40 seeds per cell; or ≥ 40 runs per cell for best-design claims.
+1. **Optimiser comparisons:** use the feasible-proposal share (or a similar per-proposal measure) as the primary endpoint; it is reliable across seed sets (Phase 8). Best-design claims need far more runs or a larger budget per run (AUC did not help).
 2. **Use P's predictor inside the optimiser** (feasibility filter or GP prior mean).
 3. **Why the value pathway helps reconstruction:** test feeding normalised (not raw 1–101) device values to A2/A3, or dropping them from the decoder input.
 4. **Missing paper baselines:** DAGNN (needs a PyG 2.x port of `layers/dagnn_pyg.py`), PACE/GCN/GIN/NGNN/Graphormer (not in the authors' repo).

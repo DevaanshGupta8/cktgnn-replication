@@ -1,0 +1,4 @@
+endpoint,post_hoc,spearman_cell_medians,comparisons_same_sign,comparisons,cells_shifted_p05,cells
+auc,False,0.3090909090909091,6,15,4,11
+final,False,0.3272727272727273,7,15,2,11
+frac,True,0.9155251141552512,13,15,2,11

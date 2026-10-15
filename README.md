@@ -13,6 +13,7 @@ A research project to reproduce, critically evaluate and extend
 - **Phase 5 report** (ablation A3 separating CktGNN's value pathway from its slot-aware decoder; trust-region constrained BO with 20 runs per cell): [`reports/phase5_report.md`](reports/phase5_report.md), protocol [`reports/phase5_protocol.md`](reports/phase5_protocol.md)
 - **Phase 6 report** (a property-aware latent space: VAE trained jointly with a stability/performance predictor): [`reports/phase6_report.md`](reports/phase6_report.md), protocol [`reports/phase6_protocol.md`](reports/phase6_protocol.md)
 - **Phase 7 report** (confirmatory test of graded-stability SCBO on fresh seeds, and a replication check of the optimisation results): [`reports/phase7_report.md`](reports/phase7_report.md), protocol [`reports/phase7_protocol.md`](reports/phase7_protocol.md)
+- **Phase 8 report** (area-under-the-curve endpoint, reliability of optimisation endpoints across seed sets, and a summary of what the optimisation study can claim): [`reports/phase8_report.md`](reports/phase8_report.md), protocol [`reports/phase8_protocol.md`](reports/phase8_protocol.md)
 
 ## Layout
 | Path | Purpose |
@@ -35,6 +36,7 @@ A research project to reproduce, critically evaluate and extend
 | `scripts/eval_circuits.py` | Circuit-level evaluation: decode, read as op-amp, simulate, score functionality/phase margin/novelty |
 | `scripts/aggregate_results.py`, `scripts/plot_results.py`, `scripts/plot_ablation.py` | Summary tables, figures and significance tests |
 | `scripts/export_results.sh` | Copies the small result files from the data folder into `results/` |
+| `scripts/bo_auc.py` | Phase 8: AUC / time-to-first-feasible endpoints and their cross-seed-set reliability |
 | `scripts/latent_bo.py`, `scripts/run_bo_jobs.sh`, `scripts/plot_bo.py` | Phases 4–6: latent-space optimisation (random search, FoM-BO, constrained BO, SCBO) and its analysis |
 
 ## Results in this repository

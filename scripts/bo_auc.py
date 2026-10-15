@@ -7,6 +7,8 @@ Pre-specified in reports/phase8_protocol.md. Reads the traces of Phases 5-7 (<DA
   final      best feasible UGF after 200 simulations (the earlier endpoint)
 then (1) the reliability of auc vs final across the two seed sets and (2) the method comparisons.
 Writes <DATA>/results/summary/bo_auc_{runs,reliability,tests}.csv and reports/figures/bo_auc{,_reliability}.png.
+Post hoc (added after the pre-specified results were seen, labelled as such): the same reliability check for the
+share of feasible proposals in simulations 21-200 ('frac'), as a contrast.
 
 Usage:  .venv/Scripts/python.exe scripts/bo_auc.py
 """
@@ -33,7 +35,9 @@ SPACES = ['CktGNN', 'SubgDVAEpos', 'SubgDVAEprop']
 FULL = {'CktGNN': ['rs', 'cbo', 'scbo', 'scbo_g'], 'SubgDVAEpos': ['rs', 'cbo', 'scbo', 'scbo_g'],
         'SubgDVAEprop': ['rs', 'cbo', 'scbo']}                    # the 11 cells with 40 seeds
 PRIMARY = [('cbo', 'rs'), ('scbo', 'cbo')]                         # per space; Holm across the 6
-ENDPOINTS = {'auc': 'AUC (mean best-so-far, GHz)', 'final': 'Final best (GHz)'}
+ENDPOINTS = {'auc': 'AUC (mean best-so-far, GHz)', 'final': 'Final best (GHz)',
+             'frac': 'Share of feasible proposals (post hoc)'}
+SHORT = {'rs': 'Random', 'fom_bo': 'FoM-BO', 'cbo': 'cBO', 'scbo': 'SCBO', 'scbo_g': 'SCBO\ngraded'}
 
 
 def per_run():
@@ -45,7 +49,8 @@ def per_run():
             feas = t['eval'][t.feasible]
             rows.append({'model': t.model.iloc[0], 'method': t.method.iloc[0], 'seed': int(t.seed.iloc[0]),
                          'set': 'A' if t.seed.iloc[0] <= 20 else 'B', 'auc': best[N_INIT:].mean(),
-                         't_first': int(feas.min()) if len(feas) else 201, 'final': best[-1]})
+                         't_first': int(feas.min()) if len(feas) else 201, 'final': best[-1],
+                         'frac': t.feasible.values[N_INIT:].mean()})
     return pd.DataFrame(rows)
 
 
@@ -85,7 +90,7 @@ def reliability(df):
                 n_pairs += 1
                 sign_rows.append({'endpoint': col, 'space': sp, 'a': a, 'b': b, 'median_diff_A': rA['median_diff'],
                                   'median_diff_B': rB['median_diff'], 'same_sign': ok})
-        out.append({'endpoint': col, 'spearman_cell_medians': rho, 'comparisons_same_sign': agree,
+        out.append({'endpoint': col, 'post_hoc': col == 'frac', 'spearman_cell_medians': rho, 'comparisons_same_sign': agree,
                     'comparisons': n_pairs, 'cells_shifted_p05': shifts, 'cells': len(cells),
                     'median_A': mA, 'median_B': mB})
     return pd.DataFrame(out), pd.DataFrame(sign_rows), cells
@@ -141,8 +146,7 @@ def main():
                        linewidth=0.6, zorder=3)
             ax.hlines(np.median(v), i - 0.3, i + 0.3, color=INK, linewidth=2, zorder=4)
             ax.annotate(f'n={len(v)}', (i, -1.2), ha='center', fontsize=7.5, color=INK2, annotation_clip=False)
-        ax.set_xticks(range(len(ms)), [MLABEL[m].replace(' (', '\n(').replace('constrained BO (SCBO)', 'constr. BO\n(SCBO)')
-                                       .replace(', graded stability (exploratory)', '\ngraded') for m in ms], fontsize=8)
+        ax.set_xticks(range(len(ms)), [SHORT[m] for m in ms], fontsize=8.5)
         ax.set_title(SPACE[sp], fontsize=10)
         style(ax)
     axes[0].set_ylabel('AUC: mean best feasible UGF so far,\nsimulations 21–200 (GHz)')
@@ -152,9 +156,9 @@ def main():
     plt.close(fig)
 
     # figure 2: reliability, set A vs set B cell medians for both endpoints
-    fig, axes = plt.subplots(1, 2, figsize=(10, 4.4))
+    fig, axes = plt.subplots(1, 3, figsize=(15, 4.6))
     for ax, (_, r) in zip(axes, rel.iterrows()):
-        lim = max(max(r.median_A), max(r.median_B)) * 1.1 + 0.5
+        lim = max(max(r.median_A), max(r.median_B)) * 1.1 + (0.5 if r.endpoint != 'frac' else 0.01)
         ax.plot([0, lim], [0, lim], color=INK2, linewidth=1, linestyle='--', zorder=1)
         for (sp, m), a, b in zip(cells, r.median_A, r.median_B):
             ax.scatter(a, b, s=46, color=MCOLOR[m], edgecolor=SURFACE, linewidth=1, zorder=3)
@@ -165,7 +169,8 @@ def main():
         ax.set_title(f"{ENDPOINTS[r.endpoint]}\nSpearman ρ = {r.spearman_cell_medians:.2f}; "
                      f"{r.comparisons_same_sign}/{r.comparisons} comparisons agree in sign", fontsize=9.5)
         style(ax)
-    h = [plt.Line2D([], [], marker='o', linestyle='', color=MCOLOR[m], label=MLABEL[m]) for m in ['rs', 'cbo', 'scbo', 'scbo_g']]
+    h = [plt.Line2D([], [], marker='o', linestyle='', color=MCOLOR[m], label=SHORT[m].replace('\n', ' '))
+         for m in ['rs', 'cbo', 'scbo', 'scbo_g']]
     fig.legend(handles=h, loc='lower center', ncol=4, frameon=False, fontsize=8.5)
     fig.tight_layout(rect=(0, 0.07, 1, 1))
     fig.savefig(os.path.join(FIG, 'bo_auc_reliability.png'), dpi=160)
