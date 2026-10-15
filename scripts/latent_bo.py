@@ -211,7 +211,7 @@ def ei(mu, sd, best):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('--model', choices=['CktGNN', 'SubgDVAEpos', 'SubgDVAEslot', 'SubgDVAEprop'], required=True)
+    ap.add_argument('--model', choices=['CktGNN', 'SubgDVAEpos', 'SubgDVAEslot', 'SubgDVAEprop', 'SubgDVAEpropn'], required=True)
     ap.add_argument('--method', choices=['rs', 'fom_bo', 'cbo', 'scbo', 'scbo_g'], required=True)
     ap.add_argument('--seed', type=int, default=1)
     ap.add_argument('--budget', type=int, default=200)

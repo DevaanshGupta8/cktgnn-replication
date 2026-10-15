@@ -49,10 +49,11 @@ from ablation_models import SubgDVAE  # noqa: E402
 from utils import is_same_DAG, prior_validity  # noqa: E402
 
 p = argparse.ArgumentParser()
-p.add_argument('--model', default='CktGNN', choices=['CktGNN', 'DVAE', 'SubgDVAE', 'SubgDVAEpos', 'SubgDVAEslot', 'SubgDVAEprop'],
+p.add_argument('--model', default='CktGNN', choices=['CktGNN', 'DVAE', 'SubgDVAE', 'SubgDVAEpos', 'SubgDVAEslot', 'SubgDVAEprop', 'SubgDVAEpropn'],
                help='SubgDVAE / SubgDVAEpos: ablations A1 / A2 (D-VAE on the subgraph DAG without / with slots); '
                     'SubgDVAEslot: A3 (A2 plus slots in messages and edge scorer, as in CktGNN); '
-                    'SubgDVAEprop: A2 plus a jointly trained property predictor (Phase 6)')
+                    'SubgDVAEprop: A2 plus a jointly trained property predictor (Phase 6); '
+                    'SubgDVAEpropn: SubgDVAEprop with normalised device-value inputs (Phase 9)')
 p.add_argument('--prop-weight', type=float, default=1.0, help='weight of the property loss (SubgDVAEprop)')
 p.add_argument('--epochs', type=int, default=300)
 p.add_argument('--patience', type=int, default=10, help='ReduceLROnPlateau patience (repo: 10, paper: 20)')
@@ -101,7 +102,7 @@ train_data = [x[k] for x in train_set]
 test_data = [x[k] for x in test_set]
 del train_set, test_set                          # keep only the graph level this model uses
 train_eval = list(train_data)                    # fixed order (train_data is shuffled in place)
-if args.model == 'SubgDVAEprop':                 # simulator labels, same order as perform101.csv (train, then test)
+if args.model.startswith('SubgDVAEprop'):                 # simulator labels, same order as perform101.csv (train, then test)
     lab = pd.read_csv(os.path.join(RESULTS, 'simulator', 'analysis_all.csv'))
     flags = lab[['functional', 'ol_stable', 'cl_stable', 'feasible']].astype(float).values
     reg = np.column_stack([np.log10(lab.ugf_hz), lab.gain_db, lab.pm_lag]).astype(float)
@@ -124,7 +125,8 @@ if args.model == 'CktGNN':                      # constants hard-coded in main.p
 elif args.model.startswith('SubgDVAE'):
     model = SubgDVAE(max_n=8, nvt=26, START_TYPE=0, END_TYPE=1, hs=args.hs, nz=args.nz,
                      use_pos=args.model != 'SubgDVAE', slot_struct=args.model == 'SubgDVAEslot',
-                     n_props=7 if args.model == 'SubgDVAEprop' else 0, prop_weight=args.prop_weight)
+                     n_props=7 if args.model.startswith('SubgDVAEprop') else 0, prop_weight=args.prop_weight,
+                     norm_values=args.model == 'SubgDVAEpropn')
     subg = True
 else:
     model = Dvae(max_n=24, nvt=10, feat_nvt=103, START_TYPE=8, END_TYPE=9, hs=args.hs, nz=args.nz)
@@ -222,7 +224,7 @@ if args.resume or args.eval_only:
 else:
     json.dump(vars(args), open(os.path.join(out_dir, 'config.json'), 'w'), indent=2)
     with open(log_path, 'w') as f:
-        f.write('epoch,lr,seconds,loss,recon,kld,type,pos,feat' + (',prop' if args.model == 'SubgDVAEprop' else '') + '\n')
+        f.write('epoch,lr,seconds,loss,recon,kld,type,pos,feat' + (',prop' if args.model.startswith('SubgDVAEprop') else '') + '\n')
 print(f'{tag}: {n_params} parameters, device={device}, threads={torch.get_num_threads()}')
 
 if not args.eval_only:
@@ -230,7 +232,7 @@ if not args.eval_only:
         stats, secs, nb = train_epoch()
         scheduler.step(stats['loss'])
         lr_now = optimizer.param_groups[0]['lr']
-        cols = [k_ for k_ in stats if k_ != 'prop' or args.model == 'SubgDVAEprop']   # old log format otherwise
+        cols = [k_ for k_ in stats if k_ != 'prop' or args.model.startswith('SubgDVAEprop')]   # old log format otherwise
         with open(log_path, 'a') as f:
             f.write(f"{epoch},{lr_now},{secs:.2f}," + ','.join(f'{stats[k_]:.5f}' for k_ in cols) + '\n')
         print(f"epoch {epoch} ({nb} batches, {secs:.1f}s) " + ' '.join(f'{k_}={v:.4f}' for k_, v in stats.items()), flush=True)
@@ -253,7 +255,7 @@ if not args.skip_eval:
         v_dag, v_ckt, novel = prior_validity(train_eval, model, infer_batch_size=args.infer_batch_size,
                                              data_type='igraph', subg=subg, device=device, scale_to_train_range=True)
     results.update({'valid_dag': v_dag, 'valid_ckt': v_ckt, 'novel': novel, 'eval_seconds': time.time() - t0})
-    if args.model == 'SubgDVAEprop':             # predictor accuracy on the test circuits (from the latent mean)
+    if args.model.startswith('SubgDVAEprop'):             # predictor accuracy on the test circuits (from the latent mean)
         from sklearn.metrics import roc_auc_score
         model.eval()
         Zt = torch.tensor(np.load(os.path.join(out_dir, 'latents.npz'))['Z_test'], dtype=torch.float32, device=device)

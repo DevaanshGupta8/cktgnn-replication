@@ -35,7 +35,7 @@ for i, g in enumerate(batch):                    # synthetic property labels; ev
     g['props'] = [i % 2, 1, 0, (i // 2) % 2] + ([0.5 * i, -0.3, 1.2] if i % 2 else [float('nan')] * 3)
 
 VARIANTS = {'A1': dict(use_pos=False), 'A2': dict(use_pos=True), 'A3': dict(use_pos=True, slot_struct=True),
-            'P': dict(use_pos=True, n_props=7)}
+            'P': dict(use_pos=True, n_props=7), 'Pn': dict(use_pos=True, n_props=7, norm_values=True)}
 ok = True
 for name, kw in VARIANTS.items():
     torch.manual_seed(0)

@@ -50,7 +50,8 @@ def build_model(name):
         return FastCktGNN(max_n=8, max_pos=8, nvt=26, subn_nvt=40, START_TYPE=0, END_TYPE=1,
                           emb_dim=24, feat_emb_dim=8, hs=301, nz=66)
     return SubgDVAE(max_n=8, nvt=26, START_TYPE=0, END_TYPE=1, hs=301, nz=66, use_pos=name != 'SubgDVAE',
-                    slot_struct=name == 'SubgDVAEslot', n_props=7 if name == 'SubgDVAEprop' else 0)
+                    slot_struct=name == 'SubgDVAEslot', n_props=7 if name.startswith('SubgDVAEprop') else 0,
+                    norm_values=name == 'SubgDVAEpropn')
 
 
 def own_main(g):
@@ -96,7 +97,7 @@ def values_ok(g):
     return True
 
 
-def score(G, train_keys, slot_model=False, true_slots=False):
+def score(G, train_keys, slot_model=False, true_slots=False, return_rows=False):
     rows = []
     for g in G:
         r = {'valid_dag': bool(is_valid_DAG(g, subg=True))}
@@ -128,16 +129,17 @@ def score(G, train_keys, slot_model=False, true_slots=False):
     func = [r for r in rows if r['functional']]
     out['n'] = len(rows)
     out['unique_functional_topologies'] = len({dag_key(g) for g, r in zip(G, rows) if r['functional']})
+    out['unique_spec_topologies'] = len({dag_key(g) for g, r in zip(G, rows) if r['meets_spec']})
     if func:
         out['median_gain_db'] = float(np.median([r['gain_db'] for r in func]))
         out['median_ugf_ghz'] = float(np.median([r['ugf_ghz'] for r in func]))
-    return out
+    return (out, rows) if return_rows else out
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--run')
-    ap.add_argument('--model', choices=['CktGNN', 'SubgDVAE', 'SubgDVAEpos', 'SubgDVAEslot', 'SubgDVAEprop'])
+    ap.add_argument('--model', choices=['CktGNN', 'SubgDVAE', 'SubgDVAEpos', 'SubgDVAEslot', 'SubgDVAEprop', 'SubgDVAEpropn'])
     ap.add_argument('--reference', action='store_true')
     ap.add_argument('--n-latent', type=int, default=1000)
     ap.add_argument('--decode-times', type=int, default=10)

@@ -16,6 +16,8 @@ as a node feature and as a decoder head with CktGNN's padding convention (varian
        per circuit (simulator labels, scripts/circuit_labels.py, attached as g['props']): 4 binary flags
        [functional, open-loop stable, closed-loop stable, meets spec] and 3 standardised, clipped regressions
        [log10 UGF, gain dB, lag PM] that count only for functional circuits.
+  Pn = P with norm_values=True (Phase 9): device values enter the GRUs as (v - 51) / 29.2 instead of raw 1-101;
+       the value head and its loss are unchanged.
 
 `decompositions`/`infer_slots` recover main-path slots from structure under the generator's semantics so that
 slot-free graphs can be checked with the authors' validity function and simulated with ocb_sim. Without slots
@@ -110,7 +112,7 @@ def _arrays(G, max_n, pad_type, pos_pad):
 
 class SubgDVAE(FastDVAE):
     def __init__(self, max_n=8, nvt=26, START_TYPE=0, END_TYPE=1, hs=301, nz=66, use_pos=False, max_pos=8,
-                 slot_struct=False, n_props=0, prop_weight=1.0):
+                 slot_struct=False, n_props=0, prop_weight=1.0, norm_values=False):
         super().__init__(max_n=max_n, nvt=nvt, feat_nvt=103, START_TYPE=START_TYPE, END_TYPE=END_TYPE, hs=hs, nz=nz)
         assert use_pos or not slot_struct
         self.use_pos = use_pos
@@ -133,6 +135,7 @@ class SubgDVAE(FastDVAE):
             self.add_edge = nn.Sequential(nn.Linear(2 * vs, hs * 4), nn.ReLU(), nn.Linear(hs * 4, 1))
         self.e_dim = hs + (self.n_pos if slot_struct else 0)
         self.n_props, self.prop_weight = n_props, prop_weight
+        self.norm_values = norm_values
         if n_props:
             self.prop = nn.Sequential(nn.Linear(nz, 128), nn.ReLU(), nn.Linear(128, n_props))
         self.last_prop_loss = 0.0
@@ -162,7 +165,7 @@ class SubgDVAE(FastDVAE):
         return torch.cat([h, self._poh(pos_v)], -1) if self.slot_struct else h
 
     def _x(self, types_v, feats_v, pos_v=None):
-        parts = [F.one_hot(types_v, self.nvt).float(), feats_v]
+        parts = [F.one_hot(types_v, self.nvt).float(), (feats_v - 51.0) / 29.2 if self.norm_values else feats_v]
         if self.use_pos:
             parts.append(F.one_hot(pos_v, self.n_pos).float())
         return torch.cat(parts, 1)
