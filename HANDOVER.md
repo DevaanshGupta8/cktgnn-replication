@@ -127,7 +127,7 @@ export CKTGNN_DATA="$PWD"
 ```bash
 .venv/Scripts/python.exe scripts/guided_analysis.py --models SubgDVAEprop SubgDVAEpropn SubgDVAEpos CktGNN
 ```
-These reproduce the committed tables and figures; for the Phase 5–8 scripts this was checked byte for byte.
+These reproduce the committed tables and figures byte for byte; this was checked on a fresh clone.
 
 ### 3.3 Use the trained models (no training)
 
@@ -159,7 +159,12 @@ Then everything downstream works. Examples:
 | One optimisation run | `.venv/Scripts/python.exe scripts/latent_bo.py --model SubgDVAEprop --method cbo --seed 1 --out <dir>` |
 | A batch of optimisation runs | `PAR=4 OUT=<dir> bash scripts/run_bo_jobs.sh results/jobs/bo5_jobs.txt` |
 
-**Exactness:** re-running a stored optimisation run with the released files reproduces its trace exactly (checked for CktGNN and P). `run_vae.py --eval-only`, `eval_circuits.py` and `guided_generation.py` are seeded and reproduce the stored numbers on the same software versions. The SGP regression is float64 and seeded.
+**Exactness**, verified on a fresh clone with a data folder built only from the authors' repo and this release, without any training:
+- optimisation runs (`latent_bo.py`), circuit evaluation (`eval_circuits.py`) and guided generation (`guided_generation.py`) reproduce the stored results **bit for bit**;
+- `run_vae.py --eval-only` reproduces every rate and count exactly (reconstruction, validity, novelty, predictor AUCs). Continuous values (NLL, predictor RMSE) differ only at the 7th significant digit, from float32 summation order with a different CPU thread count;
+- all analysis scripts in §3.2 regenerate the committed tables and figures with **zero changed files**.
+
+The SGP regression is float64 and seeded, but was not re-run in that check (1–2 h per run).
 
 ### 3.4 Sanity checks
 ```bash
