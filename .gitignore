@@ -8,3 +8,4 @@ pdf.pdf
 *.pt
 *.npz
 *.pkl
+demo_output/

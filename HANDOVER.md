@@ -225,6 +225,7 @@ Each report ends with a **Reproduce** section listing its commands. In short:
 | `latent_bo.py` | Optimisation in a latent space: `rs`, `fom_bo` (the paper's objective), `cbo`, `scbo`, `scbo_g` |
 | `run_bo_jobs.sh` | Parallel, resumable batch runner (`PAR=n OUT=dir`); pins BLAS to one thread per job |
 | `guided_generation.py`, `guided_analysis.py` | Phase 9A: predictor-guided generation and its analysis |
+| `demo.py` | Live demo, 4 steps (see [`DEMO.md`](DEMO.md)); `--auto` regenerates `demo_output/`; backup figures in `reports/demo/` |
 | `aggregate_results.py`, `plot_results.py`, `plot_ablation.py`, `plot_bo.py`, `bo_auc.py` | Tables, figures and statistical tests |
 | `export_results.sh` | Copy all small results and logs from the data folder into `results/` (run before committing) |
 | `finish_run_on_cpu.sh` | Legacy helper from Phase 2 |
